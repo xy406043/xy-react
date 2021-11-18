@@ -17,9 +17,11 @@
     ]
   },
   "dependencies": {
+    "add": "^2.0.6",
     "antd": "^4.16.13",
     "react": "^17.0.0",
-    "react-dom": "^17.0.0"
+    "react-dom": "^17.0.0",
+    "react-router-dom": "^6.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.16.0",

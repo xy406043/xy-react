@@ -5,7 +5,6 @@ module.exports = {
     webextensions: true
   },
   parser: '@typescript-eslint/parser',
-  // parser: '@babel/eslint-parser',
   plugins: ['@typescript-eslint', 'eslint-plugin-react'],
   extends: [
     'eslint:recommended',
@@ -14,7 +13,6 @@ module.exports = {
     'plugin:prettier/recommended'
   ],
   parserOptions: {
-    // parser: '@typescript-eslint/parser',
     parser: '@babel/eslint-parser',
     ecmaVersion: 2019,
     sourceType: 'module',

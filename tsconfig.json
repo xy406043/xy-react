@@ -14,7 +14,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "types": ["react", "node", "chrome", "react-dom"]
   },
   "include": ["./src", "**/*.config.js"],
   "exclude": ["node_modules"]

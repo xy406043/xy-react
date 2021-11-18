@@ -3,30 +3,63 @@ import './App.css'
 import './App.scss'
 import 'antd/dist/antd.css'
 
+const excludePages: Array<string> = ['chrome://newtab/', 'chrome://extensions/', 'chrome://bookmarks', 'chrome-extension://']
+const httpRegex = new RegExp(/http/)
+
+interface PageInterface {
+  tabId: number
+  title?: string
+  pageTitle: string
+  linkUrl: string
+  desc: string
+  keywords: string
+  icons: Array<string>
+  imgs: Array<string>
+}
+
+// 获取当前页面的tab
+async function getCurrentTab() {
+  const queryOptions = { active: true, currentWindow: true }
+  const [tab] = await chrome.tabs.query(queryOptions)
+
+  return tab
+}
+
 function App() {
   console.log('关于在应用内部使用chrome Api', chrome)
 
   const [count, setCount] = useState(0)
-  const [tabList, setTab] = useState([
+  const [tabList, setTab] = useState<Array<PageInterface>>([
     {
-      key: 'title',
-      title: '标题',
-      content: ['默认标题']
-    },
-    {
-      key: 'description',
-      title: '描述',
-      content: ['默认描述']
-    },
-    {
-      key: 'keywords',
-      title: '关键词',
-      content: ['React']
+      tabId: 1,
+      title: '',
+      pageTitle: '',
+      linkUrl: '',
+      desc: '',
+      keywords: '',
+      icons: ['1'],
+      imgs: ['1']
     }
   ])
 
   useEffect(() => {
     console.log('数据更新了', count)
+  })
+
+  // 获取storage内容并更新到页面上
+  chrome.storage.sync.get('LocalPageData', async result => {
+    const tab: chrome.tabs.Tab = await getCurrentTab()
+    console.log('获取链接', tab.url)
+
+    // 特殊页面时 不展示
+    if (excludePages.some((x: string) => tab.url?.includes(x))) {
+      return
+    }
+
+    // 更新展示页面内容
+    const content = result['LocalPageData'][0]
+    console.log('获取接收到的页面信息', content)
+    setTab(content['img'])
   })
 
   return (
@@ -40,11 +73,13 @@ function App() {
         </p>
       </header>
       <main>
-        {tabList.map((item, index) => {
+        {tabList.map((item: PageInterface, index: number) => {
           return (
             <div className="come-item" key={index}>
               <div className="xy-title">{item.title}</div>
-              <div className="xy-content">内容</div>
+              <div className="xy-content" onClick={() => navigator.clipboard.writeText('https://www.baidu.com')}>
+                内容
+              </div>
             </div>
           )
         })}
