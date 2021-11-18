@@ -1,5 +1,7 @@
 ### 深入化 React 学习 并配合开发 chrome 插件
 
+> 一开始使用 Chrome 的 User Javascript And Css 插件进行 向页面注入脚本 以调整页面内容。为了便于网址收藏以及知识库建立 在此插件中 通过修改 DOM 显示自己需要的网页信息。但是这个插件对于 全局网站匹配 \*\* 不可重复，必须在一个文件内，光是展示网页信息就需要很长的代码。于是又尝试使用了 temperMonkey 油猴插件，只是使用 Es6 的方式默认就会报错，而使用 Es5 的方式又需要对自己的代码进行调整/编译，且插件市场 greasky fork 要求代码可读。开发完成之后，又想着顺便学学 Chrome 插件开发，于是创建了一个简单的基础 html popup 版本，现在正在使用，现在则是希望强化下现有的功能，展示的更加漂亮，于是决定使用 Vite React Typescript Sass 进行开发，正好补充学习下这些知识。
+
 #### 规范化
 
 > 之前尝试过使用 vite + vue3 + ts + eslit + prettier + husky + lint-staged 这一套流程开发了一个简单的 Vue3 组件 [viteTools](https://gitee.com/xy406043/xy-vite-tools.git) 放到 npm 上， 并在 一个 ts 项目中成功引用。 虽然有很多地方没做好， 比如依赖太臃肿等
