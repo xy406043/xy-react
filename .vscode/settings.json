@@ -1,5 +1,5 @@
 {
-  // 常规
+  // 常规 -- 检查使用 eslint 即可
   "javascript.validate.enable": false,
   "typescript.validate.enable": false, //是否启用ts 验证
 

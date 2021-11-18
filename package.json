@@ -8,7 +8,7 @@
     "serve": "vite preview",
     "lint:lint-staged": "lint-staged",
     "lint": "eslint 'src/**/*.{js,ts,tsx}'",
-    "prepare": "husky  install"
+    "prepare": "husky install && cp -a .husky/. .git/hooks"
   },
   "lint-staged": {
     "*./src/**/*.{js,ts,tsx,jsx,json,css,less,md}": [
