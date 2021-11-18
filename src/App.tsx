@@ -1,45 +1,54 @@
-import { useState } from 'react'
-import logo from './logo.svg'
+import { useState, useEffect } from 'react'
 import './App.css'
+import './App.scss'
+import 'antd/dist/antd.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  console.log('关于在应用内部使用chrome Api', chrome)
 
-  console.log(window)
+  const [count, setCount] = useState(0)
+  const [tabList, setTab] = useState([
+    {
+      key: 'title',
+      title: '标题',
+      content: ['默认标题']
+    },
+    {
+      key: 'description',
+      title: '描述',
+      content: ['默认描述']
+    },
+    {
+      key: 'keywords',
+      title: '关键词',
+      content: ['React']
+    }
+  ])
+
+  useEffect(() => {
+    console.log('数据更新了', count)
+  })
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
+      <header className="App-header xy-none-text">
+        <div className="mb-10px">Hello Vite + React!</div>
         <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
+          <button type="button" onClick={() => setCount(count => count + 1)}>
             count is: {count}
           </button>
         </p>
-        <p>
-          Edit <code>App.tsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
       </header>
+      <main>
+        {tabList.map((item, index) => {
+          return (
+            <div className="come-item" key={index}>
+              <div className="xy-title">{item.title}</div>
+              <div className="xy-content">内容</div>
+            </div>
+          )
+        })}
+      </main>
     </div>
   )
 }
