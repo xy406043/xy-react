@@ -19,8 +19,7 @@
     "scripting",
     "activeTab",
     "tabs",
-    "storage",
-    "types"
+    "storage"
   ],
   "content_scripts": [
     {

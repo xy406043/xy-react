@@ -20,163 +20,179 @@ const httpRegex = new RegExp(/http/)
 loadScriprt()
 
 // 将内容存储在 storage 区域
-function savePageData() {
+function savePageData(dataInfo) {
+  let result = []
+  Object.keys(dataInfo).forEach(item => {
+    result.push({
+      title: item,
+      content: dataInfo[item]
+    })
+  })
   chrome.storage.sync.get(['LocalPageData'], res => {
-    chrome.storage.sync.set({ LocalPageData: [localPageDataInfo] }, () => {
-      console.log('设置数据成功')
+    chrome.storage.sync.set({ LocalPageData: [result] }, () => {
+      console.log('xy-react 设置数据成功', result)
     })
   })
 }
 
 // 更新页面展示内容
 function refreshIconImg() {
-  savePageData()
+  console.log('nweIng', localPageDataInfo)
+  // savePageData()
 }
 
 async function loadScriprt(id) {
-  // ~~ 获取网页的 Icon
-  function getIcons() {
-    // 方式一 直接获取link属性 截取url。 shortcut icon 是过时的写法
-    const textArr = ['shortcut icon', 'icon', 'alternate icon', 'mask-icon', 'apple-touch-icon']
-    textArr.forEach(item => {
-      let checkHref = document.querySelector(`link[rel="${item}"]`)?.href
-      if (checkHref) showIconsList.push(checkHref)
-    })
+  LocalPageDataInfo = []
+  showIconsList = []
+  showImagesList = []
 
-    // 方式二 PWA 应用可以获取根域名的manifest  有链接的返回链接 没有的直接进行拼接
-    // 只有 fetch 引入成功时才可以使用
-    if (hasLoadFetch) {
-      let feil = document.querySelector('link[rel="manifest"]')?.href
-      // console.log("%c查找mainfest信息", "color:orange", feil);
-      if (feil) {
-        fetch(feil).then(async res => {
-          let data = await res.json()
+  loadInfo(true)
 
-          if (!data.icons || !data.icons.length) return
+  function loadInfo(hasLoadFetch) {
+    // ~~ 获取网页的 Icon
+    function getIcons() {
+      // 方式一 直接获取link属性 截取url。 shortcut icon 是过时的写法
+      const textArr = ['shortcut icon', 'icon', 'alternate icon', 'mask-icon', 'apple-touch-icon']
+      textArr.forEach(item => {
+        let checkHref = document.querySelector(`link[rel="${item}"]`)?.href
+        if (checkHref) showIconsList.push(checkHref)
+      })
 
-          data.icons.forEach((iconItem, iconIndex) => {
-            let url = httpRegex.test(iconItem.src) ? iconItem.src : document.location.origin + '/' + iconItem.src
-            showIconsList.push(url)
+      // 方式二 PWA 应用可以获取根域名的manifest  有链接的返回链接 没有的直接进行拼接
+      // 只有 fetch 引入成功时才可以使用
+      if (hasLoadFetch) {
+        let feil = document.querySelector('link[rel="manifest"]')?.href
+        // console.log("%c查找mainfest信息", "color:orange", feil);
+        if (feil) {
+          fetch(feil).then(async res => {
+            let data = await res.json()
+
+            if (!data.icons || !data.icons.length) return
+
+            data.icons.forEach((iconItem, iconIndex) => {
+              let url = httpRegex.test(iconItem.src) ? iconItem.src : document.location.origin + '/' + iconItem.src
+              showIconsList.push(url)
+            })
+
+            // console.log(
+            //   "%c预存-mainfest.json数据 ",
+            //   "color:blue",
+            //   data,
+            //   showIconsList
+            // );
+
+            setTimeout(function () {
+              refreshIconImg()
+            }, 2000)
           })
+        }
+      }
 
-          // console.log(
-          //   "%c预存-mainfest.json数据 ",
-          //   "color:blue",
-          //   data,
-          //   showIconsList
-          // );
+      // 方式三 未设置 link rel=type,而是直接放到网站根目录下，浏览器会  直接获取 favicon.ico
+      let img = new Image()
+      img.src = document.location.origin + '/favicon.ico'
+      img.onload = function () {
+        showIconsList.push(img.src)
 
-          setTimeout(function () {
-            refreshIconImg()
-          }, 2000)
+        // console.log("获取到favcion", img.src, showIconsList);
+        setTimeout(function () {
+          refreshIconImg()
+        }, 2000)
+      }
+      img.onerror = function () {
+        console.log('该链接无效')
+      }
+    }
+
+    // 获取网页描述
+    function getDesc() {
+      const textArrDes = ['description', 'twitter:description']
+      const richArrs = ['og:description', 'twitter:description']
+      let metas = document.getElementsByTagName('meta')
+
+      let subMetas = []
+      for (let i = 0; i < metas.length; i++) {
+        if (textArrDes.includes(metas[i].getAttribute('name'))) {
+          subMetas.push(metas[i].getAttribute('content'))
+        }
+        if (richArrs.includes(metas[i].getAttribute('property'))) {
+          subMetas.push(metas[i].getAttribute('content'))
+        }
+      }
+      // console.log("描述List", subMetas);
+
+      return subMetas
+    }
+
+    // ~~ 获取网页预览图
+    function getImgs() {
+      const textArrDes = ['image', 'twitter:image', 'twitter:image:src']
+      const richArrs = ['og:image']
+      const catchProperty = ['name', 'property', 'itemprop']
+      let metas = document.getElementsByTagName('meta')
+
+      let subImgs = []
+      // 摆烂 - 没有的不会匹配到 - 就这样吧
+      for (let i = 0; i < metas.length; i++) {
+        catchProperty.forEach(y => {
+          let imgContent = metas[i].getAttribute('content')
+
+          let url = httpRegex.test(imgContent) ? imgContent : document.location.origin + '/' + imgContent
+
+          if (textArrDes.includes(metas[i].getAttribute(y))) {
+            subImgs.push(url)
+          }
+          if (richArrs.includes(metas[i].getAttribute(y))) {
+            subImgs.push(url)
+          }
         })
       }
+      // console.log("预览图List", subImgs);
+      showImagesList = subImgs
     }
 
-    // 方式三 未设置 link rel=type,而是直接放到网站根目录下，浏览器会  直接获取 favicon.ico
-    let img = new Image()
-    img.src = document.location.origin + '/favicon.ico'
-    img.onload = function () {
-      showIconsList.push(img.src)
+    // 获取网页title
+    const titles = document.getElementsByTagName('title')
+    const pageTitle = titles[0]?.innerText
 
-      // console.log("获取到favcion", img.src, showIconsList);
-      setTimeout(function () {
-        refreshIconImg()
-      }, 2000)
-    }
-    img.onerror = function () {
-      console.log('该链接无效')
-    }
-  }
+    // 获取网页链接
+    const linkUrl = window.location.href
 
-  // 获取网页描述
-  function getDesc() {
-    const textArrDes = ['description', 'twitter:description']
-    const richArrs = ['og:description', 'twitter:description']
-    let metas = document.getElementsByTagName('meta')
+    // descipiton
+    const desc = getDesc()[0] || ''
 
-    let subMetas = []
-    for (let i = 0; i < metas.length; i++) {
-      if (textArrDes.includes(metas[i].getAttribute('name'))) {
-        subMetas.push(metas[i].getAttribute('content'))
+    // 获取网页关键词
+    const keywords = document.querySelector('meta[name="keywords"]')?.content || ''
+
+    // 获取网页icon
+    getIcons()
+
+    // 获取网页预览图
+    getImgs()
+
+    // setInterval(() => {
+    //   addContent();
+    // }, 4000);
+
+    addContent()
+
+    // 将获取到的数据 传输给background.js 或者 popup.js
+    function addContent() {
+      let pageData = {
+        tabId: id || 0,
+        pageTitle,
+        linkUrl,
+        desc,
+        keywords,
+        icons: showIconsList,
+        imgs: showImagesList
       }
-      if (richArrs.includes(metas[i].getAttribute('property'))) {
-        subMetas.push(metas[i].getAttribute('content'))
-      }
+      LocalPageDataInfo = pageData
+      console.log('xy-react 获取页面数据内容', pageData, LocalPageDataInfo)
+      savePageData(pageData)
+      // chrome.runtime.sendMessage(pageData, res => {
+      //   // console.log("来自后台的回复数据", res);
+      // })
     }
-    // console.log("描述List", subMetas);
-
-    return subMetas
-  }
-
-  // ~~ 获取网页预览图
-  function getImgs() {
-    const textArrDes = ['image', 'twitter:image', 'twitter:image:src']
-    const richArrs = ['og:image']
-    const catchProperty = ['name', 'property', 'itemprop']
-    let metas = document.getElementsByTagName('meta')
-
-    let subImgs = []
-    // 摆烂 - 没有的不会匹配到 - 就这样吧
-    for (let i = 0; i < metas.length; i++) {
-      catchProperty.forEach(y => {
-        let imgContent = metas[i].getAttribute('content')
-
-        let url = httpRegex.test(imgContent) ? imgContent : document.location.origin + '/' + imgContent
-
-        if (textArrDes.includes(metas[i].getAttribute(y))) {
-          subImgs.push(url)
-        }
-        if (richArrs.includes(metas[i].getAttribute(y))) {
-          subImgs.push(url)
-        }
-      })
-    }
-    // console.log("预览图List", subImgs);
-    showImagesList = subImgs
-  }
-
-  // 获取网页title
-  const titles = document.getElementsByTagName('title')
-  const pageTitle = titles[0]?.innerText
-
-  // 获取网页链接
-  const linkUrl = window.location.href
-
-  // descipiton
-  const desc = getDesc()[0] || ''
-
-  // 获取网页关键词
-  const keywords = document.querySelector('meta[name="keywords"]')?.content || ''
-
-  // 获取网页icon
-  getIcons()
-
-  // 获取网页预览图
-  getImgs()
-
-  // setInterval(() => {
-  //   addContent();
-  // }, 4000);
-
-  addContent()
-
-  // 将获取到的数据 传输给background.js 或者 popup.js
-  function addContent() {
-    let pageData = {
-      tabId: id,
-      pageTitle,
-      linkUrl,
-      desc,
-      keywords,
-      icons: showIconsList,
-      imgs: showImagesList
-    }
-    LocalPageDataInfo = pageData
-
-    savePageData()
-    // chrome.runtime.sendMessage(pageData, res => {
-    //   // console.log("来自后台的回复数据", res);
-    // })
   }
 }

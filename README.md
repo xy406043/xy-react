@@ -22,5 +22,6 @@
 
 #### 💪🏻💪🏻💪🏻💪🏻 TODO 点 💪🏻💪🏻💪🏻💪🏻💪🏻
 
-1. TODO 使用 Antd 进行 内容展示
-2. TODO 扩展 TDKI 使用：添加路由、结构清晰、脚本明了
+- [] TODO 使用 Antd 进行 内容展示
+- [] TODO 扩展 TDKI 使用：添加路由、结构清晰、脚本明了
+- [] background.js 和 content-scripts 使用 ts ？ 如何在构建之后与 manifest.json 仍然有新的内容
