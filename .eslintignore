@@ -1,2 +1,5 @@
 .vscode
 node_modules
+public/back
+public/content-scripts
+vite.config.ts.js

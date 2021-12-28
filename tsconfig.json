@@ -19,8 +19,8 @@
     "types": ["react", "node", "chrome", "react-dom"],
     "typeRoots": ["./node_modules/@types/", "./types"],
     "paths": {
-      "/@/*": ["src/*"],
-      "/#/*": ["types/*"]
+      "@/*": ["src/*"],
+      "#/*": ["types/*"]
     }
   },
   "include": ["./src", "**/*.config.js"],

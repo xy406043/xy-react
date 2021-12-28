@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import Unocss from 'unocss/vite'
-const path = require('path')
+import path from 'path' // package.json 中 type设置了 module，必须使用 import
 
 const pathResolve = (dir: string) => {
   return path.join(__dirname, dir)
@@ -29,11 +29,11 @@ export default defineConfig({
         replacement: 'vue-i18n/dist/vue-i18n.cjs.js'
       },
       {
-        find: /\/@\//,
+        find: '@',
         replacement: pathResolve('src') + '/'
       },
       {
-        find: /\/#\//,
+        find: '#',
         replacement: pathResolve('types') + '/'
       }
     ]

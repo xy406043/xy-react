@@ -3,7 +3,7 @@
 // 无法获取Dom
 
 let LocalPageData = {}
-const excludePages = ['chrome://newtab/', 'chrome://extensions/', 'chrome://bookmarks', 'chrome-extension://']
+import { ChromeSpecialPages as excludePages } from '@/enums/chromeEnum'
 
 async function getCurrentTab() {
   let queryOptions = { active: true, currentWindow: true }
@@ -15,7 +15,7 @@ async function getCurrentTab() {
 //  监听tab页面变化 - 传递给 popup.js 进行数据更新 切换路由、状态变更等
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
   console.log('页面发生变化 刷新 or 新建', tabId, changeInfo, tab)
-  if (excludePages.some(x => changeInfo.url.includes(x))) {
+  if (changeInfo.url && excludePages.some(x => changeInfo.url.includes(x))) {
     return
   }
   if (changeInfo.status === 'loading' || !changeInfo.url) {
@@ -32,7 +32,7 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
 chrome.tabs.onActivated.addListener(async activeInfo => {
   let tab = await getCurrentTab()
   console.log('选项卡发生变化', activeInfo, tab)
-  if (excludePages.some(x => tab.url.includes(x))) {
+  if (tab.url && excludePages.some(x => tab.url.includes(x))) {
     return
   }
 

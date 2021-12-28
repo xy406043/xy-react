@@ -14,7 +14,6 @@
 
 // TODO  简化代码，使用 正则进行标签匹配
 
-let localPageDataInfo = {}
 let showIconsList = []
 let showImagesList = []
 const httpRegex = new RegExp(/http/)
@@ -23,11 +22,11 @@ loadScript()
 
 // 监听来自 background 的消息
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-  if (request.type === 'tabUpdated') {
+  sendResponse('background你好，我收到了你的消息！' + request.type)
+
+  if (request.type === 'tabUpdate') {
     loadScript()
   }
-
-  sendResponse('background你好，我收到了你的消息！')
 })
 
 // 将内容存储在 storage 区域
@@ -45,12 +44,13 @@ function savePageData(dataInfo) {
   })
   chrome.storage.sync.get(['LocalPageData'], res => {
     chrome.storage.sync.set({ LocalPageData: [result] }, () => {
-      // console.log('xy-react 设置数据成功', result)
+      console.log('xy-react 设置数据成功', result)
     })
   })
 }
 
 async function loadScript(id) {
+  console.log('%c 触发加载', 'color:green', 'id')
   LocalPageDataInfo = []
   showIconsList = []
   showImagesList = []
@@ -110,7 +110,7 @@ async function loadScript(id) {
           img.src = document.location.origin + '/favicon.ico'
           img.crossOrigin = 'anonymous'
           img.onload = function () {
-            console.log('添加icon')
+            // console.log('添加icon')
             showIconsList.push(img.src)
             resolve()
           }
@@ -185,8 +185,7 @@ async function loadScript(id) {
     const keywords = document.querySelector('meta[name="keywords"]')?.content || ''
 
     // 获取网页icon
-    const iconResult = await getIcons()
-    console.log('添加icons完成', iconResult)
+    await getIcons()
 
     // 获取网页预览图
     getImgs()
@@ -205,7 +204,7 @@ async function loadScript(id) {
         imgs: showImagesList
       }
       LocalPageDataInfo = pageData
-      console.log('xy-react 获取页面数据内容', pageData, LocalPageDataInfo)
+      // console.log('xy-react 获取页面数据内容', pageData, LocalPageDataInfo)
       savePageData(pageData)
     }
   }

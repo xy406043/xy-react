@@ -1,4 +1,18 @@
 {
+  // vscode
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    "public/": true
+  },
+  "path-intellisense.mappings": {
+    "@": "${workspaceRoot}/src"
+  },
+
   // 常规 -- 检查使用 eslint 即可
   "javascript.validate.enable": false,
   "typescript.validate.enable": false, //是否启用ts 验证
@@ -10,5 +24,8 @@
     // 保存时eslint 修复
     "source.fixAll.eslint": true
   },
-  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact", "vue", "jsx", "tsx"]
+  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact", "vue", "jsx", "tsx"],
+
+  // other
+  "cSpell.ignoreWords": ["esbuild", "pnpm"]
 }

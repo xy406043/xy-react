@@ -12,6 +12,20 @@ main {
   color: $xy-theme-color
 }
 
+.xy-none-info {
+  width: 200px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  color: white;
+  font-weight: bolder;
+  background-color: black;
+  border: 1px solid skyblue;
+  user-select: none;
+  cursor: zoom-in;
+}
+
+
 .come-item {
   display: flex;
   margin: 5px 0;
