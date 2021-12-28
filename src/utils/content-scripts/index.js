@@ -44,13 +44,12 @@ function savePageData(dataInfo) {
   })
   chrome.storage.sync.get(['LocalPageData'], res => {
     chrome.storage.sync.set({ LocalPageData: [result] }, () => {
-      console.log('xy-react 设置数据成功', result)
+      // console.log('xy-react 设置数据成功', result)
     })
   })
 }
 
 async function loadScript(id) {
-  console.log('%c 触发加载', 'color:green', 'id')
   LocalPageDataInfo = []
   showIconsList = []
   showImagesList = []
@@ -115,7 +114,7 @@ async function loadScript(id) {
             resolve()
           }
           img.onerror = function () {
-            console.log('该链接无效')
+            console.log('该链接无效', img.src)
             resolve()
           }
         })

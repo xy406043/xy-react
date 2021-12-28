@@ -29,7 +29,7 @@ function App() {
 
     // componentDidUmount 组件卸载时调用一次
     return () => {
-      console.log('卸载')
+      // console.log('卸载')
     }
   }, [])
 
