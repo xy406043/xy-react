@@ -44,7 +44,9 @@ function App() {
   return (
     <div className="App">
       {special ? (
-        <div>
+        <div className="xy-none-info">该页面无法获取网页信息！</div>
+      ) : (
+        <div className="app-show">
           {tabList.map((item: ShowContentInterface, index: number) => {
             return (
               <div className={`come-item ` + (excludeKeys.includes(item.title) ? 'come-none' : '')} key={index}>
@@ -73,8 +75,6 @@ function App() {
             )
           })}
         </div>
-      ) : (
-        <div className="xy-none-info">该页面无法获取网页信息！</div>
       )}
     </div>
   )

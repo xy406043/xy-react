@@ -12,6 +12,15 @@ main {
   color: $xy-theme-color
 }
 
+.app-show {
+  height: 400px;
+  width: 300px;
+  background: black;
+  overflow: scroll;
+  padding: 10px;
+  font-size: 12px;
+}
+
 .xy-none-info {
   width: 200px;
   height: 40px;
