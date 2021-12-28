@@ -16,4 +16,5 @@ const fs = require('fs')
 
 // removeFile(path.join(__dirname, "../dist/manifest.json"));
 
-fs.copyFileSync(path.join(__dirname, '../manifest.json'), path.join(__dirname, '../dist/manifest.json'))
+fs.copyFileSync(path.join(__dirname, '../src/utils/content-scripts/index.js'), path.join(__dirname, '../dist/content-scripts/index.js'))
+fs.copyFileSync(path.join(__dirname, '../src/utils/back/index.js'), path.join(__dirname, '../dist/back/index.js'))
