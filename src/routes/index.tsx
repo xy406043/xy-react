@@ -13,6 +13,7 @@ function SelfRoutes() {
       </Routes>
     </HashRouter>
 
+    // 使用 BrowserRouter 模式不生效 可能是因为在 popup 中？？？
     // <BrowserRouter>
     //   <Routes>
     //     <Route path="/" element={<SiteShow />}></Route>
