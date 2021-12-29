@@ -17,6 +17,8 @@
 
 #### ⚠️⚠️⚠️⚠️ 过程 ⚠️⚠️⚠️⚠️
 
+[依赖](dependencies.md)
+
 1. 安装@types/chrome 以解决开发环境无 chrome 变量的问题
 2. ant-design 4.0 版本 Js 代码默认支持基于 Es module 的 tree shaking
 
