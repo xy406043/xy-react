@@ -2,7 +2,7 @@ const fs = require('fs')
 const path = require('path')
 const chalk = require('chalk')
 
-const logger = (exports.logger = {
+export const logger = (exports.logger = {
   ln: () => console.log(),
   warning: msg => {
     console.warn(`${chalk.bgYellow.black(' WARNING ')} ${chalk.yellow(msg)}`)

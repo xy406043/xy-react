@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import Unocss from 'unocss/vite'
+import UnocssConfig from './windi.config'
 import path from 'path' // package.json 中 type设置了 module，必须使用 import
 
 const pathResolve = (dir: string) => {
@@ -9,19 +10,8 @@ const pathResolve = (dir: string) => {
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    Unocss({
-      // 原子化CSS  ，效果比windicss 好
-      // https://github.com/antfu/unocss
-      /** */
-    }),
-    react()
-  ],
-  css: {
-    preprocessorOptions: {
-      additionalData: '@import "src/assets/styles/global.scss";'
-    }
-  },
+  plugins: [Unocss(UnocssConfig), react()],
+  css: {},
   resolve: {
     alias: [
       {

@@ -1,13 +1,12 @@
 {
   // vscode
-  "files.exclude": {
-    "**/.git": true,
-    "**/.svn": true,
-    "**/.hg": true,
-    "**/CVS": true,
-    "**/.DS_Store": true,
-    "**/Thumbs.db": true,
-    "public/": true
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/bower_components": true,
+    "**/*.code-search": true,
+    "dist/**": true,
+    "public/back/**": true,
+    "public/content-scripts/**": true
   },
   "path-intellisense.mappings": {
     "@": "${workspaceRoot}/src"
@@ -16,6 +15,9 @@
   // 常规 -- 检查使用 eslint 即可
   "javascript.validate.enable": false,
   "typescript.validate.enable": false, //是否启用ts 验证
+  "css.validate": false, // 交由 stylelint进行检查
+  "less.validate": false,
+  "scss.validate": false,
 
   // eslint
   "eslint.enable": true,

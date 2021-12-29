@@ -1,18 +1,18 @@
 $xy-theme-color: #79d2d2;
 $xy-theme-text-color: black;
-$xy-theme-text-lignt-color:white;
+$xy-theme-text-light-color:white;
 $xy-theme-text-bg: #131100;
 
 
 .xy-none-text {
-  color: $xy-theme-text-lignt-color;
+  color: $xy-theme-text-light-color;
 }
 
 main {
   color: $xy-theme-color
 }
 
-.app-show {
+.site-show {
   height: 400px;
   width: 300px;
   background: black;
