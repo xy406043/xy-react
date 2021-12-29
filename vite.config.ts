@@ -28,6 +28,8 @@ export default defineConfig({
       }
     ]
   },
+
+  base: './',
   build: {
     target: 'es2015',
     // Turning off brotliSize display can slightly reduce packaging time

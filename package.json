@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite --port 7272",
-    "bl": "tsc && babel-node esbuild.config.js --exec babel-node && vite build ",
+    "bl": "tsc && babel-node esbuild.config.js  && vite build ",
     "bu": "tsc && vite build ",
     "serve": "vite preview",
     "lint:lint-staged": "lint-staged",
