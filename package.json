@@ -1,11 +1,11 @@
 {
   "name": "xy-react",
   "version": "0.0.0",
-  "type": "module",
   "scripts": {
     "dev": "vite --port 7272",
-    "bl": "tsc && node esbuild.config.js && vite build ",
+    "bl": "tsc && node esbuild.config.js --exec babel-node && vite build ",
     "bu": "tsc && vite build ",
+    "bs": " babel-node esbuild.config.js ",
     "serve": "vite preview",
     "lint:lint-staged": "lint-staged",
     "lint": "eslint 'src/**/*.{js,ts,tsx}'",
@@ -26,8 +26,11 @@
     "react-router-dom": "^6.0.2"
   },
   "devDependencies": {
+    "@babel/cli": "^7.16.0",
     "@babel/core": "^7.16.0",
     "@babel/eslint-parser": "^7.16.3",
+    "@babel/node": "^7.16.5",
+    "@babel/preset-env": "^7.16.5",
     "@types/chrome": "^0.0.164",
     "@types/node": "^16.11.7",
     "@types/react": "^17.0.0",
@@ -37,6 +40,7 @@
     "@typescript-eslint/parser": "^5.4.0",
     "@vitejs/plugin-react": "^1.0.0",
     "chalk": "^4.1.2",
+    "cross-env": "^7.0.3",
     "esbuild": "^0.14.8",
     "eslint": "^8.2.0",
     "eslint-config-prettier": "^8.3.0",

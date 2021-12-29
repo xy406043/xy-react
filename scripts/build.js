@@ -1,5 +1,5 @@
 const fs = require('fs-extra')
-const path = require('path')
+import path from 'path'
 const execa = require('execa') // 开启子进程打包
 const { logger } = require('./utils')
 
