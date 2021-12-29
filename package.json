@@ -3,9 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite --port 7272",
-    "bl": "tsc && node esbuild.config.js --exec babel-node && vite build ",
+    "bl": "tsc && babel-node esbuild.config.js --exec babel-node && vite build ",
     "bu": "tsc && vite build ",
-    "bs": " babel-node esbuild.config.js ",
     "serve": "vite preview",
     "lint:lint-staged": "lint-staged",
     "lint": "eslint 'src/**/*.{js,ts,tsx}'",
