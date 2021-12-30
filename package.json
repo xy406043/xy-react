@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "add": "^2.0.6",
-    "antd": "^4.16.13",
+    "nanoid": "^3.1.30",
     "prop-types": "^15.8.0",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",

@@ -1,7 +1,7 @@
 import { ChromeSpecialPages } from '@/enums/chromeEnum'
 
 // 获取当前页面的tab
-async function getCurrentTab() {
+export async function getCurrentTab() {
   const queryOptions = { active: true, currentWindow: true }
   const [tab] = await chrome.tabs.query(queryOptions)
 

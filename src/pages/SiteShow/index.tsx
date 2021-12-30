@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Tag } from 'antd'
 import './index.css'
 import './index.scss'
-import { catchLocalData } from '@/utils/index'
+import { ChromeExtensionId } from '@/enums/chromeEnum'
+import { getCurrentTab, catchLocalData } from '@/utils/index'
 
 interface ShowContentInterface {
   title: string
@@ -15,9 +17,20 @@ interface ShowContentInterface {
 function SiteShow() {
   const [tabList, setTab] = useState<Array<ShowContentInterface>>([])
   const [special, setSpecial] = useState<boolean>(false)
+  const navigate = useNavigate()
 
   useEffect(() => {
     // componentDidMount 初始化时加载一次
+    // index页面，判断当前页面所处内容，跳转到对应的路由
+
+    getCurrentTab().then(res => {
+      console.log('获取到Tab内容', res)
+      if (res.url?.includes(ChromeExtensionId)) {
+        // 跳转到其它页面
+        navigate('/app')
+      }
+    })
+
     catchLocalData().then((list: any) => {
       if (!list.length) {
         return setSpecial(true)

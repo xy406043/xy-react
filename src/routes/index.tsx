@@ -2,7 +2,7 @@ import React from 'react'
 import { BrowserRouter, HashRouter, Routes, Route } from 'react-router-dom'
 
 import App from '@/App'
-import { SiteShow, None, Nop } from '@/pages/index'
+import { SiteShow, SiteHistory, None, Nop } from '@/pages/index'
 
 function SelfRoutes() {
   return (
@@ -10,10 +10,14 @@ function SelfRoutes() {
       <Routes>
         {/* // 使用 HashRouter模式才能够默认构建生效*/}
         <Route path="/" element={<SiteShow />}></Route>
+        <Route path="/app" element={<App />}>
+          <Route index element={<SiteHistory />} />
+          <Route index element={<Nop />} />
+        </Route>
       </Routes>
     </HashRouter>
 
-    // 使用 BrowserRouter 模式不生效 可能是因为在 popup 中？？？
+    // 使用 BrowserRouter 模式不生效 可能是因为在 popup 中？？？（或者是history模式需要后端进行支持？？）
     // <BrowserRouter>
     //   <Routes>
     //     <Route path="/" element={<SiteShow />}></Route>
