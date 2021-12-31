@@ -34,6 +34,9 @@ export default defineConfig({
     target: 'es2015',
     // Turning off brotliSize display can slightly reduce packaging time
     brotliSize: false,
-    chunkSizeWarningLimit: 2000
+    chunkSizeWarningLimit: 2000,
+    rollupOptions: {
+      external: ['src/antd.custom.css']
+    }
   }
 })

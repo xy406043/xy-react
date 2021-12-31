@@ -23,6 +23,6 @@
       "#/*": ["types/*"]
     }
   },
-  "include": ["./src", "**/*.config.js"],
+  "include": ["./src", "**/*.config.js", "scripts"],
   "exclude": ["node_modules"]
 }

@@ -5,18 +5,13 @@ import { SystemConfig } from '@/config/themeConfig'
 
 function App() {
   ConfigProvider.config({
-    theme: {
-      primaryColor: '#1890ff',
-      errorColor: '#ff4d4f',
-      warningColor: '#faad14',
-      successColor: '#52c41a',
-      infoColor: '#1890ff'
-    }
+    prefixCls: SystemConfig.prefixCls, // 需同时设置 下面的prefixCls 并生成对应prefix的css文件并引入
+    theme: SystemConfig.theme
   })
 
   return (
     //  antd 全局化配置
-    <ConfigProvider>
+    <ConfigProvider prefixCls={SystemConfig.prefixCls}>
       <Outlet />
     </ConfigProvider>
   )
