@@ -8218,6 +8218,7 @@ _:-ms-fullscreen .xy-picker-range-wrapper .xy-picker-year-panel .xy-picker-cell,
   font-size: 14px;
   line-height: 1.5715;
   transition: color 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+  padding-top: 0px;
 }
 .xy-form-item-explain-connected {
   height: 0;

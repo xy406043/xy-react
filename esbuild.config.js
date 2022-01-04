@@ -6,6 +6,7 @@ build({
   minify: true,
   bundle: true,
   sourcemap: true,
+  // tsconfig: './tsconfig.json',
   outfile: 'public/back/index.js'
 }).catch(() => process.exit(1))
 
@@ -15,5 +16,6 @@ build({
   minify: true,
   bundle: true,
   sourcemap: true,
+  tsconfig: './tsconfig.json',
   outfile: 'public/content-scripts/index.js'
 }).catch(() => process.exit(1))

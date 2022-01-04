@@ -14,8 +14,10 @@
 
 // TODO  简化代码，使用 正则进行标签匹配
 
-let showIconsList = []
-let showImagesList = []
+import { getCurrentTab } from '@/utils/index'
+
+let showIconsList = [] as any
+let showImagesList = [] as any
 const httpRegex = new RegExp(/http/)
 
 loadScript()
@@ -33,7 +35,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 // TODO  异步将页面数据调取后完成存储，当重新点击 popup时，对于已存储的tabId，直接使用原有的数据
 // TODO  id 页面发生变化时刷新调取内容
 function savePageData(dataInfo) {
-  let result = []
+  const result = [] as any
   Object.keys(dataInfo).forEach(item => {
     const imgKeys = ['icons', 'imgs']
     result.push({
@@ -49,8 +51,9 @@ function savePageData(dataInfo) {
   })
 }
 
-async function loadScript(id) {
-  LocalPageDataInfo = []
+async function loadScript() {
+  const currentTab: chrome.tabs.Tab = await getCurrentTab()
+
   showIconsList = []
   showImagesList = []
 
@@ -59,16 +62,16 @@ async function loadScript(id) {
   async function loadInfo(hasLoadFetch) {
     // ================================ 获取网页的 Icon =================================
     async function getIcons() {
-      let requestList = []
+      const requestList: Array<any> = []
       // 方式一 直接获取link属性 截取url。 shortcut icon 是过时的写法
       requestList.push(
         new Promise((resolve, reject) => {
           const textArr = ['shortcut icon', 'icon', 'alternate icon', 'mask-icon', 'apple-touch-icon']
           textArr.forEach(item => {
-            let checkHref = document.querySelector(`link[rel="${item}"]`)?.href
+            const checkHref: any = document.querySelector(`link[rel="${item}"]`)?.getAttribute('href')
             if (checkHref) showIconsList.push(checkHref)
           })
-          resolve()
+          resolve(true)
         })
       )
 
@@ -77,26 +80,28 @@ async function loadScript(id) {
       if (hasLoadFetch) {
         requestList.push(
           new Promise((resolve, reject) => {
-            let pwaUrl = document.querySelector('link[rel="manifest"]')?.href
+            const pwaUrl = document.querySelector('link[rel="manifest"]')?.getAttribute('href')
             if (pwaUrl) {
               fetch(pwaUrl)
                 .then(async res => {
-                  let data = await res.json()
+                  const data = await res.json()
 
                   if (!data.icons || !data.icons.length) return
 
                   data.icons.forEach((iconItem, iconIndex) => {
-                    let url = httpRegex.test(iconItem.src) ? iconItem.src : document.location.origin + '/' + iconItem.src
+                    const url = httpRegex.test(iconItem.src)
+                      ? iconItem.src
+                      : document.location.origin + '/' + iconItem.src
                     showIconsList.push(url)
                   })
 
-                  resolve()
+                  resolve(true)
                 })
                 .catch(() => {
-                  resolve()
+                  resolve(true)
                 })
             } else {
-              resolve()
+              resolve(true)
             }
           })
         )
@@ -105,17 +110,17 @@ async function loadScript(id) {
       // 方式三 未设置 link rel=type,而是直接放到网站根目录下，浏览器会  直接获取 favicon.ico
       requestList.push(
         new Promise((resolve, reject) => {
-          let img = new Image()
+          const img = new Image()
           img.src = document.location.origin + '/favicon.ico'
           img.crossOrigin = 'anonymous'
           img.onload = function () {
             // console.log('添加icon')
             showIconsList.push(img.src)
-            resolve()
+            resolve(true)
           }
           img.onerror = function () {
             console.log('该链接无效', img.src)
-            resolve()
+            resolve(true)
           }
         })
       )
@@ -127,14 +132,14 @@ async function loadScript(id) {
     function getDesc() {
       const textArrDes = ['description', 'twitter:description']
       const richList = ['og:description', 'twitter:description']
-      let oMe = document.getElementsByTagName('meta')
+      const oMe: any = document.getElementsByTagName('meta')
 
-      let descList = []
+      const descList: Array<any> = []
       for (let i = 0; i < oMe.length; i++) {
-        if (textArrDes.includes(oMe[i].getAttribute('name'))) {
+        if (textArrDes.includes(oMe[i]?.getAttribute('name'))) {
           descList.push(oMe[i].getAttribute('content'))
         }
-        if (richList.includes(oMe[i].getAttribute('property'))) {
+        if (richList.includes(oMe[i]?.getAttribute('property'))) {
           descList.push(oMe[i].getAttribute('content'))
         }
       }
@@ -148,15 +153,14 @@ async function loadScript(id) {
       const textArrDes = ['image', 'twitter:image', 'twitter:image:src']
       const richList = ['og:image']
       const catchProperty = ['name', 'property', 'itemprop']
-      let oMe = document.getElementsByTagName('meta')
+      const oMe: any = document.getElementsByTagName('meta')
 
-      let subImgs = []
+      const subImgs: Array<string> = []
       // 摆烂 - 没有的不会匹配到 - 就这样吧
       for (let i = 0; i < oMe.length; i++) {
         catchProperty.forEach(y => {
-          let imgContent = oMe[i].getAttribute('content')
-
-          let url = httpRegex.test(imgContent) ? imgContent : document.location.origin + '/' + imgContent
+          const imgContent = oMe[i].getAttribute('content') as string
+          const url = httpRegex.test(imgContent) ? imgContent : document.location.origin + '/' + imgContent
 
           if (textArrDes.includes(oMe[i].getAttribute(y))) {
             subImgs.push(url)
@@ -181,7 +185,7 @@ async function loadScript(id) {
     const desc = getDesc()[0] || ''
 
     // 获取网页关键词
-    const keywords = document.querySelector('meta[name="keywords"]')?.content || ''
+    const keywords = document.querySelector('meta[name="keywords"]')?.getAttribute('content')
 
     // 获取网页icon
     await getIcons()
@@ -193,8 +197,8 @@ async function loadScript(id) {
 
     // 将获取到的数据 传输给background.js 或者 popup.js
     function addContent() {
-      let pageData = {
-        tabId: id || 0,
+      const pageData = {
+        tabId: currentTab.id,
         pageTitle,
         linkUrl,
         desc,
@@ -202,9 +206,10 @@ async function loadScript(id) {
         icons: showIconsList,
         imgs: showImagesList
       }
-      LocalPageDataInfo = pageData
       // console.log('xy-react 获取页面数据内容', pageData, LocalPageDataInfo)
       savePageData(pageData)
     }
   }
 }
+
+export default {}

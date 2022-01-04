@@ -5,6 +5,7 @@ import './index.css'
 import './index.scss'
 import { ChromeExtensionId } from '@/enums/chromeEnum'
 import { getCurrentTab, catchLocalData } from '@/utils/index'
+import ReactLogo from '~icons/logos/react'
 
 interface ShowContentInterface {
   title: string
@@ -16,6 +17,7 @@ interface ShowContentInterface {
 // 页面内容完成渲染
 function SiteShow() {
   const [tabList, setTab] = useState<Array<ShowContentInterface>>([])
+  const [loading, setLoading] = useState<boolean>(false)
   const [special, setSpecial] = useState<boolean>(false)
   const navigate = useNavigate()
 
@@ -31,11 +33,13 @@ function SiteShow() {
       }
     })
 
+    setLoading(true)
     catchLocalData().then((list: any) => {
       if (!list.length) {
         return setSpecial(true)
       }
       setTab(list)
+      setLoading(false)
     })
 
     // componentDidUmount 组件卸载时调用一次
@@ -56,38 +60,44 @@ function SiteShow() {
     <div className="site-show">
       {special ? (
         <div className="xy-none-info">该页面无法获取网页信息！</div>
-      ) : (
-        <div className="app-show">
-          {tabList.map((item: ShowContentInterface, index: number) => {
-            return (
-              <div className={`come-item ` + (excludeKeys.includes(item.title) ? 'come-none' : '')} key={index}>
-                <div className="xy-auto-webs-panel-item-title">
-                  <Tag> {item.title}</Tag>
-                </div>
-                <div className="xy-auto-webs-panel-item-content">
-                  {item.type === 'text' && (
-                    <div className=" xy-select-all" onClick={() => clipSome(item.content)}>
-                      {item.content}
-                    </div>
-                  )}
-                  {item.type === 'img' &&
-                    item.content.map((imgItem: string, index: number) => {
-                      return (
-                        <div key={index}>
-                          <div className="xy-auto-webs-panel-item-img-url  xy-select-all" onClick={() => clipSome(imgItem)}>
-                            {imgItem}
+      ) : (<div> {
+        loading ? (<div className="xy-show-loading" >
+          <ReactLogo />
+        </div>) : (
+          <div className="app-show">
+            {tabList.map((item: ShowContentInterface, index: number) => {
+              return (
+                <div className={`come-item ` + (excludeKeys.includes(item.title) ? 'come-none' : '')} key={index}>
+                  <div className="xy-auto-webs-panel-item-title">
+                    <Tag> {item.title}</Tag>
+                  </div>
+                  <div className="xy-auto-webs-panel-item-content">
+                    {item.type === 'text' && (
+                      <div className=" xy-select-all" onClick={() => clipSome(item.content)}>
+                        {item.content}
+                      </div>
+                    )}
+                    {item.type === 'img' &&
+                      item.content.map((imgItem: string, index: number) => {
+                        return (
+                          <div key={index}>
+                            <div className="xy-auto-webs-panel-item-img-url  xy-select-all" onClick={() => clipSome(imgItem)}>
+                              {imgItem}
+                            </div>
+                            <img className="xy-auto-webs-panel-item-img" src={imgItem} />
                           </div>
-                          <img className="xy-auto-webs-panel-item-img" src={imgItem} />
-                        </div>
-                      )
-                    })}
+                        )
+                      })}
+                  </div>
                 </div>
-              </div>
-            )
-          })}
-        </div>
+              )
+            })}
+          </div>
+        )
+      }</div>
+
       )}
-    </div>
+    </div >
   )
 }
 

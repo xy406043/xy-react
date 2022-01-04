@@ -5,12 +5,13 @@
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "allowJs": false,
     "skipLibCheck": false,
+    "noImplicitAny": false,
     "esModuleInterop": false,
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "module": "ESNext",
-    "moduleResolution": "Node",
+    "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
@@ -23,6 +24,15 @@
       "#/*": ["types/*"]
     }
   },
-  "include": ["./src", "**/*.config.js", "scripts"],
-  "exclude": ["node_modules"]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "scripts",
+    "types/**/*.d.ts",
+    "types/**/*.ts",
+    "vite.config.ts"
+    // "**/*.config.js"
+  ],
+  "exclude": ["node_modules", "dist", "**/*.js"]
 }

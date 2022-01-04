@@ -12,9 +12,9 @@
     "@": "${workspaceRoot}/src"
   },
 
-  // 常规 -- 检查使用 eslint 即可
+  // 常规 -- (似乎某些错误 eslint无法检查到，还是需要 开启ts 验证)
   "javascript.validate.enable": false,
-  "typescript.validate.enable": false, //是否启用ts 验证
+  "typescript.validate.enable": true, //是否启用ts 验证
   "css.validate": false, // 交由 stylelint进行检查
   "less.validate": false,
   "scss.validate": false,

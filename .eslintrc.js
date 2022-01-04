@@ -45,8 +45,8 @@ module.exports = {
     'space-comment': 0, // 展示不要有空格
     'use-isnan': 2, //禁止比较时使用NaN，只能用isNaN()
 
-    // ~~ prettier 的lint冲突会被ESlint当成错误处理 ，只是如果关闭了，就无法使用prettier 进行格式化了 。。。。 是这样么？？？？
-    // 'prettier/prettier': 'off',
+    // prettier 的lint冲突会被ESlint当成错误处理
+    'prettier/prettier': 'off',
 
     // 不允许在变量定义之前使用它们
     'no-use-before-define': 0,

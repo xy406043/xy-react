@@ -5,9 +5,9 @@ import './index.scss'
 export default function Header() {
   return (
     <div className="xy-header flex items-center justify-center">
-      <Link to="/">Invoices</Link>
+      <Link to="/">页面历史</Link>
       <Link to="SiteConfig" className="ml-40px">
-        Team
+        页面设置
       </Link>
     </div>
   )
