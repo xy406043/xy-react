@@ -29,3 +29,30 @@
 - [] background.js 和 content-scripts 使用 ts ？ 如何在构建之后与 manifest.json 仍然有新的内
 - [] i18n
 - [] 构建多页面
+- [] 类似 vben-admin (vue3) 使用 (把自定义 variable 用 响应式注入全局 用来生成 class)；以及使用 namespace 统一配置生成 prefix 在 css 中 生成与 prefixCls 一样的 class 名
+
+```js
+const { prefixCls } = useDesign('basic-arrow')
+```
+
+```css
+@prefix-cls: ~'@{namespace}-icon-picker';
+
+.@{prefix-cls} {
+  .ant-input-group-addon {
+    padding: 0;
+  }
+
+  &-popover {
+    width: 300px;
+
+    .ant-popover-inner-content {
+      padding: 0;
+    }
+
+    .scrollbar {
+      height: 220px;
+    }
+  }
+}
+```

@@ -1,7 +1,4 @@
-"use strict";
-exports.__esModule = true;
-exports.SystemConfig = void 0;
-exports.SystemConfig = {
+export const SystemConfig = {
     // https://ant-design.gitee.io/docs/react/customize-theme-variable-cn
     // 变更前缀需要重新生成一份对应的css文件
     // ant-design 4.17.0 版本支持使用 css的variable版本的全局样式设置

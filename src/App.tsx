@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Outlet } from 'react-router-dom'
 import { ConfigProvider } from 'antd'
 import { SystemConfig } from '@/config/themeConfig'
+import Header from './components/Layout/Header'
 
 function App() {
   ConfigProvider.config({
@@ -12,6 +13,8 @@ function App() {
   return (
     //  antd 全局化配置
     <ConfigProvider prefixCls={SystemConfig.prefixCls}>
+      <div className="placeholder"></div>
+      <Header />
       <Outlet />
     </ConfigProvider>
   )

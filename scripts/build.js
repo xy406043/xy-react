@@ -35,16 +35,16 @@ async function main() {
   })
 
   logger.ln()
-  logger.info('生成自定义前缀的antd variable文件成功 :' + SystemConfig.prefixCls)
+  logger.info(`生成自定义前缀( ${SystemConfig.prefixCls} )的antd variable文件成功`)
   logger.ln()
 
   await execa('vite', ['build'], {
-    stdio: 'inherit' // 展示过程
+    stdio: 'inherit' // 展示运行过程
   }).catch(e => {
     logger.error('vite error: ' + e)
   })
 
   logger.ln()
-  logger.info('vite 构建成功')
+  logger.success('vite 构建成功')
   logger.ln()
 }

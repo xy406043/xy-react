@@ -2,7 +2,7 @@ import React from 'react'
 import { BrowserRouter, HashRouter, Routes, Route } from 'react-router-dom'
 
 import App from '@/App'
-import { SiteShow, SiteHistory, None, Nop } from '@/pages/index'
+import { SiteShow, SiteHistory, SiteConfig, None, Nop } from '@/pages/index'
 
 function SelfRoutes() {
   return (
@@ -12,7 +12,8 @@ function SelfRoutes() {
         <Route path="/" element={<SiteShow />}></Route>
         <Route path="/app" element={<App />}>
           <Route index element={<SiteHistory />} />
-          <Route index element={<Nop />} />
+          <Route path="SiteConfig" element={<SiteConfig />}></Route>
+          <Route path="*" element={<Nop />} />
         </Route>
       </Routes>
     </HashRouter>
