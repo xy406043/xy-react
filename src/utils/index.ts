@@ -1,4 +1,5 @@
 import { ChromeSpecialPages } from '@/enums/chromeEnum'
+import { ShowContentInterface } from '@/pages/SiteShow/types'
 
 // 获取当前页面的tab
 export async function getCurrentTab() {
@@ -24,11 +25,22 @@ export const catchLocalData = async () => {
         return
       }
 
+      const dataResult = result['LocalPageData'].some(item => item.tabId === tab.id) || {}
+      const resultArray: Array<ShowContentInterface> = []
+      Object.keys(dataResult).forEach(item => {
+        const imgKeys = ['icons', 'imgs']
+        resultArray.push({
+          title: item,
+          type: imgKeys.includes(item) ? 'img' : 'text',
+          content: dataResult[item]
+        })
+      })
+
       // 更新展示页面内容
       // console.log('获取接收到的页面信息', result, result['LocalPageData'])
       // resultData = result['LocalPageData'][0]
-      const dataResult = result['LocalPageData'][0]
-      resolve(dataResult)
+
+      resolve(resultArray)
     })
   })
 }

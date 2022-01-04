@@ -2,11 +2,11 @@ import { build } from 'esbuild' // 使用此语法需要设置 package.json type
 
 // 构建 chrome 扩展  background.js
 build({
-  entryPoints: ['src/utils/back/index.js'],
+  entryPoints: ['src/utils/back/index.ts'],
   minify: true,
   bundle: true,
   sourcemap: true,
-  // tsconfig: './tsconfig.json',
+  tsconfig: './tsconfig.json',
   outfile: 'public/back/index.js'
 }).catch(() => process.exit(1))
 

@@ -14,8 +14,6 @@
 
 // TODO  简化代码，使用 正则进行标签匹配
 
-import { getCurrentTab } from '@/utils/index'
-
 let showIconsList = [] as any
 let showImagesList = [] as any
 const httpRegex = new RegExp(/http/)
@@ -31,29 +29,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   }
 })
 
-// 将内容存储在 storage 区域
-// TODO  异步将页面数据调取后完成存储，当重新点击 popup时，对于已存储的tabId，直接使用原有的数据
-// TODO  id 页面发生变化时刷新调取内容
-function savePageData(dataInfo) {
-  const result = [] as any
-  Object.keys(dataInfo).forEach(item => {
-    const imgKeys = ['icons', 'imgs']
-    result.push({
-      title: item,
-      type: imgKeys.includes(item) ? 'img' : 'text',
-      content: dataInfo[item]
-    })
-  })
-  chrome.storage.sync.get(['LocalPageData'], res => {
-    chrome.storage.sync.set({ LocalPageData: [result] }, () => {
-      // console.log('xy-react 设置数据成功', result)
-    })
-  })
-}
-
 async function loadScript() {
-  const currentTab: chrome.tabs.Tab = await getCurrentTab()
-
   showIconsList = []
   showImagesList = []
 
@@ -198,7 +174,6 @@ async function loadScript() {
     // 将获取到的数据 传输给background.js 或者 popup.js
     function addContent() {
       const pageData = {
-        tabId: currentTab.id,
         pageTitle,
         linkUrl,
         desc,
@@ -207,7 +182,9 @@ async function loadScript() {
         imgs: showImagesList
       }
       // console.log('xy-react 获取页面数据内容', pageData, LocalPageDataInfo)
-      savePageData(pageData)
+      chrome.runtime.sendMessage(pageData, res => {
+        console.log('content-scripts 收到 来自后台的回复数据', res)
+      })
     }
   }
 }

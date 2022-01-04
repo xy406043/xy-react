@@ -5,14 +5,8 @@ import './index.css'
 import './index.scss'
 import { ChromeExtensionId } from '@/enums/chromeEnum'
 import { getCurrentTab, catchLocalData } from '@/utils/index'
-import ReactLogo from '~icons/logos/react'
-
-interface ShowContentInterface {
-  title: string
-  key?: string
-  type?: string
-  content: any
-}
+import BundleLoading from '~icons/eos-icons/bubble-loading'
+import { ShowContentInterface } from "./types"
 
 // 页面内容完成渲染
 function SiteShow() {
@@ -38,8 +32,11 @@ function SiteShow() {
       if (!list.length) {
         return setSpecial(true)
       }
+
       setTab(list)
-      setLoading(false)
+      setTimeout(() => {
+        setLoading(false)
+      }, 200)
     })
 
     // componentDidUmount 组件卸载时调用一次
@@ -57,12 +54,12 @@ function SiteShow() {
 
   // Render 渲染
   return (
-    <div className="site-show">
+    <div >
       {special ? (
         <div className="xy-none-info">该页面无法获取网页信息！</div>
-      ) : (<div> {
-        loading ? (<div className="xy-show-loading" >
-          <ReactLogo />
+      ) : (<div className='site-show'> {
+        loading ? (<div className="xy-show-loading flex items-center justify-center" style={{ height: '100vh' }} >
+          <BundleLoading style={{ fontSize: '42px', color: 'white' }} />
         </div>) : (
           <div className="app-show">
             {tabList.map((item: ShowContentInterface, index: number) => {
