@@ -12,7 +12,6 @@ export async function getCurrentTab() {
 // 获取 content-scripts 存储在storage中的数据
 export const catchLocalData = async () => {
   return new Promise(resolve => {
-    console.log('chrome', chrome)
     if (!chrome?.storage) return resolve([])
     chrome.storage.sync.get('LocalPageData', async result => {
       const tab: chrome.tabs.Tab = await getCurrentTab()
@@ -25,7 +24,7 @@ export const catchLocalData = async () => {
         return
       }
 
-      const dataResult = result['LocalPageData'].some(item => item.tabId === tab.id) || {}
+      const dataResult = result['LocalPageData'].find(item => item.tabId === tab.id) || {}
       const resultArray: Array<ShowContentInterface> = []
       Object.keys(dataResult).forEach(item => {
         const imgKeys = ['icons', 'imgs']
@@ -37,8 +36,7 @@ export const catchLocalData = async () => {
       })
 
       // 更新展示页面内容
-      // console.log('获取接收到的页面信息', result, result['LocalPageData'])
-      // resultData = result['LocalPageData'][0]
+      console.log('获取接收到的页面信息', result['LocalPageData'], tab, dataResult, resultArray)
 
       resolve(resultArray)
     })

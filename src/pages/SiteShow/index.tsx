@@ -4,7 +4,7 @@ import { Tag } from 'antd'
 import './index.css'
 import './index.scss'
 import { ChromeExtensionId } from '@/enums/chromeEnum'
-import { getCurrentTab, catchLocalData } from '@/utils/index'
+import { getCurrentTab, catchLocalData } from '@/utils/chrome/index'
 import BundleLoading from '~icons/eos-icons/bubble-loading'
 import { ShowContentInterface } from "./types"
 
@@ -29,6 +29,7 @@ function SiteShow() {
 
     setLoading(true)
     catchLocalData().then((list: any) => {
+      console.log("popup: 获取当前页面的TDKI信息", list)
       if (!list.length) {
         return setSpecial(true)
       }

@@ -3,13 +3,13 @@
 // 无法获取Dom
 
 import { ChromeSpecialPages as excludePages } from '@/enums/chromeEnum'
-import { getCurrentTab } from '@/utils/index'
+import { getCurrentTab } from '@/utils/chrome/index'
 import clonedeep from 'lodash.clonedeep'
 
 // 接收来自 content-scripts/ popup.js的信息
 chrome.runtime.onMessage.addListener(async function (request, sender, sendResponse) {
   const tab = await getCurrentTab()
-  console.log('已接受到来自content-script的信息', request, sender, sendResponse)
+  // console.log('已接受到来自content-script的信息', request, sender, sendResponse)
 
   chrome.storage.sync.get(['LocalPageData'], function (res) {
     const allLocalPage: any = clonedeep(res.LocalPageData) || []
@@ -18,7 +18,7 @@ chrome.runtime.onMessage.addListener(async function (request, sender, sendRespon
     localIndex === -1 && allLocalPage.push(request)
     localIndex !== -1 && (allLocalPage[localIndex] = request)
     chrome.storage.sync.set({ LocalPageData: allLocalPage }, function () {
-      console.log('设置数据成功', allLocalPage)
+      // console.log('设置数据成功', allLocalPage)
     })
   })
 
@@ -27,7 +27,7 @@ chrome.runtime.onMessage.addListener(async function (request, sender, sendRespon
 
 //  监听tab页面变化 - 传递给 popup.js 进行数据更新 切换路由、状态变更等
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
-  console.log('页面发生变化 刷新 or 新建', tabId, changeInfo, tab)
+  // console.log('页面发生变化 刷新 or 新建', tabId, changeInfo, tab)
   if (changeInfo.url && excludePages.some(x => changeInfo?.url?.includes(x))) {
     return
   }
@@ -44,7 +44,7 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
 // 切换选项卡时
 chrome.tabs.onActivated.addListener(async activeInfo => {
   const tab = await getCurrentTab()
-  console.log('选项卡发生变化', activeInfo, tab)
+  // console.log('选项卡发生变化', activeInfo, tab)
   if (tab.url && excludePages.some(x => tab?.url?.includes(x))) {
     return
   }
@@ -57,6 +57,6 @@ chrome.tabs.onActivated.addListener(async activeInfo => {
 
 function SendMessage(options) {
   chrome.tabs.sendMessage(options.tabId, options.message, function (response) {
-    console.log('来自content-script: direct.js的回复：' + response)
+    // console.log('来自content-script: direct.js的回复：' + response)
   })
 }
