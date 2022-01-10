@@ -36,6 +36,7 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': 1,
     // 优先使用 interface 而不是 type
     '@typescript-eslint/consistent-type-definitions': ['error', 'interface'],
+    "@typescript-eslint/no-empty-function":"off"
 
     'no-undef': 'off',
     'no-console': 'off',
