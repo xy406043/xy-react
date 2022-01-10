@@ -19,6 +19,10 @@
   "less.validate": false,
   "scss.validate": false,
 
+  // =========================================================
+  // =================   规范和格式化   ========================
+  // =========================================================
+
   // eslint
   "eslint.enable": true,
   "editor.formatOnSave": true,
@@ -28,6 +32,20 @@
   },
   "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact", "vue", "jsx", "tsx"],
 
+  // formatter
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    // "editor.defaultFormatter": "vscode.typescript-language-features" // 此格式化无效
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+
+  // =========================================================
+  // =========================  其它 ==========================
+  // =========================================================
+
   // other
   "cSpell.ignoreWords": [
     // build
@@ -36,6 +54,7 @@
     "windi",
     "unocss",
     "execa",
+    "outfile",
 
     // func
     "clonedeep"

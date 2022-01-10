@@ -4,8 +4,6 @@
 // content-scrips 要做的事情比较简单  根据插件需要的内容 获取页面的信息。
 // 而后将其发送给background 通过chrome.storage 存储 (依据tabId进行存储) ，当点击 popup 的时候 ，popup.js 也就可以通过chrome.storage 获取
 
-// !! 原chrome 插件 在background 进行存储，似乎只要在 content-scripts 中进行存储即可 ，这样是不是就不需要判断选项卡了
-
 // content-scripts 只能访问以下Api
 // chrome.runtime
 // chrome.extension (manifest_version <=2)
@@ -13,6 +11,9 @@
 // chrome.storage
 
 // TODO  简化代码，使用 正则进行标签匹配
+// TODO   解决部分网页的图标没有域名的问题
+
+import { checkPreHref } from '@/utils/webUtil'
 
 let showIconsList = [] as any
 let showImagesList = [] as any
@@ -41,11 +42,12 @@ async function loadScript() {
       const requestList: Array<any> = []
       // 方式一 直接获取link属性 截取url。 shortcut icon 是过时的写法
       requestList.push(
-        new Promise((resolve, reject) => {
+        new Promise(resolve => {
           const textArr = ['shortcut icon', 'icon', 'alternate icon', 'mask-icon', 'apple-touch-icon']
           textArr.forEach(item => {
             const checkHref: any = document.querySelector(`link[rel="${item}"]`)?.getAttribute('href')
-            if (checkHref) showIconsList.push(checkHref)
+
+            if (checkHref) showIconsList.push(checkPreHref(checkHref))
           })
           resolve(true)
         })
@@ -64,11 +66,8 @@ async function loadScript() {
 
                   if (!data.icons || !data.icons.length) return
 
-                  data.icons.forEach((iconItem, iconIndex) => {
-                    const url = httpRegex.test(iconItem.src)
-                      ? iconItem.src
-                      : document.location.origin + '/' + iconItem.src
-                    showIconsList.push(url)
+                  data.icons.forEach(iconItem => {
+                    showIconsList.push(checkPreHref(iconItem.src))
                   })
 
                   resolve(true)
@@ -85,12 +84,12 @@ async function loadScript() {
 
       // 方式三 未设置 link rel=type,而是直接放到网站根目录下，浏览器会  直接获取 favicon.ico
       requestList.push(
-        new Promise((resolve, reject) => {
+        new Promise(resolve => {
           const img = new Image()
           img.src = document.location.origin + '/favicon.ico'
           img.crossOrigin = 'anonymous'
           img.onload = function () {
-            // console.log('添加icon')
+            // console.log('添加icon', document.location.origin, img.src)
             showIconsList.push(img.src)
             resolve(true)
           }
@@ -183,7 +182,7 @@ async function loadScript() {
       }
       // console.log('xy-react 获取页面数据内容', pageData, LocalPageDataInfo)
       chrome.runtime.sendMessage(pageData, res => {
-        console.log('content-scripts 收到 来自后台的回复数据', res)
+        // console.log('content-scripts 收到 来自后台的回复数据', res)
       })
     }
   }

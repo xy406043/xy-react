@@ -5,4 +5,6 @@ export const ChromeSpecialPages: Array<string> = [
   'chrome-extension://'
 ]
 
+export const maxSaveLength = 10
+
 export const ChromeExtensionId = 'hkbemkhamjpinblcabpbhhaeicjiginn'

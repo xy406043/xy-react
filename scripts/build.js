@@ -3,6 +3,7 @@ import path from 'path'
 const execa = require('execa') // 开启子进程打包
 const { logger } = require('./utils')
 import { SystemConfig } from '../src/config/themeConfig'
+import dayjs from 'dayjs'
 
 const pathResolve = dir => path.resolve(__dirname, dir)
 
@@ -13,6 +14,7 @@ const args = require('minimist')(process.argv.slice(2))
 main()
 
 async function main() {
+  const startTime = Date.now()
   await execa('tsc')
 
   logger.ln()
@@ -44,7 +46,9 @@ async function main() {
     logger.error('vite error: ' + e)
   })
 
+  const useTime = (Date.now() - startTime) / 1000
+
   logger.ln()
-  logger.success('vite 构建成功')
+  logger.success('vite 构建成功 : ' + dayjs().format('YYYY-MM-DD HH:mm:ss') + '； 总用时：' + useTime + '秒')
   logger.ln()
 }

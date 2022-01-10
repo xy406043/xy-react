@@ -2,8 +2,8 @@
 // 可以访问所有chrome Api === 需要在manifest.json 中添加权限
 // 无法获取Dom
 
-import { ChromeSpecialPages as excludePages } from '@/enums/chromeEnum'
-import { getCurrentTab } from '@/utils/chrome/index'
+import { ChromeSpecialPages as excludePages } from '@/adapter/chrome/enum'
+import { getCurrentTab } from '@/adapter/chrome/index'
 import clonedeep from 'lodash.clonedeep'
 
 // 接收来自 content-scripts/ popup.js的信息
@@ -11,13 +11,13 @@ chrome.runtime.onMessage.addListener(async function (request, sender, sendRespon
   const tab = await getCurrentTab()
   // console.log('已接受到来自content-script的信息', request, sender, sendResponse)
 
-  chrome.storage.sync.get(['LocalPageData'], function (res) {
+  chrome.storage.local.get(['LocalPageData'], function (res) {
     const allLocalPage: any = clonedeep(res.LocalPageData) || []
     const localIndex = allLocalPage.findIndex(item => item.tabId === tab.id)
     request.tabId = tab.id
     localIndex === -1 && allLocalPage.push(request)
     localIndex !== -1 && (allLocalPage[localIndex] = request)
-    chrome.storage.sync.set({ LocalPageData: allLocalPage }, function () {
+    chrome.storage.local.set({ LocalPageData: allLocalPage }, function () {
       // console.log('设置数据成功', allLocalPage)
     })
   })
