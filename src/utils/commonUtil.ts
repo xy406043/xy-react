@@ -1,4 +1,4 @@
-import { $ams, $ame } from './notice'
+import { $ams, $ame } from './noteUtil'
 
 /**
  * 检查类型

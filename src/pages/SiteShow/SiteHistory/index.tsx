@@ -8,7 +8,7 @@ import { ShowContentInterface } from '../types'
 import { ColumnsType } from 'antd/lib/table'
 import SiteImgShow from './components/ImgShow'
 import SiteTextShow from './components/textShow'
-import { copyText } from '@/utils/util'
+import { commonUtil } from '@/utils'
 
 /**
  * Storage.sync.set 最大为 800KB
@@ -51,6 +51,8 @@ export default function SiteHistory() {
     setTableData([])
   }
 
+  const jumpTo = (record: ShowContentInterface) => {}
+
   const HistoryColumns: ColumnsType<ShowContentInterface> = [
     {
       title: '页面',
@@ -60,7 +62,7 @@ export default function SiteHistory() {
         <div
           className="site-table__content"
           onClick={() => {
-            copyText(url)
+            commonUtil.copyText(url)
           }}
         >
           {url}
@@ -106,6 +108,14 @@ export default function SiteHistory() {
           <Space size="middle">
             <div className="xy-del text-red-500 cursor-pointer" onClick={() => toDelWeb(record, index)}>
               删除
+            </div>
+            <div
+              className="ml-20px"
+              onClick={() => {
+                jumpTo(record)
+              }}
+            >
+              jump
             </div>
           </Space>
         )

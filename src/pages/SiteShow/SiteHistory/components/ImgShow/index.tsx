@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import {} from 'antd'
 import PropTypes from 'prop-types'
-import { copyText } from '@/utils/util'
+import { commonUtil } from '@/utils'
 
 interface Props {
   urls: Array<string>
@@ -16,7 +16,7 @@ function SiteImgShow({ urls }: Props) {
             key={index}
             className="mb10px w-80px h-80px cursor-pointer object-contain"
             src={item}
-            onClick={() => copyText(item, '复制图片链接成功')}
+            onClick={() => commonUtil.copyText(item, '复制图片链接成功')}
           />
         )
       })}

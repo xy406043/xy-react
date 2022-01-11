@@ -4,6 +4,16 @@ const chalk = require('chalk')
 
 export const logger = {
   ln: () => console.log(),
+  ci: msg => {
+    logger.ln()
+    logger.info(msg)
+    logger.ln()
+  },
+  cs: msg => {
+    logger.ln()
+    logger.success(msg)
+    logger.ln()
+  },
   warning: msg => {
     console.warn(`${chalk.bgYellow.black(' WARNING ')} ${chalk.yellow(msg)}`)
   },

@@ -4,6 +4,11 @@ import { PlatFormEnum } from '@/enums/adapterEnum'
 import { logger } from 'scripts/utils'
 import chalk from 'chalk'
 
+/**
+ * 平台处理文件，只用于构建脚本。
+ * 如果在项目内部使用此文件，可能会引起报错???
+ */
+
 // 平台处理
 const platform = (process.env.hasOwnProperty('xy_adapter') ? process.env.xy_adapter : '') as string
 
@@ -26,12 +31,14 @@ const chromeConfigWrite = {
     )
 
     logger.ln()
-    console.log(`${chalk.bgBlue.black(' =IN= ')} ${chalk.magenta('迁移chrome配置文件成功')}`)
+    console.log(`${chalk.bgBlue.black(' IN ')} ${chalk.magenta('迁移chrome配置文件成功')}`)
     logger.ln()
   }
 }
 
 export default {
+  env: process.env.npm_package_version,
+  platform: platform,
   isChrome: IS_CHROME,
   initialize: function () {
     // 移除配置文件

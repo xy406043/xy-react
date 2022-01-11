@@ -1,4 +1,4 @@
-import { copyText } from '@/utils/util'
+import { commonUtil } from '@/utils'
 import exp from 'constants'
 
 export interface TextTableShow {
@@ -7,7 +7,7 @@ export interface TextTableShow {
 
 const textShow = ({ text }: TextTableShow) => {
   return (
-    <div className="cursor-pointer" onClick={() => copyText(text)}>
+    <div className="cursor-pointer" onClick={() => commonUtil.copyText(text)}>
       {text}
     </div>
   )

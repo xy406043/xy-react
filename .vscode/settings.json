@@ -55,6 +55,7 @@
     "unocss",
     "execa",
     "outfile",
+    "unplugin",
 
     // func
     "clonedeep"

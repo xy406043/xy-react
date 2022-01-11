@@ -5,7 +5,7 @@
     "dev": "vite --port 7272",
     "serve": "vite preview",
     "b": "esno scripts/build.ts --adapter=chrome",
-    "sh": "cd ./scripts; sh build.sh -e prod -p wx -v 1.0.0 -d fishponds",
+    "sh": "cd ./scripts; sh build.sh -e prod -p wx -v 1.0.0 -d xyのtools",
     "lint:lint-staged": "lint-staged",
     "lint": "eslint 'src/**/*.{js,ts,tsx}'",
     "prepare": "husky install && cp -a .husky/. .git/hooks"

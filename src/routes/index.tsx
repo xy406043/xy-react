@@ -9,9 +9,9 @@ function SelfRoutes() {
     <HashRouter>
       <Routes>
         {/* // 使用 HashRouter模式才能够默认构建生效*/}
-        <Route path="/" element={<SiteShow />}></Route>
-        <Route path="/app" element={<App />}>
-          <Route index element={<SiteHistory />} />
+        <Route path="/" element={<App />}>
+          <Route index element={<SiteShow />}></Route>
+          <Route path="History" element={<SiteHistory />} />
           <Route path="SiteConfig" element={<SiteConfig />}></Route>
           <Route path="*" element={<Nop />} />
         </Route>

@@ -7,11 +7,11 @@ export const checkPreHref = (linkUrl: string) => {
   const httpRegex = new RegExp(/http/)
   const preRegex = new RegExp(/\/\//)
 
-  if (!httpRegex.test(linkUrl) && !preRegex.test(linkUrl)) {
-    return document.location.origin + '/' + linkUrl
-  } else if (!preRegex.test(linkUrl)) {
+  if (httpRegex.test(linkUrl)) {
+    return linkUrl
+  } else if (preRegex.test(linkUrl) && !httpRegex.test(linkUrl)) {
     return document.location.protocol + linkUrl
   } else {
-    return linkUrl
+    return document.location.origin + '/' + linkUrl
   }
 }

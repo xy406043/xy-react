@@ -72,3 +72,15 @@ export const getLocal = (key: string) => {
     })
   })
 }
+
+/**
+ * 打开页面
+ * @param url
+ * @returns
+ */
+export const openUrl = (url: string) => {
+  if (url.indexOf('chrome://') === 0) {
+    return chrome.tabs.create({ url: url })
+  }
+  return window.open(url)
+}

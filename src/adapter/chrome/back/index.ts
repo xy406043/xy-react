@@ -3,7 +3,7 @@
 // 无法获取Dom
 
 import { ChromeSpecialPages as excludePages } from '@/adapter/chrome/enum'
-import { getCurrentTab } from '@/adapter/chrome/index'
+import { getCurrentTab } from '@/adapter/chrome/helper'
 import clonedeep from 'lodash.clonedeep'
 
 // 接收来自 content-scripts/ popup.js的信息

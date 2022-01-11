@@ -24,8 +24,8 @@
 
 #### 💪🏻💪🏻💪🏻💪🏻 TODO 点 💪🏻💪🏻💪🏻💪🏻💪🏻
 
-- [ ] TODO 使用 Antd 进行 内容展示
-- [ ] TODO 扩展 TDKI 使用：添加路由、结构清晰、脚本明了
+- [ ] 使用 Antd 进行 内容展示
+- [ ] 扩展 TDKI 使用：添加路由、结构清晰、脚本明了
 - [ ] background.js 和 content-scripts 使用 ts ？ 如何在构建之后与 manifest.json 仍然有新的内
 - [ ] i18n
 - [ ] 构建多页面
@@ -58,3 +58,4 @@ const { prefixCls } = useDesign('basic-arrow')
 ```
 
 - [ ] 构建配置符合不同浏览器格式的插件 (先参考 CTool) (src 不直接使用外部 Api,而是先进行封装，通过环境变量区分构建)
+- [ ] 编写 vite 插件
