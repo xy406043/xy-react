@@ -3,11 +3,9 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "vite --port 7272",
-    "b0": "esno scripts/build.ts --adapter=chrome",
-    "b": "tsc --target es6 --moduleResolution node  src/config/themeConfig.ts src/adapterTool/adapter.ts && babel-node scripts/build.js",
-    "b2": "ts-node --project tsconfig.json   src/config/themeConfig.ts src/adapterTool/adapter.ts && babel-node scripts/build.js",
-    "b3": "ts-node -r tsconfig-paths/register src/ls.ts  --files",
     "serve": "vite preview",
+    "b": "esno scripts/build.ts --adapter=chrome",
+    "sh": "cd ./scripts; sh build.sh -e prod -p wx -v 1.0.0 -d fishponds",
     "lint:lint-staged": "lint-staged",
     "lint": "eslint 'src/**/*.{js,ts,tsx}'",
     "prepare": "husky install && cp -a .husky/. .git/hooks"
@@ -54,6 +52,8 @@
     "esno": "^0.13.0",
     "execa": "^5.1.1",
     "fs-extra": "^10.0.0",
+    "gulp": "^4.0.2",
+    "gulp-remove-code": "^3.0.4",
     "husky": "^7.0.4",
     "lint-staged": "^12.0.2",
     "minimist": "^1.2.5",
