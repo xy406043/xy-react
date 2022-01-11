@@ -73,6 +73,11 @@ export const getLocal = (key: string) => {
   })
 }
 
+// 清除某个key
+export const clearLocal = (key: string) => {
+  chrome.storage.local.remove([key])
+}
+
 /**
  * 打开页面
  * @param url

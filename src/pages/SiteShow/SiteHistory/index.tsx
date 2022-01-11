@@ -4,11 +4,13 @@ import { Button, Table, Tooltip, Space } from 'antd'
 import { formatTableItem } from './hooks/useTableFormat'
 import { nanoid } from 'nanoid'
 import clonedeep from 'lodash.clonedeep'
-import { ShowContentInterface } from '../types'
+import { HistoryTableShow } from '../types'
 import { ColumnsType } from 'antd/lib/table'
 import SiteImgShow from './components/ImgShow'
 import SiteTextShow from './components/textShow'
 import { commonUtil } from '@/utils'
+import { openUrl } from '~/src/adapterTool/helper'
+import db from '~/src/adapterTool/db'
 
 /**
  * Storage.sync.set 最大为 800KB
@@ -18,7 +20,7 @@ import { commonUtil } from '@/utils'
 
 export default function SiteHistory() {
   const [tableLoading, setTableLoading] = useState<boolean>(false)
-  const [tableData, setTableData] = useState<Array<ShowContentInterface>>([])
+  const [tableData, setTableData] = useState<Array<HistoryTableShow>>([])
 
   useEffect(() => {
     initData()
@@ -27,9 +29,10 @@ export default function SiteHistory() {
   function initData() {
     setTableLoading(true)
     // 获取localStorage 数据
+    // TODO 放置到
     chrome.storage.local.get(['LocalPageData'], (res: any) => {
       const showData = clonedeep(res.LocalPageData || [])
-      console.log('获取chromeLocalPageData 数据', res.LocalPageData)
+      // console.log('获取chromeLocalPageData 数据', res.LocalPageData)
       showData.forEach(item => {
         item = formatTableItem(item)
       })
@@ -38,22 +41,26 @@ export default function SiteHistory() {
     })
   }
 
-  // TODO 重新设置storage数据并刷新展示
-  function toDelWeb(record: ShowContentInterface, index: number) {
+  // 重新设置storage数据并刷新展示
+  function toDelWeb(record: HistoryTableShow, index: number) {
     console.log('删除index', index)
     const sourceSub = clonedeep(tableData)
     sourceSub.splice(index, 1)
     setTableData(sourceSub)
   }
 
+  // 清除当前key
   function removeAll() {
     chrome.storage.local.remove('LocalPageData')
     setTableData([])
   }
 
-  const jumpTo = (record: ShowContentInterface) => {}
+  // 打开窗口跳转到对应的页面
+  const jumpTo = record => {
+    openUrl(record.linkUrl)
+  }
 
-  const HistoryColumns: ColumnsType<ShowContentInterface> = [
+  const HistoryColumns: ColumnsType<HistoryTableShow> = [
     {
       title: '页面',
       dataIndex: 'linkUrl',
@@ -103,14 +110,14 @@ export default function SiteHistory() {
       title: '操作',
       dataIndex: 'action',
       width: 120,
-      render: (value: any, record: ShowContentInterface, index: number) => {
+      render: (value: any, record: HistoryTableShow, index: number) => {
         return (
           <Space size="middle">
             <div className="xy-del text-red-500 cursor-pointer" onClick={() => toDelWeb(record, index)}>
               删除
             </div>
             <div
-              className="ml-20px"
+              className="ml-20px text-blue-500"
               onClick={() => {
                 jumpTo(record)
               }}

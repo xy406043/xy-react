@@ -4,3 +4,12 @@ export interface ShowContentInterface {
   type?: string
   content: any
 }
+
+export interface HistoryTableShow {
+  pageTitle: String
+  linkUrl: String
+  desc?: string
+  keywords?: String
+  icons?: Array<string>
+  imgs?: Array<string>
+}
