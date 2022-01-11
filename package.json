@@ -34,6 +34,7 @@
     "@babel/preset-env": "^7.16.5",
     "@svgr/core": "^6.1.2",
     "@types/chrome": "^0.0.164",
+    "@types/estree": "^0.0.50",
     "@types/node": "^16.11.7",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",

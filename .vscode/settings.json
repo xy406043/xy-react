@@ -9,7 +9,9 @@
     "public/content-scripts/**": true
   },
   "path-intellisense.mappings": {
-    "@": "${workspaceRoot}/src"
+    "~": "${workspaceRoot}",
+    "@": "${workspaceRoot}/src",
+    "#": "${workspaceRoot}/types"
   },
 
   // 常规 -- (似乎某些错误 eslint无法检查到，还是需要 开启ts 验证)

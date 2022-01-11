@@ -1,12 +1,12 @@
 const fs = require('fs')
 const path = require('path')
-import { PlatFormEnum } from '@/enums/adapterEnum'
-import { logger } from 'scripts/utils'
+import { logger } from './utils'
 import chalk from 'chalk'
 
 /**
  * 平台处理文件，只用于构建脚本。
- * 如果在项目内部使用此文件，可能会引起报错???
+ * 不可在执行vite后使用，因构建后是 Es6 无法识别 require等cjs写法
+ * 此文件有被vite.config.ts使用，不可设置别名
  */
 
 // 平台处理
@@ -23,9 +23,9 @@ const chromeConfigWrite = {
   remove() {},
   write() {
     fs.writeFileSync(
-      path.join(__dirname, '../../public/manifest.json'),
+      path.join(__dirname, '../public/manifest.json'),
       fs
-        .readFileSync(path.join(__dirname, '../adapter/chrome/manifest.json'))
+        .readFileSync(path.join(__dirname, '../src/adapter/chrome/manifest.json'))
         .toString()
         .replace(/##version##/g, process.env.npm_package_version)
     )

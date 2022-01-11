@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { Outlet } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { Outlet, useLocation } from 'react-router-dom'
 import { ConfigProvider } from 'antd'
 import { SystemConfig } from '@/config/themeConfig'
 import Header from './components/Layout/Header'
@@ -11,11 +11,19 @@ function App() {
     theme: SystemConfig.theme
   })
 
+  const location = useLocation()
+
+  const checkSiteShow = location.pathname === '/'
+
+  useEffect(() => {
+    console.log('当前路由信息')
+  })
+
   return (
     //  antd 全局化配置
     <ConfigProvider prefixCls={SystemConfig.prefixCls}>
       <div className="placeholder"></div>
-      <Header />
+      {!checkSiteShow && <Header />}
       <Outlet />
     </ConfigProvider>
   )

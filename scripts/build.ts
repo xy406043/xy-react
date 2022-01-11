@@ -3,8 +3,8 @@ import path from 'path'
 const execa = require('execa') // 开启子进程打包
 const { logger } = require('./utils')
 import { SystemConfig } from '@/config/themeConfig'
+import adapter from './adapter'
 import dayjs from 'dayjs'
-import xyAdapter from '@/adapterTool/adapter'
 
 const pathResolve = dir => path.resolve(__dirname, dir)
 
@@ -24,10 +24,18 @@ async function main() {
   if (args && args.adapter) {
     // 添加环境变量
     await execa('cross-env', [`xy_adapter=${args.adapter}`])
+    await execa('cross-env', [
+      `xy_config=${JSON.stringify({
+        env: adapter.env,
+        lastUpdateTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),
+        platform: adapter.platform,
+        isChrome: adapter.isChrome
+      })}`
+    ])
     logger.ci('启动器添加环境变量' + JSON.stringify(args))
 
     // 需要复制或者编译  配置文件和 端所需要的文件
-    xyAdapter.initialize()
+    adapter.initialize()
     logger.ci('完成配置文件迁移')
   } else {
     // 异常处理
