@@ -29,7 +29,7 @@
     "src/**/*.ts",
     "src/**/*.d.ts",
     "src/**/*.tsx",
-    "scripts",
+    "build",
     "types/**/*.d.ts",
     "types/**/*.ts",
     "vite.config.ts"

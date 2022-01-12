@@ -1,8 +1,8 @@
 const fs = require('fs')
 const path = require('path')
-import { logger } from './utils'
+import { logger } from '../utils'
 import chalk from 'chalk'
-import { PlatFormEnum } from '../src/enums/adapterEnum'
+import { PlatFormEnum } from '../../src/enums/adapterEnum'
 
 /**
  * 平台处理文件，只用于构建脚本。
@@ -23,9 +23,9 @@ const chromeConfigWrite = {
   remove() {},
   write() {
     fs.writeFileSync(
-      path.join(__dirname, '../public/manifest.json'),
+      path.join(__dirname, '../../public/manifest.json'),
       fs
-        .readFileSync(path.join(__dirname, '../src/adapter/chrome/manifest.json'))
+        .readFileSync(path.join(__dirname, '../../src/adapter/chrome/manifest.json'))
         .toString()
         .replace(/##version##/g, process.env.npm_package_version)
     )

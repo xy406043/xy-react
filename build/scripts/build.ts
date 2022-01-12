@@ -1,7 +1,7 @@
 const fs = require('fs-extra')
 import path from 'path'
 const execa = require('execa') // 开启子进程打包
-const { logger } = require('./utils')
+const { logger } = require('../utils')
 import { SystemConfig } from '@/config/themeConfig'
 import adapter from './adapter'
 import dayjs from 'dayjs'

@@ -9,7 +9,7 @@
 > - (也可以在 package.json 中设置 type 为 module ，但是需要设置 .eslintrc.js 为 .eslintrc.cjs 才能够使 eslint 生效)
 
 ```js
-babel-node scripts/build.js
+babel-node build/build.js
 ```
 
 #### ts-node tsconfig-paths esno
@@ -23,7 +23,7 @@ ts-node -r tsconfig-paths/register src/ls.ts  --files
 > - esno 可以直接以 Typescript & ESNext 运行
 
 ```
-esno scripts/build.ts
+esno build/build.ts
 ```
 
 ##### 配置 babelrc

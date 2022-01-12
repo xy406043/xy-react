@@ -1,14 +1,11 @@
 import { defineConfig, UserConfig, ConfigEnv } from 'vite'
-import react from '@vitejs/plugin-react'
-import Unocss from 'unocss/vite'
-import UnocssConfig from './windi.config'
 import path from 'path'
-import Icons from 'unplugin-icons/vite'
-// import IconsResolver from 'unplugin-icons/resolver'
-// ?? unplugin-auto-import 打开会报  can't find estree and its..... 以及 Cannot find name 'Plugin$1'，Did you mean 'Plugin'
-// import AutoImport from 'unplugin-auto-import/vite'
-import adapter from './scripts/adapter'
 import dayjs from 'dayjs'
+import adapter from './build/scripts/adapter'
+import { loadEnv } from 'vite'
+import { wrapperEnv } from './build/utils'
+import { createVitePlugins } from './build/vite/plugins'
+import { createRollupPlugin } from './build/rollup/plugins'
 
 const pathResolve = (dir: string) => {
   return path.join(__dirname, dir)
@@ -16,26 +13,26 @@ const pathResolve = (dir: string) => {
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }: ConfigEnv) => {
+  const root = process.cwd()
+
+  const env = loadEnv(mode, root)
+
+  // The boolean type read by loadEnv is a string. This function can be converted to boolean type
+  const viteEnv = wrapperEnv(env)
+
+  const { VITE_PORT, VITE_PUBLIC_PATH, VITE_PROXY, VITE_DROP_CONSOLE } = viteEnv
+
+  const isBuild = command === 'build'
+
   return {
-    plugins: [
-      Unocss(UnocssConfig),
-      react(),
-      // !! 报 doesn't exist on type JSX.IntrinsicElements； 直接引用写法吧
-      // AutoImport({
-      //   // 自动引入 iconify 的 图标 https://github.com/antfu/unplugin-icons#auto-importing
-      //   resolvers: [
-      //     IconsResolver({
-      //       prefix: 'Icon',
-      //       extension: 'jsx'
-      //     })
-      //   ]
-      // }),
-      Icons({
-        compiler: 'jsx', // or 'solid'
-        jsx: 'react'
-      })
-    ],
+    base: VITE_PUBLIC_PATH,
+    root,
+
+    // vitePlugins
+    plugins: createVitePlugins(viteEnv, isBuild),
+
     css: {},
+
     resolve: {
       alias: [
         {
@@ -56,6 +53,7 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
         }
       ]
     },
+
     // 定义全局内容替换，使用需要设置global.d.ts 类型定义
     define: {
       __APP_INFO__: JSON.stringify({
@@ -66,7 +64,10 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
       })
     },
 
-    base: './',
+    server: {
+      port: VITE_PORT
+    },
+
     build: {
       // 构建后是Es6，(经 tree shaking 之后)不可使用留存require等 commonjs写法，否则会引起报错
       target: 'es2015',
@@ -74,7 +75,14 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
       brotliSize: false,
       chunkSizeWarningLimit: 2000,
       rollupOptions: {
-        external: ['src/antd.custom.css', 'scripts/utils']
+        external: ['src/antd.custom.css', 'scripts/utils'],
+        // todo 异步引入组件 如何生成chunkName
+        plugins: createRollupPlugin(),
+        output: {
+          chunkFileNames: 'static/js/[name]-[hash].js',
+          entryFileNames: 'static/js/[name]-[hash].js',
+          assetFileNames: 'static/[ext]/[name]-[hash].[ext]'
+        }
       }
     }
   }

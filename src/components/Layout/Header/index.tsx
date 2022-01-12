@@ -9,6 +9,9 @@ export default function Header() {
       <Link to="SiteConfig" className="ml-40px">
         页面设置
       </Link>
+      <Link to="SiteTest" className="ml-40px">
+        其它
+      </Link>
     </div>
   )
 }

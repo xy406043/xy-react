@@ -6,6 +6,7 @@ export interface ShowContentInterface {
 }
 
 export interface HistoryTableShow {
+  tabId: number
   pageTitle: String
   linkUrl: String
   desc?: string
