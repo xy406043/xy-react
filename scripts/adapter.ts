@@ -2,6 +2,7 @@ const fs = require('fs')
 const path = require('path')
 import { logger } from './utils'
 import chalk from 'chalk'
+import { PlatFormEnum } from '../src/enums/adapterEnum'
 
 /**
  * 平台处理文件，只用于构建脚本。
@@ -10,8 +11,7 @@ import chalk from 'chalk'
  */
 
 // 平台处理
-const platform = (process.env.hasOwnProperty('xy_adapter') ? process.env.xy_adapter : '') as string
-
+const platform = (process.env.hasOwnProperty('npm_config_adapter') ? process.env.npm_config_adapter : '') as string
 const IS_CHROME = platform === 'chrome'
 
 // 删除文件
@@ -37,8 +37,9 @@ const chromeConfigWrite = {
 }
 
 export default {
-  env: process.env.npm_package_version,
-  platform: platform,
+  version: process.env.npm_package_version,
+  platform,
+  rightPlatform: PlatFormEnum[platform],
   isChrome: IS_CHROME,
   initialize: function () {
     // 移除配置文件

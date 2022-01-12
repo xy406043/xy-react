@@ -8,7 +8,7 @@ import dayjs from 'dayjs'
 
 const pathResolve = dir => path.resolve(__dirname, dir)
 
-// 获取scripts 参数
+// 获取scripts 参数 --- 只有写在scripts 内才能获取； 而npm_config_adapter必须在调用scripts时且使用npm/cnpm包管理器才能够自动生成
 const args = require('minimist')(process.argv.slice(2))
 
 // 按流程 执行构建脚本
@@ -21,19 +21,7 @@ async function main() {
   logger.ci('tsc 编译完毕')
 
   // ==============================  客户端配置项  =====================================
-  if (args && args.adapter) {
-    // 添加环境变量
-    await execa('cross-env', [`xy_adapter=${args.adapter}`])
-    await execa('cross-env', [
-      `xy_config=${JSON.stringify({
-        env: adapter.env,
-        lastUpdateTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),
-        platform: adapter.platform,
-        isChrome: adapter.isChrome
-      })}`
-    ])
-    logger.ci('启动器添加环境变量' + JSON.stringify(args))
-
+  if (adapter.platform && adapter.rightPlatform) {
     // 需要复制或者编译  配置文件和 端所需要的文件
     adapter.initialize()
     logger.ci('完成配置文件迁移')

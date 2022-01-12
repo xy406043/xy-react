@@ -26,19 +26,17 @@ export default function SiteHistory() {
     initData()
   }, [])
 
-  function initData() {
+  async function initData() {
     setTableLoading(true)
-    // 获取localStorage 数据
-    // TODO 放置到
-    chrome.storage.local.get(['LocalPageData'], (res: any) => {
-      const showData = clonedeep(res.LocalPageData || [])
-      // console.log('获取chromeLocalPageData 数据', res.LocalPageData)
-      showData.forEach(item => {
-        item = formatTableItem(item)
-      })
-      setTableData(showData)
-      setTableLoading(false)
+
+    const res = await db.get(['LocalPageData'])
+    const showData = clonedeep(res?.LocalPageData || [])
+    // console.log('获取chromeLocalPageData 数据', res.LocalPageData)
+    showData.forEach(item => {
+      item = formatTableItem(item)
     })
+    setTableData(showData)
+    setTableLoading(false)
   }
 
   // 重新设置storage数据并刷新展示
@@ -51,7 +49,7 @@ export default function SiteHistory() {
 
   // 清除当前key
   function removeAll() {
-    chrome.storage.local.remove('LocalPageData')
+    db.remove('LocalPageData')
     setTableData([])
   }
 

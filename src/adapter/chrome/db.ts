@@ -1,19 +1,24 @@
+// https://developer.chrome.com/docs/extensions/reference/storage/
 export default {
-  get(key, def = null) {
-    let data = lsCache.get(key)
-    return data ? data : def
+  get(key) {
+    return new Promise(resolve => {
+      chrome.storage.local.get(key, async res => {
+        resolve(res)
+      })
+    })
   },
-  set(key, value, expiry = 0) {
-    return lsCache.set(key, value, expiry / 60)
+
+  set(key, content: any) {
+    return chrome.storage.local.set(key, content)
   },
   remove(key) {
-    return lsCache.remove(key)
+    return chrome.storage.local.remove(key)
   },
   // 清理过期
   clear() {
-    return lsCache.flushExpired()
+    return
   },
   getAllKey() {
-    return lsCache.getAllKey()
+    return
   }
 }

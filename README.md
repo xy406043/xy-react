@@ -9,6 +9,12 @@
 这一次 将 vue3 换成了 react 并且用来开发 chrome 插件 ，一方面是加深 前端规范化常规流程的理解，另一方面也是学习 React，毕竟 似乎 React 的生态要比 Vue 要好，也为了强化了 前端工程化思路。
 实现的功能还是 TDKI 好了， 以及使用 sass 和 unocss 功能尝试
 
+#### 运行
+
+```s
+cnpm run  b --adapter=[chrome|firefox|utool]
+```
+
 #### react 开发 chrome 插件 痛点
 
 - 没有办法即时更改，每次代码修改都需要进行 build 而后进行 点击 chrome 插件的更新再进行尝试。

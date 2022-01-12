@@ -51,6 +51,7 @@
   // other
   "cSpell.ignoreWords": [
     // build
+    "cnpm",
     "esbuild",
     "pnpm",
     "windi",

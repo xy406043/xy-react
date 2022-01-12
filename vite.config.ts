@@ -56,11 +56,13 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
         }
       ]
     },
-    // 定义全局内容替换，但是只能在项目内使用(不能在执行vite前使用)
+    // 定义全局内容替换，使用需要设置global.d.ts 类型定义
     define: {
       __APP_INFO__: JSON.stringify({
-        env: adapter.env,
-        lastBuildTime: dayjs().format('YYYY-MM-DD HH:mm:ss')
+        version: adapter.version,
+        lastBuildTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),
+        platform: adapter.platform,
+        isChrome: adapter.isChrome
       })
     },
 

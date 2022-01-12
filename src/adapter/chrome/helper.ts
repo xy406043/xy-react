@@ -52,33 +52,6 @@ export const checkSpecialPage = (url: string | undefined) => {
 }
 
 /**
- * 本地存储内容
- * @param key
- * @param content
- */
-export const setLocal = (key: string, content: any) => {
-  chrome.storage.local.set([key], content)
-}
-
-/**
- * 获取本地存储内容
- * @param key
- * @returns
- */
-export const getLocal = (key: string) => {
-  return new Promise(resolve => {
-    chrome.storage.local.get([key], async res => {
-      resolve(res[key])
-    })
-  })
-}
-
-// 清除某个key
-export const clearLocal = (key: string) => {
-  chrome.storage.local.remove([key])
-}
-
-/**
  * 打开页面
  * @param url
  * @returns
