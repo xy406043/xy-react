@@ -3,7 +3,6 @@ import { message, notification } from 'antd'
 export const $ams = (str: string) => message.success(str)
 export const $ame = (str: string) => message.error(str)
 export const $amw = (str: string) => message.warning(str)
-
 const baseNots = (type, str, title) =>
   notification[type]({
     message: title,

@@ -3,11 +3,12 @@ import type { NormalizedOutputOptions, OutputBundle } from 'rollup'
 
 export function configChunkFileNamePlugin() {
   const chunkFileNamePlugin: Plugin = {
-    name: 'named-chunks',
+    name: 'xy-named-chunks',
     apply: 'build',
+    options(opts) {
+      console.log('opts参数', opts)
 
-    generateBundle: async (opts: NormalizedOutputOptions, bundle: OutputBundle) => {
-      return
+      return {}
     }
   }
 

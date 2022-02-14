@@ -43,6 +43,7 @@ export function wrapperEnv(envConf: Recordable): ViteEnv {
       process.env[envName] = JSON.stringify(realName)
     }
   }
+
   return ret
 }
 
@@ -55,8 +56,10 @@ function getConfFiles() {
   const result = reg.exec(script as string) as any
   if (result) {
     const mode = result[1] as string
+
     return ['.env', `.env.${mode}`]
   }
+
   return ['.env', '.env.production']
 }
 
@@ -81,6 +84,7 @@ export function getEnvConfig(match = 'VITE_GLOB_', confFiles = getConfFiles()) {
       Reflect.deleteProperty(envConfig, key)
     }
   })
+
   return envConfig
 }
 

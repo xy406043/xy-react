@@ -15,6 +15,12 @@
 cnpm run  b --adapter=[chrome|firefox|utool]
 ```
 
+#### 构建
+
+```s
+cnpm run b
+```
+
 #### react 开发 chrome 插件 痛点
 
 - 没有办法即时更改，每次代码修改都需要进行 build 而后进行 点击 chrome 插件的更新再进行尝试。
@@ -23,7 +29,7 @@ cnpm run  b --adapter=[chrome|firefox|utool]
 
 #### ⚠️⚠️⚠️⚠️ 过程 ⚠️⚠️⚠️⚠️
 
-[依赖](dependencies.md)
+[依赖](docs/dependencies.md)
 
 1. 安装@types/chrome 以解决开发环境无 chrome 变量的问题
 2. ant-design 4.0 版本 Js 代码默认支持基于 Es module 的 tree shaking

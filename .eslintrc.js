@@ -36,18 +36,24 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': 1,
     // 优先使用 interface 而不是 type
     '@typescript-eslint/consistent-type-definitions': ['error', 'interface'],
-    "@typescript-eslint/no-empty-function":"off"
+    '@typescript-eslint/no-empty-function': 'off',
 
     'no-undef': 'off',
     'no-console': 'off',
-    // 'no-unused-vars': 1,
+    // 'no-unused-vars': 2,
     'newline-before-return': 'error',
     'no-var': 'error',
     'space-comment': 0, // 展示不要有空格
     'use-isnan': 2, //禁止比较时使用NaN，只能用isNaN()
+    'prefer-const': [
+      2,
+      {
+        ignoreReadBeforeAssign: false
+      }
+    ],
 
     // prettier 的lint冲突会被ESlint当成错误处理
-    'prettier/prettier': 'off',
+    // 'prettier/prettier': 'off',
 
     // 不允许在变量定义之前使用它们
     'no-use-before-define': 0,
