@@ -5,7 +5,7 @@ import { openUrl as chromiumOpenUrl } from '@/adapter/chrome/helper'
  */
 
 const env = (key: string) => {
-  console.log('import', __APP_INFO__)
+  // console.log('import', __APP_INFO__)
   const appInfo = __APP_INFO__
   if (!appInfo) return ''
 

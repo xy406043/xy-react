@@ -60,5 +60,6 @@ export const openUrl = (url: string) => {
   if (url.indexOf('chrome://') === 0) {
     return chrome.tabs.create({ url: url })
   }
+
   return window.open(url)
 }

@@ -5,6 +5,7 @@
 import { ChromeSpecialPages as excludePages } from '@/adapter/chrome/enum'
 import { getCurrentTab } from '@/adapter/chrome/helper'
 import clonedeep from 'lodash.clonedeep'
+import MenuCreator from './menus'
 
 // 接收来自 content-scripts/ popup.js的信息
 chrome.runtime.onMessage.addListener(async function (request, sender, sendResponse) {
@@ -60,3 +61,6 @@ function SendMessage(options) {
     // console.log('来自content-script: direct.js的回复：' + response)
   })
 }
+
+//  右侧菜单指令内容
+MenuCreator()

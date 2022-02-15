@@ -11,7 +11,7 @@ import { PlatFormEnum } from '../../src/enums/adapterEnum'
  */
 
 // 平台处理
-const platform = (process.env.hasOwnProperty('npm_config_adapter') ? process.env.npm_config_adapter : '') as string
+const platform = (process.env.npm_config_adapter ? process.env.npm_config_adapter : '') as string
 const IS_CHROME = platform === 'chrome'
 
 // 删除文件

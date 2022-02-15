@@ -11,7 +11,7 @@
     "64": "img/go.png"
   },
   // 允许权限
-  "permissions": ["scripting", "activeTab", "tabs", "storage"],
+  "permissions": ["scripting", "activeTab", "tabs", "storage", "contextMenus"],
 
   // 后台
   "background": {

@@ -30,7 +30,7 @@ function SiteShow() {
 
     setLoading(true)
     catchLocalData().then((list: any) => {
-      console.log('popup: 获取当前页面的TDKI信息', list)
+      // console.log('popup: 获取当前页面的TDKI信息', list)
       if (!list.length) {
         return setSpecial(true)
       }

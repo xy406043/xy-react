@@ -7,7 +7,10 @@ import { catchLocalTheme } from '@/utils/themeUtil'
 
 function App() {
   const location = useLocation()
-  const checkSiteShow = location.pathname === '/'
+  const singleRoutes = ['/', '/XyCameraShow']
+  // 单独的页面隐藏掉顶部的目录栏
+  const checkSiteShow = singleRoutes.includes(location.pathname)
+
   useEffect(() => {
     ConfigProvider.config({
       prefixCls: SystemConfig.prefixCls, // 需同时设置 下面的prefixCls 并生成对应prefix的css文件并引入

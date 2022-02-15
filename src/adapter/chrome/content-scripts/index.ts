@@ -14,19 +14,28 @@
 // TODO   解决部分网页的图标没有域名的问题
 
 import { checkPreHref } from '@/utils/webUtil'
+import { XyMessageType } from '~/src/enums/adapterEnum'
 
 let showIconsList = [] as any
 let showImagesList = [] as any
 const httpRegex = new RegExp(/http/)
 
+// 默认加载内容
 loadScript()
 
 // 监听来自 background 的消息
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   sendResponse('background你好，我收到了你的消息！' + request.type)
+  console.log('接收到来自background的消息', request)
 
-  if (request.type === 'tabUpdate') {
+  if (request.type === XyMessageType.TAB_UPDATE) {
     loadScript()
+  }
+  if (request.type === XyMessageType.PAGE_CAMERA) {
+    const JumpUrl = chrome.runtime.getURL('index.html') + '#' + '/XyCameraShow'
+    const iframe = document.createElement('iframe')
+    iframe.className = 'xy-iframe'
+    iframe.src = JumpUrl
   }
 })
 
@@ -94,7 +103,7 @@ async function loadScript() {
             resolve(true)
           }
           img.onerror = function () {
-            console.log('该链接无效', img.src)
+            // console.log('该链接无效', img.src)
             resolve(true)
           }
         })
