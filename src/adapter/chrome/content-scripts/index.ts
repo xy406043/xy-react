@@ -26,7 +26,7 @@ loadScript()
 // 监听来自 background 的消息
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   sendResponse('background你好，我收到了你的消息！' + request.type)
-  console.log('接收到来自background的消息', request)
+  // console.log('接收到来自background的消息', request)
 
   if (request.type === XyMessageType.TAB_UPDATE) {
     loadScript()
@@ -36,6 +36,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     const iframe = document.createElement('iframe')
     iframe.className = 'xy-iframe'
     iframe.src = JumpUrl
+    document.body.appendChild(iframe)
   }
 })
 

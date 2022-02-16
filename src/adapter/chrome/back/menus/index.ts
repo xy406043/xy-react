@@ -14,6 +14,7 @@ chrome.contextMenus.onClicked.addListener((info: chrome.contextMenus.OnClickData
 
 // https://developer.chrome.com/docs/extensions/reference/contextMenus/
 const MenuCreator = () => {
+  console.log('获取调用次数')
   chrome.contextMenus.create({
     id: cameraId,
     title: 'xy-调用摄像头',
