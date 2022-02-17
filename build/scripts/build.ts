@@ -24,7 +24,7 @@ async function main() {
   if (adapter.platform && adapter.rightPlatform) {
     // 需要复制或者编译  配置文件和 端所需要的文件
     adapter.initialize()
-    logger.ci('完成配置文件迁移')
+    // logger.ci('完成配置文件迁移')
   } else {
     // 异常处理
     logger.error('请以 --adapter=[chrome|firefox|utools]的格式进行设置')
@@ -32,8 +32,9 @@ async function main() {
   }
 
   // 需要执行编译的配置文件
+  // TODO：依据执行的不同构建不同的adpater
   await execa('babel-node', ['esbuild.config.js'])
-  logger.ci('esbuild 构建 chrome extension 脚本完毕')
+  logger.ci('esbuild 构建 extension 所需脚本完毕')
 
   // =================================================================================
 

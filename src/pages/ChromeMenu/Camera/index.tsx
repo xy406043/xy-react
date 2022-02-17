@@ -20,20 +20,31 @@ export default function XyCameraShow() {
         }
       }
       // 创建
-      const stream = await navigator.mediaDevices.getUserMedia(params)
+
       const CompatibleURL = window.URL || window.webkitURL
-      console.log('videoRef', videoRef, stream)
 
-      // try {
-      //   // videoRef.src = CompatibleURL.createObjectURL(stream)
-      // } catch (err) {
-      //   videoRef.srcObject = stream
-      // }
+      // 打开摄像头
+      /**
+       *  引入 @types/webrtc
+       * https://stackoverflow.com/questions/13641692/how-to-use-getusermedia-from-typescript/35185230
+       *
+       * https://gist.github.com/keshihoriuchi/40ff3217a7a63d25788ce5cb8230ba3b  !.下面的eslint 建议使用?.但是仍然会有错误
+       */
+      navigator.getUserMedia(
+        params,
+        stream => {
+          // videoRef.current?.src = CompatibleURL.createObjectURL(stream)
 
-      videoRef.current?.play()
-      // videoRef.onloadedmetadata = function (e) {
-      //   videoRef.play()
-      // }
+          // 将画面映射到画布上
+          videoRef.current!.srcObject = stream
+          videoRef.current!.onloadedmetadata = function (e) {
+            videoRef.current?.play()
+          }
+        },
+        err => {
+          console.log(err)
+        }
+      )
     })()
   }, [])
 

@@ -7,7 +7,9 @@ import { getCurrentTab } from '@/adapter/chrome/helper'
 import clonedeep from 'lodash.clonedeep'
 import MenuCreator from './menus'
 
-// 接收来自 content-scripts/ popup.js的信息
+/**
+ * 接收来自 content-scripts/ popup.js的信息
+ */
 chrome.runtime.onMessage.addListener(async function (request, sender, sendResponse) {
   const tab = await getCurrentTab()
   // console.log('已接受到来自content-script的信息', request, sender, sendResponse)
@@ -26,7 +28,9 @@ chrome.runtime.onMessage.addListener(async function (request, sender, sendRespon
   sendResponse('我是后台接受到你的数据')
 })
 
-//  监听tab页面变化 - 传递给 popup.js 进行数据更新 切换路由、状态变更等
+/**
+ *  监听tab页面变化 - 传递给 popup.js 进行数据更新 切换路由、状态变更等
+ */
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
   // console.log('页面发生变化 刷新 or 新建', tabId, changeInfo, tab)
   if (changeInfo.url && excludePages.some(x => changeInfo?.url?.includes(x))) {
@@ -42,7 +46,9 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
   })
 })
 
-// 切换选项卡时
+/**
+ * 切换选项卡
+ */
 chrome.tabs.onActivated.addListener(async activeInfo => {
   const tab = await getCurrentTab()
   // console.log('选项卡发生变化', activeInfo, tab)
@@ -56,6 +62,11 @@ chrome.tabs.onActivated.addListener(async activeInfo => {
   })
 })
 
+/**
+ * 传递消息 给 content-scripts
+ * @param options
+ *
+ */
 function SendMessage(options) {
   chrome.tabs.sendMessage(options.tabId, options.message, function (response) {
     // console.log('来自content-script: direct.js的回复：' + response)
