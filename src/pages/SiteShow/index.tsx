@@ -20,6 +20,7 @@ function SiteShow() {
 
     getCurrentTab().then(res => {
       // console.log('获取到Tab内容', res)
+      console.log('chromeId', ExtensionId)
       if (res.url?.includes(ExtensionId)) {
         // 跳转到其它页面
         navigate('/History')
