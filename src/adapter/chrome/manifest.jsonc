@@ -1,0 +1,49 @@
+{
+  // v3:  https://developer.chrome.com/docs/extensions/mv3/manifest/
+  "manifest_version": 3,
+  "name": "xy-react",
+  "version": "0.0.1",
+  "description": "简单工具集合",
+  "offline_enabled": true,
+  "icons": {
+    "18": "img/go.png",
+    "32": "img/go.png",
+    "64": "img/go.png"
+  },
+  // 允许权限
+  "permissions": ["scripting", "activeTab", "tabs", "storage", "contextMenus"],
+
+  // 后台
+  "background": {
+    "service_worker": "back/index.js"
+  },
+  //  弹窗页面
+  "action": {
+    "default_popup": "index.html"
+  },
+  // 配置页面
+  "options_page": "index.html", // 先使用路由跳转的形式进行展示，而后通过构建多页面进行展示
+  // 覆盖特定页面
+  "chrome_url_overrides": {
+    "newtab": "index.html",
+    "history": "index.html",
+    "bookmarks": "index.html"
+  },
+  // content-scripts 插入脚本
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "all_frames": true, // 可能是允许访问外层访问iframe的contentWindow等
+      "match_about_blank": true,
+      "js": ["content-scripts/index.js"],
+      "css": ["content-scripts/index.css"]
+    }
+  ],
+  // 指定网站可以访问插件的内容，必须有才可以 插入iframe等操作
+  "web_accessible_resources": [
+    {
+      "matches": ["<all_urls>"],
+      "resources": ["**"]
+    }
+  ]
+}

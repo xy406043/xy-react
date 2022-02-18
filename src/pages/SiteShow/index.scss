@@ -1,0 +1,85 @@
+$xy-theme-color: #79d2d2;
+$xy-theme-text-color: black;
+$xy-theme-text-light-color:white;
+$xy-theme-text-bg: #131100;
+
+
+.xy-none-text {
+  color: $xy-theme-text-light-color;
+}
+
+main {
+  color: $xy-theme-color
+}
+
+.site-show {
+  height: 400px;
+  width: 300px;
+  background: black;
+  overflow: scroll;
+  padding: 10px;
+  font-size: 12px;
+}
+
+.xy-none-info {
+  width: 200px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  color: white;
+  font-weight: bolder;
+  background-color: black;
+  border: 1px solid skyblue;
+  user-select: none;
+  cursor: zoom-in;
+}
+
+
+.come-item {
+  display: flex;
+  margin: 5px 0;
+}
+
+.come-none {
+  display: none;
+}
+
+.xy-select-all {
+  user-select: all;
+  cursor: copy;
+}
+
+.xy-auto-webs-panel-item-title {
+  width: 80px;
+  text-align: left;
+  font-weight: bolder;
+  font-size: 14px;
+  color: white;
+  user-select: none;
+}
+
+
+.xy-auto-webs-panel-item-content {
+  flex: 1;
+  word-spacing: 3px;
+  text-align: left;
+  flex-wrap: wrap;
+  color: skyblue;
+  /*word-break: break-all;*/
+  word-break: break-word;
+  line-height: 1.5;
+}
+
+.xy-auto-webs-panel-item-img-url {
+  margin-bottom: 10px;
+  user-select: all;
+  cursor: copy;
+}
+
+.xy-auto-webs-panel-item-img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  user-select: none;
+  filter: none !important;
+}

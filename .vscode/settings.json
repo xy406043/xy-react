@@ -1,21 +1,29 @@
 {
   // vscode
-  "files.exclude": {
-    "**/.git": true,
-    "**/.svn": true,
-    "**/.hg": true,
-    "**/CVS": true,
-    "**/.DS_Store": true,
-    "**/Thumbs.db": true,
-    "public/": true
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/bower_components": true,
+    "**/*.code-search": true,
+    "dist/**": true,
+    "public/back/**": true,
+    "public/content-scripts/**": true
   },
   "path-intellisense.mappings": {
-    "@": "${workspaceRoot}/src"
+    "~": "${workspaceRoot}",
+    "@": "${workspaceRoot}/src",
+    "#": "${workspaceRoot}/types"
   },
 
-  // 常规 -- 检查使用 eslint 即可
+  // 常规 -- (似乎某些错误 eslint无法检查到，还是需要 开启ts 验证)
   "javascript.validate.enable": false,
-  "typescript.validate.enable": false, //是否启用ts 验证
+  "typescript.validate.enable": true, //是否启用ts 验证
+  "css.validate": false, // 交由 stylelint进行检查
+  "less.validate": false,
+  "scss.validate": false,
+
+  // =========================================================
+  // =================   规范和格式化   ========================
+  // =========================================================
 
   // eslint
   "eslint.enable": true,
@@ -26,6 +34,33 @@
   },
   "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact", "vue", "jsx", "tsx"],
 
+  // formatter
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    // "editor.defaultFormatter": "vscode.typescript-language-features" // 此格式化无效
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+
+  // =========================================================
+  // =========================  其它 ==========================
+  // =========================================================
+
   // other
-  "cSpell.ignoreWords": ["esbuild", "pnpm"]
+  "cSpell.ignoreWords": [
+    // build
+    "cnpm",
+    "esbuild",
+    "pnpm",
+    "windi",
+    "unocss",
+    "execa",
+    "outfile",
+    "unplugin",
+
+    // func
+    "clonedeep"
+  ]
 }
