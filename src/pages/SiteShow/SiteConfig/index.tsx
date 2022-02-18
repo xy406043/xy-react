@@ -10,8 +10,8 @@ export default function SiteConfig() {
   const [color, setColor] = useState(SystemConfig.theme)
 
   // 获取本地设置的主题色 或者 默认的主题色
-  const getThemeConfig = () => {
-    const localTheme = catchLocalTheme()
+  const getThemeConfig = async () => {
+    const localTheme = await catchLocalTheme()
     setColor(localTheme)
   }
 

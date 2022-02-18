@@ -2,7 +2,8 @@ import lsCache from './lscache'
 
 export default {
   get(key, def = null) {
-    let data = lsCache.get(key)
+    const data = lsCache.get(key)
+
     return data ? data : def
   },
   set(key, value, expiry = 0) {

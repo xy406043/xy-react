@@ -13,6 +13,7 @@ import { PlatFormEnum } from '../../src/enums/adapterEnum'
 // 平台处理
 const platform = (process.env.npm_config_adapter ? process.env.npm_config_adapter : '') as string
 const IS_CHROME = platform === 'chrome'
+const IS_FIREFOX = platform === 'firefox'
 
 // 删除文件
 const removeFile = filePath => {
@@ -22,6 +23,7 @@ const removeFile = filePath => {
 const chromeConfigWrite = {
   remove() {},
   write() {
+    if (!IS_CHROME) return
     fs.writeFileSync(
       path.join(__dirname, '../../public/manifest.json'),
       fs
@@ -36,15 +38,39 @@ const chromeConfigWrite = {
   }
 }
 
+const firefoxConfigWrite = {
+  remove() {},
+  write() {
+    if (!IS_FIREFOX) return
+    fs.writeFileSync(
+      path.join(__dirname, '../../public/manifest.json'),
+      fs
+        .readFileSync(path.join(__dirname, '../../src/adapter/firefox/manifest.json'))
+        .toString()
+        .replace(/##version##/g, process.env.npm_package_version)
+    )
+
+    logger.ln()
+    console.log(`${chalk.bgBlue.black(' IN ')} ${chalk.magenta('迁移firefox配置文件成功')}`)
+    logger.ln()
+  }
+}
+
 export default {
   version: process.env.npm_package_version,
   platform,
   rightPlatform: PlatFormEnum[platform],
   isChrome: IS_CHROME,
+  isFirefox: IS_FIREFOX,
   initialize: function () {
-    // 移除配置文件
+    // 移除Chrome 配置文件
     chromeConfigWrite.remove()
-    // 添加配置文件
+    // 添加Chrome 配置文件
     chromeConfigWrite.write()
+
+    // 移除添加Firefox 配置文件
+    firefoxConfigWrite.remove()
+    // 添加Firefox 配置文件
+    firefoxConfigWrite.write()
   }
 }

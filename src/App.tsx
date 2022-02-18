@@ -12,10 +12,12 @@ function App() {
   const checkSiteShow = singleRoutes.includes(location.pathname)
 
   useEffect(() => {
-    ConfigProvider.config({
-      prefixCls: SystemConfig.prefixCls, // 需同时设置 下面的prefixCls 并生成对应prefix的css文件并引入
-      theme: catchLocalTheme()
-    })
+    ;(async () => {
+      ConfigProvider.config({
+        prefixCls: SystemConfig.prefixCls, // 需同时设置 下面的prefixCls 并生成对应prefix的css文件并引入
+        theme: await catchLocalTheme()
+      })
+    })()
   })
 
   return (

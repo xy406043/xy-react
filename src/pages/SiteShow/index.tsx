@@ -3,9 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Tag } from 'antd'
 import './index.css'
 import './index.scss'
-import { ChromeExtensionId } from '@/adapter/chrome/enum'
-// TODO 转helper 工具
-import { getCurrentTab, catchLocalData } from '@/adapter/chrome/helper'
+import { ExtensionId, getCurrentTab, catchLocalData } from '~/src/adapterTool/helper'
 import BundleLoading from '~icons/eos-icons/bubble-loading'
 import { ShowContentInterface } from './types'
 
@@ -22,7 +20,7 @@ function SiteShow() {
 
     getCurrentTab().then(res => {
       // console.log('获取到Tab内容', res)
-      if (res.url?.includes(ChromeExtensionId)) {
+      if (res.url?.includes(ExtensionId)) {
         // 跳转到其它页面
         navigate('/History')
       }
