@@ -28,11 +28,23 @@
       "matches": [
         "<all_urls>"
       ],
+      "all_frames": true,
+      "match_about_blank": true,
       "js": [
         "content-scripts/index.js"
       ],
       "css": [
         "content-scripts/index.css"
+      ]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "resources": [
+        "**"
       ]
     }
   ]

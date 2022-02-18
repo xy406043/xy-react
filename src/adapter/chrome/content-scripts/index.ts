@@ -28,8 +28,8 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     loadWebScript()
   }
   if (request.type === XyMessageType.PAGE_CAMERA) {
-    // InjectCameraIframe()
-    InjectCameraElement()
+    InjectCameraIframe()
+    // InjectCameraElement()
   }
 })
 
