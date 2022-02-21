@@ -69,6 +69,7 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
     },
 
     build: {
+      outDir: `dist/${adapter.platform}`, // 不同插件构建到不同的目录
       // 构建后是Es6，(经 tree shaking 之后)不可使用留存require等 commonjs写法，否则会引起报错
       target: 'es2015',
       // Turning off brotliSize display can slightly reduce packaging time

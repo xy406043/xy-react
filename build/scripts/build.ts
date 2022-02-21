@@ -17,6 +17,9 @@ main()
 async function main() {
   const startTime = Date.now()
 
+  await execa('rimraf', [`dist/${adapter.platform}/**`])
+  logger.ci('清除dist文件成功')
+
   await execa('tsc')
   logger.ci('tsc 编译完毕')
 
