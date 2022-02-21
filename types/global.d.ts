@@ -25,15 +25,5 @@ declare global {
     VITE_LEGACY: boolean
     VITE_USE_IMAGEMIN: boolean
     VITE_GENERATE_UI: string
-
-    // 微信授权使用
-    VITE_WX_APP_ID?: string
-    VITE_WX_APP_SECRET?: string
-
-    // sass应用的appid
-    VITE_SASS_APP_ID?: string
-
-    // 第三方企业微信服务商的appId
-    VITE_QY_THIRD_CORP_ID?: string
   }
 }

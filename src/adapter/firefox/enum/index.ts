@@ -1,4 +1,4 @@
-export const ChromeSpecialPages: Array<string> = [
+export const FirefoxSpecialPages: Array<string> = [
   'chrome://newtab/',
   'chrome://extensions/',
   'chrome://bookmarks',

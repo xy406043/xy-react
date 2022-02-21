@@ -1,11 +1,16 @@
 import { openUrl as chromiumOpenUrl } from '@/adapter/chrome/helper'
 import { getCurrentTab as chromeGetCurrentTab, catchLocalData as chromeCatchLocalData } from '@/adapter/chrome/helper'
+import {
+  getCurrentTab as firefoxGetCurrentTab,
+  catchLocalData as firefoxCatchLocalData
+} from '@/adapter/firefox/helper'
 
 /**
  * 必须从环境变量从取出必要参数， 不可从adapter.ts
+ *
+ * 注意env是方法 ！！！！
  */
-
-const env = (key: string) => {
+export const env = (key: string) => {
   // console.log('import', __APP_INFO__)
   const appInfo = __APP_INFO__
   if (!appInfo) return ''
@@ -44,7 +49,7 @@ export const ExtensionId = ExtensionMap[env('platform')]
  */
 const TabCatchMap = {
   chrome: chromeGetCurrentTab,
-  firefox: chromeCatchLocalData
+  firefox: firefoxGetCurrentTab
 }
 export const getCurrentTab = TabCatchMap[env('platform')]
 
@@ -52,6 +57,15 @@ export const getCurrentTab = TabCatchMap[env('platform')]
  * 插件获取存储的数据
  */
 const SaveDataMap = {
-  chrome: chromeCatchLocalData
+  chrome: chromeCatchLocalData,
+  firefox: firefoxCatchLocalData
 }
-export const catchLocalData = SaveDataMap[env['platform']]
+export const catchLocalData = SaveDataMap[env('platform')]
+
+export const AdapterToolContent = {
+  platform: env('platform'),
+  CHROME_EXTENSION_ID,
+  ExtensionMap,
+  TabCatchMap,
+  SaveDataMap
+}

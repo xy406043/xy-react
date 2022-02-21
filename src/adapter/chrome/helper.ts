@@ -12,6 +12,8 @@ export async function getCurrentTab() {
 
 // 获取 content-scripts 存储在storage中的数据
 export const catchLocalData = async () => {
+  console.log('触发 CatchLocalData')
+
   return new Promise(resolve => {
     if (!chrome?.storage) return resolve([])
     chrome.storage.local.get('LocalPageData', async result => {

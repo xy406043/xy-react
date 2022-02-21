@@ -13,9 +13,11 @@ function App() {
 
   useEffect(() => {
     ;(async () => {
+      const theme = await catchLocalTheme()
+      // console.log('获取到主题', theme)
       ConfigProvider.config({
         prefixCls: SystemConfig.prefixCls, // 需同时设置 下面的prefixCls 并生成对应prefix的css文件并引入
-        theme: await catchLocalTheme()
+        theme
       })
     })()
   })

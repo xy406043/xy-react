@@ -17,7 +17,7 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "baseUrl": ".",
-    "types": ["react", "node", "chrome", "react-dom", "webrtc"],
+    "types": ["react", "node", "chrome", "react-dom", "webrtc", "webextension-polyfill"],
     "typeRoots": ["./node_modules/@types/", "./types"],
     "paths": {
       "~/*": ["*"],

@@ -2,7 +2,7 @@
 // 可以访问所有browser Api === 需要在manifest.json 中添加权限
 // 无法获取Dom
 
-import { ChromeSpecialPages as excludePages } from '@/adapter/firefox/enum'
+import { FirefoxSpecialPages as excludePages } from '@/adapter/firefox/enum'
 import { getCurrentTab } from '@/adapter/firefox/helper'
 import clonedeep from 'lodash.clonedeep'
 import MenuCreator from './menus'
@@ -68,4 +68,4 @@ function SendMessage(options) {
 }
 
 //  右侧菜单指令内容
-// MenuCreator()
+MenuCreator()

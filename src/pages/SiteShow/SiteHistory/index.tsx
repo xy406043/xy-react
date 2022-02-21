@@ -31,7 +31,7 @@ export default function SiteHistory() {
 
     const res = await db.get(['LocalPageData'])
     const showData = clonedeep(res?.LocalPageData || [])
-    // console.log('获取chromeLocalPageData 数据', res.LocalPageData)
+    console.log('获取chromeLocalPageData 数据', res.LocalPageData)
     showData.forEach(item => {
       item = formatTableItem(item)
     })

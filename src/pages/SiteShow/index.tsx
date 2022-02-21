@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Tag } from 'antd'
 import './index.css'
 import './index.scss'
-import { ExtensionId, getCurrentTab, catchLocalData } from '~/src/adapterTool/helper'
+import { ExtensionId, getCurrentTab, catchLocalData, AdapterToolContent } from '~/src/adapterTool/helper'
 import BundleLoading from '~icons/eos-icons/bubble-loading'
 import { ShowContentInterface } from './types'
 
@@ -17,34 +17,38 @@ function SiteShow() {
   useEffect(() => {
     // componentDidMount 初始化时加载一次
     // index页面，判断当前页面所处内容，跳转到对应的路由
-
-    getCurrentTab().then(res => {
-      // console.log('获取到Tab内容', res)
-      console.log('chromeId', ExtensionId)
-      if (res.url?.includes(ExtensionId)) {
-        // 跳转到其它页面
-        navigate('/History')
-      }
-    })
-
-    setLoading(true)
-    catchLocalData().then((list: any) => {
-      // console.log('popup: 获取当前页面的TDKI信息', list)
-      if (!list.length) {
-        return setSpecial(true)
-      }
-
-      setTab(list)
-      setTimeout(() => {
-        setLoading(false)
-      }, 200)
-    })
+    initData()
 
     // componentDidUmount 组件卸载时调用一次
     return () => {
       // console.log('卸载')
     }
   }, [])
+
+  async function initData() {
+    const res = await getCurrentTab()
+    // console.log('获取到Tab内容', res)
+    if (res.url?.includes(ExtensionId)) {
+      // 跳转到其它页面
+      navigate('/History')
+
+      return
+    }
+
+    setLoading(true)
+    // console.log('获取数据', AdapterToolContent)
+    const list: any = await catchLocalData()
+
+    console.log('popup: 获取当前页面的TDKI信息', list)
+    if (!list.length) {
+      return setSpecial(true)
+    }
+
+    setTab(list)
+    setTimeout(() => {
+      setLoading(false)
+    }, 200)
+  }
 
   // 复制词条内容
   const clipSome = (content: any) => {

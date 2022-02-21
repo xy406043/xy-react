@@ -11,6 +11,9 @@
   "browser_action": {
     "default_popup": "index.html"
   },
+  "options_ui": {
+    "page": "index.html"
+  },
   "icons": {
     "18": "img/go.png",
     "32": "img/go.png",
