@@ -12,11 +12,17 @@ function App() {
   const checkSiteShow = singleRoutes.includes(location.pathname)
 
   useEffect(() => {
+    initData()
+  })
+
+  // TODO  次数db获取有误
+  async function initData() {
+    const theme: any = await catchLocalTheme()
     ConfigProvider.config({
       prefixCls: SystemConfig.prefixCls, // 需同时设置 下面的prefixCls 并生成对应prefix的css文件并引入
-      theme: catchLocalTheme()
+      theme: SystemConfig.theme
     })
-  })
+  }
 
   return (
     //  antd 全局化配置

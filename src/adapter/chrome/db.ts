@@ -2,23 +2,17 @@
 export default {
   get(key) {
     return new Promise(resolve => {
-      chrome.storage.local.get(key, async res => {
+      browser.storage.local.get(key).then(async res => {
         resolve(res)
       })
     })
   },
 
   set(key, content: any) {
-    return chrome.storage.local.set(key, content)
+    return browser.storage.local.set([{ key: content }])
   },
+
   remove(key) {
-    return chrome.storage.local.remove(key)
-  },
-  // 清理过期
-  clear() {
-    return
-  },
-  getAllKey() {
-    return
+    browser.storage.local.remove(key)
   }
 }

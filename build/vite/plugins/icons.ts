@@ -23,5 +23,6 @@ export function configAutoIconsPlugin(isBuild: boolean) {
       jsx: 'react'
     })
   ]
+
   return autoIconsPlugin
 }

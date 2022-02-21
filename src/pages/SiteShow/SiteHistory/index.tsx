@@ -29,7 +29,8 @@ export default function SiteHistory() {
   async function initData() {
     setTableLoading(true)
 
-    const res = await db.get(['LocalPageData'])
+    // TODO 优化类型
+    const res: any = await db.get(['LocalPageData'])
     const showData = clonedeep(res?.LocalPageData || [])
     // console.log('获取chromeLocalPageData 数据', res.LocalPageData)
     showData.forEach(item => {

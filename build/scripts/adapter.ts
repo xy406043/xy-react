@@ -25,13 +25,13 @@ const chromeConfigWrite = {
     fs.writeFileSync(
       path.join(__dirname, '../../public/manifest.json'),
       fs
-        .readFileSync(path.join(__dirname, '../../src/adapter/chrome/manifest.json'))
+        .readFileSync(path.join(__dirname, `../../src/adapter/${platform}/manifest.json`))
         .toString()
         .replace(/##version##/g, process.env.npm_package_version)
     )
 
     logger.ln()
-    console.log(`${chalk.bgBlue.black(' IN ')} ${chalk.magenta('迁移chrome配置文件成功')}`)
+    console.log(`${chalk.bgBlue.black(' IN ')} ${chalk.magenta('迁移' + platform + '配置文件成功')}`)
     logger.ln()
   }
 }

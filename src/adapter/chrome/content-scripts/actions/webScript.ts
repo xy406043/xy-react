@@ -159,7 +159,7 @@ export const loadWebScript = async () => {
         imgs: showImagesList
       }
       // console.log('xy-react 获取页面数据内容', pageData, LocalPageDataInfo)
-      chrome.runtime.sendMessage(pageData, res => {
+      browser.runtime.sendMessage(pageData).then(res => {
         // console.log('content-scripts 收到 来自后台的回复数据', res)
       })
     }

@@ -1,5 +1,5 @@
-// background.js === chrome 插件后台核心
-// 可以访问所有chrome Api === 需要在manifest.json 中添加权限
+// background.js === browser 插件后台核心
+// 可以访问所有browser Api === 需要在manifest.json 中添加权限
 // 无法获取Dom
 
 import { ChromeSpecialPages as excludePages } from '@/adapter/chrome/enum'
@@ -10,17 +10,17 @@ import MenuCreator from './menus'
 /**
  * 接收来自 content-scripts/ popup.js的信息
  */
-chrome.runtime.onMessage.addListener(async function (request, sender, sendResponse) {
+browser.runtime.onMessage.addListener(async function (request, sender, sendResponse) {
   const tab = await getCurrentTab()
   // console.log('已接受到来自content-script的信息', request, sender, sendResponse)
 
-  chrome.storage.local.get(['LocalPageData'], function (res) {
+  browser.storage.local.get(['LocalPageData']).then(res => {
     const allLocalPage: any = clonedeep(res.LocalPageData) || []
     const localIndex = allLocalPage.findIndex(item => item.tabId === tab.id)
     request.tabId = tab.id
     localIndex === -1 && allLocalPage.push(request)
     localIndex !== -1 && (allLocalPage[localIndex] = request)
-    chrome.storage.local.set({ LocalPageData: allLocalPage }, function () {
+    browser.storage.local.set({ LocalPageData: allLocalPage }).then(function () {
       // console.log('设置数据成功', allLocalPage)
     })
   })
@@ -31,7 +31,7 @@ chrome.runtime.onMessage.addListener(async function (request, sender, sendRespon
 /**
  *  监听tab页面变化 - 传递给 popup.js 进行数据更新 切换路由、状态变更等
  */
-chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
+browser.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
   // console.log('页面发生变化 刷新 or 新建', tabId, changeInfo, tab)
   if (changeInfo.url && excludePages.some(x => changeInfo?.url?.includes(x))) {
     return
@@ -49,7 +49,7 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
 /**
  * 切换选项卡
  */
-chrome.tabs.onActivated.addListener(async activeInfo => {
+browser.tabs.onActivated.addListener(async activeInfo => {
   const tab = await getCurrentTab()
   // console.log('选项卡发生变化', activeInfo, tab)
   if (tab.url && excludePages.some(x => tab?.url?.includes(x))) {
@@ -68,7 +68,7 @@ chrome.tabs.onActivated.addListener(async activeInfo => {
  *
  */
 function SendMessage(options) {
-  chrome.tabs.sendMessage(options.tabId, options.message, function (response) {
+  browser.tabs.sendMessage(options.tabId, options.message).then(function (response) {
     // console.log('来自content-script: direct.js的回复：' + response)
   })
 }

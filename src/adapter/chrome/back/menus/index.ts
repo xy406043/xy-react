@@ -4,7 +4,7 @@ import { nanoid } from 'nanoid'
 const cameraId = nanoid()
 
 // 监听右侧面板点击
-chrome.contextMenus.onClicked.addListener((info: chrome.contextMenus.OnClickData, tab?: chrome.tabs.Tab): void => {
+browser.contextMenus.onClicked.addListener((info: browser.contextMenus.OnClickData, tab?: browser.tabs.Tab): void => {
   console.log('调用了右侧菜单内容！', info, tab, cameraId)
   CameraMenu(info, tab)
 })
@@ -15,7 +15,7 @@ chrome.contextMenus.onClicked.addListener((info: chrome.contextMenus.OnClickData
 // https://developer.chrome.com/docs/extensions/reference/contextMenus/
 const MenuCreator = () => {
   console.log('获取调用次数')
-  chrome.contextMenus.create({
+  browser.contextMenus.create({
     id: cameraId,
     title: 'xy-调用摄像头',
     visible: true

@@ -5,7 +5,7 @@ import { SiteShowOrder } from '@/enums/siteEnum'
 // 获取当前页面的tab
 export async function getCurrentTab() {
   const queryOptions = { active: true, currentWindow: true }
-  const [tab] = await chrome.tabs.query(queryOptions)
+  const [tab] = await browser.tabs.query(queryOptions)
 
   return tab
 }
@@ -13,9 +13,9 @@ export async function getCurrentTab() {
 // 获取 content-scripts 存储在storage中的数据
 export const catchLocalData = async () => {
   return new Promise(resolve => {
-    if (!chrome?.storage) return resolve([])
-    chrome.storage.local.get('LocalPageData', async result => {
-      const tab: chrome.tabs.Tab = await getCurrentTab()
+    if (!browser?.storage) return resolve([])
+    browser.storage.local.get('LocalPageData').then(async result => {
+      const tab: browser.tabs.Tab = await getCurrentTab()
       // console.log('获取链接', tab.url)
 
       // 特殊页面时 不展示
@@ -57,8 +57,8 @@ export const checkSpecialPage = (url: string | undefined) => {
  * @returns
  */
 export const openUrl = (url: string) => {
-  if (url.indexOf('chrome://') === 0) {
-    return chrome.tabs.create({ url: url })
+  if (url.indexOf('browser://') === 0) {
+    return browser.tabs.create({ url: url })
   }
 
   return window.open(url)

@@ -21,3 +21,12 @@ export const openUrl = (url: string) => {
 }
 
 export const isChrome = !!env('isChrome')
+
+const ChromeExtensionId = 'bcnaccipofjingkpleggogbhlpnbaehi'
+const FirefoxExtensionId = 'd19045ea-f0d0-4e41-a3d7-ee37b159b8ef'
+const ExtensionIdMap = {
+  chrome: ChromeExtensionId,
+  firefox: FirefoxExtensionId
+}
+
+export const ExtensionId = ExtensionIdMap[env('adapter')]

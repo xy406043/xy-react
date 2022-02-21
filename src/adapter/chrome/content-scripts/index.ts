@@ -13,14 +13,14 @@
 import { XyMessageType } from '~/src/enums/adapterEnum'
 
 import { loadWebScript } from './actions/webScript'
-import { InjectCameraIframe, InjectCameraElement } from './actions/camera/cameraScript'
+import { InjectCameraIframe } from './actions/camera/cameraScript'
 
 // 默认加载内容
 loadWebScript()
 
 // 监听来自 background 的消息
 // TODO: background 页面 通过content-scripts似乎传不到消息给background.js，下面在back中是空的
-chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+browser.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   sendResponse('background你好，我收到了你的消息！' + request.type)
   console.log('接收到来自background的消息', request)
 
