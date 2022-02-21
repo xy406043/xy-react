@@ -41,7 +41,7 @@ cnpm run b
 - [ ] 扩展 TDKI 使用：添加路由、结构清晰、脚本明了
 - [ ] background.js 和 content-scripts 使用 ts ？ 如何在构建之后与 manifest.json 仍然有新的内
 - [ ] i18n
-- [ ] 构建多页面
+- [ ] 构建多页面 - 需要转换使用 Extension Api 的 browser\*命名空间以便节省代码，可以参考沙拉查词
 - [ ] 类似 vben-admin (vue3) 使用 (把自定义 variable 用 响应式注入全局 用来生成 class)；以及使用 namespace 统一配置生成 prefix 在 css 中 生成与 prefixCls 一样的 class 名
 
 ```js
