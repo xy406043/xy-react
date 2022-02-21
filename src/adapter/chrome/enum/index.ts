@@ -8,4 +8,4 @@ export const ChromeSpecialPages: Array<string> = [
 export const maxSaveLength = 10
 
 // Chrome 扩展ID
-export const ChromeExtensionId = 'hkbemkhamjpinblcabpbhhaeicjiginn'
+export const ChromeExtensionId = 'bcnaccipofjingkpleggogbhlpnbaehi'
