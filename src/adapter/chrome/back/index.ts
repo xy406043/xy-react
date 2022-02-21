@@ -2,7 +2,7 @@
 // 可以访问所有browser Api === 需要在manifest.json 中添加权限
 // 无法获取Dom
 
-import { ChromeSpecialPages as excludePages } from '@/adapter/chrome/enum'
+import { excludePages } from '@/adapterTool/helper'
 import { getCurrentTab } from '@/adapter/chrome/helper'
 import clonedeep from 'lodash.clonedeep'
 import MenuCreator from './menus'
