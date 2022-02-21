@@ -30,21 +30,16 @@ export default function XyCameraShow() {
        *
        * https://gist.github.com/keshihoriuchi/40ff3217a7a63d25788ce5cb8230ba3b  !.下面的eslint 建议使用?.但是仍然会有错误
        */
-      navigator.getUserMedia(
-        params,
-        stream => {
-          // videoRef.current?.src = CompatibleURL.createObjectURL(stream)
+      const CameraAction = navigator.mediaDevices.getUserMedia
+      CameraAction(params).then(stream => {
+        // videoRef.current?.src = CompatibleURL.createObjectURL(stream)
 
-          // 将画面映射到画布上
-          videoRef.current!.srcObject = stream
-          videoRef.current!.onloadedmetadata = function (e) {
-            videoRef.current?.play()
-          }
-        },
-        err => {
-          console.log(err)
+        // 将画面映射到画布上
+        videoRef.current!.srcObject = stream
+        videoRef.current!.onloadedmetadata = function (e) {
+          videoRef.current?.play()
         }
-      )
+      })
     })()
   }, [])
 
