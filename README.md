@@ -31,7 +31,7 @@ cnpm run b
 
 [依赖](docs/dependencies.md)
 
-1. 安装@types/chrome 以解决开发环境无 chrome 变量的问题
+1. (仅完全独立开发 Chrome 插件时使用，多端时使用 extension-polyfill-ts 时会去掉)安装@types/chrome 以解决开发环境无 chrome 变量的问题
 2. ant-design 4.0 版本 Js 代码默认支持基于 Es module 的 tree shaking
 
 #### 💪🏻💪🏻💪🏻💪🏻 TODO 点 💪🏻💪🏻💪🏻💪🏻💪🏻
@@ -41,7 +41,7 @@ cnpm run b
 - [ ] 扩展 TDKI 使用：添加路由、结构清晰、脚本明了
 - [ ] background.js 和 content-scripts 使用 ts ？ 如何在构建之后与 manifest.json 仍然有新的内
 - [ ] i18n
-- [ ] 构建多页面
+- [ ] 构建多页面 - 需要转换为使用 [webExtension Api](docs/extension.md) 的 browser\* 命名空间
 - [ ] 类似 vben-admin (vue3) 使用 (把自定义 variable 用 响应式注入全局 用来生成 class)；以及使用 namespace 统一配置生成 prefix 在 css 中 生成与 prefixCls 一样的 class 名
 
 ```js
