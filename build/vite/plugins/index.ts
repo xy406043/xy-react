@@ -4,7 +4,6 @@ import Unocss from 'unocss/vite'
 import UnocssConfig from '../../../windi.config'
 // import { configAutoIconsPlugin } from './icons'
 import { configAutoImportPlugin } from './import'
-import vite from 'unplugin-icons/vite'
 
 export function createVitePlugins() {
   // 初始化vite Plugin

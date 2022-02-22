@@ -12,7 +12,7 @@ export default defineConfig(({ command }) => ({
     emptyOutDir: true,
     sourcemap: 'inline',
     lib: {
-      entry: r('src/adapter/chrome/back/index.ts'),
+      entry: r('src/adapterContent/back/index.ts'),
       name: 'back'
       // formats: ['es']
     },

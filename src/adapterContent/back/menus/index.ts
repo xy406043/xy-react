@@ -15,11 +15,14 @@ browser.contextMenus.onClicked.addListener((info: browser.contextMenus.OnClickDa
 // https://developer.chrome.com/docs/extensions/reference/contextMenus/
 const MenuCreator = () => {
   console.log('获取调用次数')
-  browser.contextMenus.create({
-    id: cameraId,
-    title: 'xy-调用摄像头',
-    visible: true
-    // onclick: CameraMenu
+  // 使用removeAll 以避免重复创建插件内容，需要加入插件在内部进行添加即可
+  browser.contextMenus.removeAll().then(() => {
+    browser.contextMenus.create({
+      id: cameraId,
+      title: 'xy-调用摄像头',
+      visible: true
+      // onclick: CameraMenu
+    })
   })
 }
 

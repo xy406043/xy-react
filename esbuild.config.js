@@ -29,7 +29,7 @@ const platform = process.env.npm_config_adapter ? process.env.npm_config_adapter
 
 // 构建 chrome 扩展  content-scrips 样式文件
 build({
-  entryPoints: ['src/adapter/chrome/content-scripts/index.css'],
+  entryPoints: ['src/adapterContent/content-scripts/index.css'],
   minify: true,
   bundle: true,
   sourcemap: true,

@@ -4,7 +4,7 @@ import { Tag } from 'antd'
 import { RedoOutlined } from '@ant-design/icons'
 import './index.css'
 import './index.scss'
-import { getCurrentTab, catchLocalData } from '@/adapter/chrome/helper'
+import { getCurrentTab, catchLocalData } from '~/src/adapterContent/helper'
 import { ExtensionId } from '@/adapterTool/helper'
 import { ShowContentInterface } from './types'
 
@@ -29,7 +29,7 @@ function SiteShow() {
   async function initData() {
     const res = await getCurrentTab()
 
-    if (res.url?.includes(ExtensionId)) {
+    if (ExtensionId && res.url?.includes(ExtensionId)) {
       // 跳转到其它页面
       navigate('/History')
 

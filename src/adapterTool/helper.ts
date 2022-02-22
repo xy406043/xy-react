@@ -1,4 +1,4 @@
-import { openUrl as chromiumOpenUrl } from '@/adapter/chrome/helper'
+import { openUrl as chromiumOpenUrl } from '~/src/adapterContent/helper'
 import { FirefoxSpecialPages } from '../adapter/firefox/enum'
 import { ChromeSpecialPages } from '../adapter/chrome/enum'
 
@@ -29,9 +29,11 @@ export const isChrome = !!env('isChrome')
  */
 const ChromeExtensionId = 'bcnaccipofjingkpleggogbhlpnbaehi'
 const FirefoxExtensionId = 'd19045ea-f0d0-4e41-a3d7-ee37b159b8ef'
+const EdgeExtensionID = 'dkaajmgiemjgbcdcingkohiodmidpimd'
 const ExtensionIdMap = {
   chrome: ChromeExtensionId,
-  firefox: FirefoxExtensionId
+  firefox: FirefoxExtensionId,
+  edge: EdgeExtensionID
 }
 
 export const ExtensionId = ExtensionIdMap[env('platform')]
@@ -42,7 +44,8 @@ export const ExtensionId = ExtensionIdMap[env('platform')]
 
 const ExcludesPagesMap = {
   chrome: ChromeSpecialPages,
-  firefox: FirefoxSpecialPages
+  firefox: FirefoxSpecialPages,
+  edge: []
 }
 
 export const excludePages = ExcludesPagesMap[env('platform')]

@@ -20,8 +20,10 @@ loadWebScript()
 
 // 监听来自 background 的消息
 // TODO: background 页面 通过content-scripts似乎传不到消息给background.js，下面在back中是空的
-browser.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-  sendResponse('background你好，我收到了你的消息！' + request.type)
+
+// https://developer.mozilla.org/zh-CN/docs/Mozilla/Add-ons/WebExtensions/API/runtime/onMessage
+browser.runtime.onMessage.addListener(function (request, sender) {
+  const ResponseMessage: string = 'background你好，我收到了你的消息！' + request.type
   console.log('接收到来自background的消息', request)
 
   if (request.type === XyMessageType.TAB_UPDATE) {
@@ -31,6 +33,8 @@ browser.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     InjectCameraIframe()
     // InjectCameraElement()
   }
+
+  return Promise.resolve(ResponseMessage)
 })
 
 export default {}

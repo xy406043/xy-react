@@ -3,14 +3,14 @@
 // 无法获取Dom
 
 import { excludePages } from '@/adapterTool/helper'
-import { getCurrentTab } from '@/adapter/chrome/helper'
+import { getCurrentTab } from '~/src/adapterContent/helper'
 import clonedeep from 'lodash.clonedeep'
 import MenuCreator from './menus'
 
 /**
  * 接收来自 content-scripts/ popup.js的信息
  */
-browser.runtime.onMessage.addListener(async function (request, sender, sendResponse) {
+browser.runtime.onMessage.addListener(async function (request, sender) {
   const tab = await getCurrentTab()
   // console.log('已接受到来自content-script的信息', request, sender, sendResponse)
 
@@ -25,7 +25,7 @@ browser.runtime.onMessage.addListener(async function (request, sender, sendRespo
     })
   })
 
-  sendResponse('我是后台接受到你的数据')
+  return Promise.resolve('我是后台接受到你的数据')
 })
 
 /**

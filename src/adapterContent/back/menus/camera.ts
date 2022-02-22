@@ -1,4 +1,4 @@
-import { getCurrentTab } from '@/adapter/chrome/helper'
+import { getCurrentTab } from '~/src/adapterContent/helper'
 import { XyMessageType } from '~/src/enums/adapterEnum'
 
 /**

@@ -1,5 +1,5 @@
 import * as helperTool from './helper'
-import chromeTools from '@/adapter/chrome/db'
+import chromeTools from '~/src/adapterContent/db'
 
 const db = helperTool.isChrome ? chromeTools : chromeTools
 

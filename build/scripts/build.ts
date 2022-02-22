@@ -2,7 +2,7 @@ const fs = require('fs-extra')
 import path from 'path'
 const execa = require('execa') // 开启子进程打包
 const { logger } = require('../utils')
-import { SystemConfig } from '@/config/themeConfig'
+import { SystemConfig } from '@/enums/themeConfig'
 import adapter from './adapter'
 import dayjs from 'dayjs'
 
@@ -23,11 +23,7 @@ async function main() {
   await execa('tsc')
   logger.ci('tsc 编译完毕')
 
-  if (adapter.platform && adapter.rightPlatform) {
-    // 需要复制或者编译  配置文件和 端所需要的文件
-    adapter.initialize()
-    // logger.ci('完成配置文件迁移')
-  } else {
+  if (!adapter.platform || !adapter.rightPlatform) {
     // 异常处理
     logger.error('请以 --adapter=[chrome|firefox|utools]的格式进行设置')
     process.exit(1)
@@ -50,6 +46,9 @@ async function main() {
   }).catch(e => {
     logger.error('vite error: ' + e)
   })
+
+  // 执行复制manifest.json到对应目录
+  adapter.initialize()
 
   // vite 构建 background
   await execa('vite', ['build', '--config', 'vite.config.back.ts'], {
