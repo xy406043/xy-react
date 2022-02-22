@@ -1,5 +1,5 @@
-import { getCurrentTab } from '~/src/adapterContent/helper'
-import { XyMessageType } from '~/src/enums/adapterEnum'
+import { getCurrentTab } from '@/utils/adapter/helper'
+import { XyMessageType } from '@/enums/adapterEnum'
 
 /**
  * 打开浏览器摄像头创建摄像区域，如有可能，进行视频录制，以及

@@ -1,6 +1,31 @@
-import { excludePages } from '~/src/adapterTool/helper'
-import { ShowContentInterface } from '@/pages/SiteShow/types'
+import { ShowContentInterface } from '@/option/pages/SiteShow/types'
 import { SiteShowOrder } from '@/enums/siteEnum'
+
+/**
+ * 必须从环境变量从取出必要参数， 不可从adapter.ts
+ */
+
+const env = (key: string) => {
+  // console.log('import', __APP_INFO__)
+  const appInfo = __APP_INFO__
+  if (!appInfo) return ''
+
+  return appInfo[key] || ''
+}
+
+/**
+ * 扩展ID映射
+ */
+const ChromeExtensionId = 'bcnaccipofjingkpleggogbhlpnbaehi'
+const FirefoxExtensionId = 'd19045ea-f0d0-4e41-a3d7-ee37b159b8ef'
+const EdgeExtensionID = 'dkaajmgiemjgbcdcingkohiodmidpimd'
+const ExtensionIdMap = {
+  chrome: ChromeExtensionId,
+  firefox: FirefoxExtensionId,
+  edge: EdgeExtensionID
+}
+
+export const ExtensionId = ExtensionIdMap[env('platform')]
 
 // 获取当前页面的tab
 export async function getCurrentTab() {
@@ -46,7 +71,27 @@ export const catchLocalData = async () => {
   })
 }
 
-// 检查是否是特殊页面，如果是特殊页面则不展示tab选项卡信息
+/**
+ * 排除页面映射
+ */
+
+export const excludePages = [
+  'chrome://newtab/',
+  'chrome://extensions/',
+  'chrome://bookmarks',
+  'chrome-extension://',
+  'edge://newtab/',
+  'edge://extensions/',
+  'edge://bookmarks',
+  'edge-extension://',
+  'about:debugging',
+  'about:extension'
+]
+
+/**
+ * 检查是否是特殊页面，如果是特殊页面则不展示tab选项卡信息
+ 
+ */
 export const checkSpecialPage = (url: string | undefined) => {
   if (!url) return true
 
@@ -54,14 +99,10 @@ export const checkSpecialPage = (url: string | undefined) => {
 }
 
 /**
- * 打开页面
- * @param url
- * @returns
+ * 部分内容导出展示
  */
-export const openUrl = (url: string) => {
-  if (url.indexOf('browser://') === 0) {
-    return browser.tabs.create({ url: url })
-  }
 
-  return window.open(url)
+export default {
+  envFunc: env,
+  ExtensionId
 }

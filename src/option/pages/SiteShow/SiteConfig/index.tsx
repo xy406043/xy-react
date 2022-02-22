@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import './index.scss'
 import { SketchPicker } from 'react-color'
-import { SystemConfig } from '@/config/themeConfig'
+import { SystemConfig } from '@/enums/themeConfig'
 import { ConfigProvider } from 'antd'
 import { catchLocalTheme } from '@/utils/themeUtil'
-import db from '@/adapterTool/db'
+import db from '~/src/utils/adapter/db'
 
 export default function SiteConfig() {
   const [color, setColor] = useState(SystemConfig.theme)

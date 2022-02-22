@@ -2,8 +2,8 @@
 // 可以访问所有browser Api === 需要在manifest.json 中添加权限
 // 无法获取Dom
 
-import { excludePages } from '@/adapterTool/helper'
-import { getCurrentTab } from '~/src/adapterContent/helper'
+import { excludePages } from '~/src/utils/adapter/helper'
+import { getCurrentTab } from '@/utils/adapter/helper'
 import clonedeep from 'lodash.clonedeep'
 import MenuCreator from './menus'
 

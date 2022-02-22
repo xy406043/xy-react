@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import { ConfigProvider } from 'antd'
-import { SystemConfig } from '@/config/themeConfig'
+import { SystemConfig } from '@/enums/themeConfig'
 import Header from './components/Layout/Header'
 import { catchLocalTheme } from '@/utils/themeUtil'
 

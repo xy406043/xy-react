@@ -7,7 +7,7 @@ export default defineConfig(({ command }) => ({
   ...ShareConfig,
   publicDir: false, // 设为false 以避免将public内容打包进去
   build: {
-    outDir: r(`dist/${adapter.platform}/content-scripts`),
+    outDir: r(`extension/${adapter.platform}/dist/content-scripts`),
     cssCodeSplit: false,
     emptyOutDir: false,
     sourcemap: 'inline',

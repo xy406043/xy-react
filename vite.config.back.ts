@@ -7,7 +7,7 @@ export default defineConfig(({ command }) => ({
   ...ShareConfig,
   publicDir: false,
   build: {
-    outDir: r(`dist/${adapter.platform}/back`),
+    outDir: r(`extension/${adapter.platform}/dist/back`),
     cssCodeSplit: false,
     emptyOutDir: true,
     sourcemap: 'inline',

@@ -33,5 +33,5 @@ build({
   minify: true,
   bundle: true,
   sourcemap: true,
-  outfile: `dist/${platform}/content-scripts/index.css`
+  outfile: `extension/${platform}/dist/content-scripts/index.css`
 }).catch(() => process.exit(1))

@@ -1,5 +1,5 @@
-import db from '@/adapterTool/db'
-import { SystemConfig } from '@/config/themeConfig'
+import db from '~/src/utils/adapter/db'
+import { SystemConfig } from '@/enums/themeConfig'
 
 /**
  * 获取本地的主题色配置

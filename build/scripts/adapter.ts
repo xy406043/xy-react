@@ -19,11 +19,12 @@ const removeFile = filePath => {
   fs.existsSync(filePath) && fs.unlinkSync(filePath)
 }
 
+// !! 无用
 const chromeConfigWrite = {
   remove() {},
   write() {
     fs.writeFileSync(
-      path.join(__dirname, '../../public/manifest.json'),
+      path.join(__dirname, `../../extension/${platform}/manifest.json`),
       fs
         .readFileSync(path.join(__dirname, `../../src/adapter/${platform}/manifest.json`))
         .toString()
@@ -40,11 +41,5 @@ export default {
   version: process.env.npm_package_version,
   platform,
   rightPlatform: PlatFormEnum[platform],
-  isChrome: IS_CHROME,
-  initialize: function () {
-    // 移除配置文件
-    chromeConfigWrite.remove()
-    // 添加配置文件
-    chromeConfigWrite.write()
-  }
+  isChrome: IS_CHROME
 }

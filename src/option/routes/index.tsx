@@ -1,8 +1,8 @@
 import React from 'react'
 import { BrowserRouter, HashRouter, Routes, Route } from 'react-router-dom'
 
-import App from '@/App'
-import { SiteShow, SiteHistory, SiteConfig, SiteTest, None, Nop, XyCameraShow, XyDraw } from '@/pages/index'
+import App from '~/src/option/App'
+import { SiteShow, SiteHistory, SiteConfig, SiteTest, None, Nop, XyCameraShow, XyDraw } from '~/src/option/pages/index'
 
 function SelfRoutes() {
   return (

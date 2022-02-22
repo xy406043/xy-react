@@ -5,6 +5,8 @@ const { logger } = require('../utils')
 import { SystemConfig } from '@/enums/themeConfig'
 import adapter from './adapter'
 import dayjs from 'dayjs'
+import { getManifest } from '@/manifest'
+import { r } from '../utils'
 
 const pathResolve = dir => path.resolve(__dirname, dir)
 
@@ -17,7 +19,7 @@ main()
 async function main() {
   const startTime = Date.now()
 
-  await execa('rimraf', [`dist/${adapter.platform}/**`])
+  await execa('rimraf', [`extension/${adapter.platform}/**`])
   logger.ci('清除dist文件成功')
 
   await execa('tsc')
@@ -48,7 +50,7 @@ async function main() {
   })
 
   // 执行复制manifest.json到对应目录
-  adapter.initialize()
+  fs.writeJSON(r(`extension/${adapter.platform}/manifest.json`), await getManifest(adapter.platform), { spaces: 2 })
 
   // vite 构建 background
   await execa('vite', ['build', '--config', 'vite.config.back.ts'], {

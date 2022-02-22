@@ -4,8 +4,7 @@ import { Tag } from 'antd'
 import { RedoOutlined } from '@ant-design/icons'
 import './index.css'
 import './index.scss'
-import { getCurrentTab, catchLocalData } from '~/src/adapterContent/helper'
-import { ExtensionId } from '@/adapterTool/helper'
+import { ExtensionId, getCurrentTab, catchLocalData } from '@/utils/adapter/helper'
 import { ShowContentInterface } from './types'
 
 // 页面内容完成渲染

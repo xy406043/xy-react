@@ -6,10 +6,7 @@ import { loadEnv } from 'vite'
 import { wrapperEnv } from './build/utils'
 import { createVitePlugins } from './build/vite/plugins'
 import { createRollupPlugin } from './build/rollup/plugins'
-
-const pathResolve = (dir: string) => {
-  return path.join(__dirname, dir)
-}
+import { r } from './build/utils'
 
 let viteEnv, isBuild
 const root = process.cwd()
@@ -28,15 +25,15 @@ export const ShareConfig: UserConfig = {
       },
       {
         find: '~',
-        replacement: pathResolve('') + '/'
+        replacement: r('') + '/'
       },
       {
         find: '@',
-        replacement: pathResolve('src') + '/'
+        replacement: r('src') + '/'
       },
       {
         find: '#',
-        replacement: pathResolve('types') + '/'
+        replacement: r('types') + '/'
       }
     ]
   },
@@ -66,20 +63,25 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
 
   return {
     ...ShareConfig,
-    base: VITE_PUBLIC_PATH,
+    // 静态资源目录
+    // publicDir: 'public',
+    // 使用构建后的静态层级目录
+    // base: `/extension/${adapter.platform}/dist`,
+    base: './',
     server: {
       port: VITE_PORT
     },
 
     build: {
-      outDir: `dist/${adapter.platform}`, // 不同插件构建到不同的目录
+      outDir: r(`extension/${adapter.platform}/dist`), // 不同插件构建到不同的目录
       // 构建后是Es6，(经 tree shaking 之后)不可使用留存require等 commonjs写法，否则会引起报错
       target: 'es2015',
       // Turning off brotliSize display can slightly reduce packaging time
       brotliSize: false,
       chunkSizeWarningLimit: 2000,
       rollupOptions: {
-        external: ['src/antd.custom.css', 'scripts/utils'],
+        input: [r('src/option/index.html')],
+        external: [r('src/antd.custom.css'), r('scripts/utils')],
         // todo 异步引入组件 如何生成chunkName
         plugins: createRollupPlugin(),
         output: {

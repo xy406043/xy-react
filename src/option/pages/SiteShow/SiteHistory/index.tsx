@@ -9,8 +9,7 @@ import { ColumnsType } from 'antd/lib/table'
 import SiteImgShow from './components/ImgShow'
 import SiteTextShow from './components/textShow'
 import { commonUtil } from '@/utils'
-import { openUrl } from '~/src/adapterTool/helper'
-import db from '~/src/adapterTool/db'
+import db from '~/src/utils/adapter/db'
 
 /**
  * Storage.sync.set 最大为 800KB
@@ -56,7 +55,7 @@ export default function SiteHistory() {
 
   // 打开窗口跳转到对应的页面
   const jumpTo = record => {
-    openUrl(record.linkUrl)
+    window.open(record)
   }
 
   const HistoryColumns: ColumnsType<HistoryTableShow> = [
