@@ -4,7 +4,7 @@ import './index.css'
 
 import Router from './routes/index'
 import 'antd/dist/antd.variable.min.css'
-import './antd.custom.css' // 引入的静态资源必须同main.tsx
+import '@/antd.custom.css' // 这样引用 不能在rollupOptions的external中排除编译
 import 'uno.css'
 
 ReactDOM.render(

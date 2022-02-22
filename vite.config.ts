@@ -68,7 +68,7 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
 
     // https://cn.vitejs.dev/guide/assets.html#the-public-directory
     // 使用构建后的静态层级目录
-    base: `dist`,
+    base: `/dist/`,
     server: {
       port: VITE_PORT
     },
@@ -82,7 +82,7 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
       chunkSizeWarningLimit: 2000,
       rollupOptions: {
         input: [r('src/option/index.html')],
-        external: [r('src/antd.custom.css'), r('scripts/utils')],
+        external: [r('scripts/utils')],
         // todo 异步引入组件 如何生成chunkName
         plugins: createRollupPlugin(),
         output: {
