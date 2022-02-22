@@ -34,7 +34,7 @@ const ExtensionIdMap = {
   firefox: FirefoxExtensionId
 }
 
-export const ExtensionId = ExtensionIdMap[env('adapter')]
+export const ExtensionId = ExtensionIdMap[env('platform')]
 
 /**
  * 排除页面映射
@@ -45,4 +45,12 @@ const ExcludesPagesMap = {
   firefox: FirefoxSpecialPages
 }
 
-export const excludePages = ExcludesPagesMap[env('adapter')]
+export const excludePages = ExcludesPagesMap[env('platform')]
+
+/**
+ * 部分内容导出展示
+ */
+
+export const AdapterToolContent = {
+  ExtensionId
+}

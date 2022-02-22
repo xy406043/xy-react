@@ -4,9 +4,8 @@
     "useDefineForClassFields": true,
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "allowJs": false,
-    "skipLibCheck": false,
     "noImplicitAny": false,
-    "esModuleInterop": false,
+    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
@@ -17,6 +16,7 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "baseUrl": ".",
+    "incremental": false,
     "typeRoots": ["./node_modules/@types/", "./types"],
     "paths": {
       "~/*": ["*"],
@@ -24,14 +24,5 @@
       "#/*": ["types/*"]
     }
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.d.ts",
-    "src/**/*.tsx",
-    "build",
-    "types/**/*.d.ts",
-    "types/**/*.ts",
-    "vite.config.ts"
-  ],
   "exclude": ["node_modules", "dist", "**/*.js"]
 }

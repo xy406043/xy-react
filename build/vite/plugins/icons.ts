@@ -2,27 +2,29 @@
 // import IconsResolver from 'unplugin-icons/resolver'
 // import AutoImport from 'unplugin-auto-import/vite'
 
-import Icons from 'unplugin-icons/vite'
+// import Icons from 'unplugin-icons/vite'
 
-export function configAutoIconsPlugin(isBuild: boolean) {
-  const autoIconsPlugin = [
-    // !! 报 doesn't exist on type JSX.IntrinsicElements； 直接引用写法吧
-    // AutoImport({
-    //   // 自动引入 iconify 的 图标 https://github.com/antfu/unplugin-icons#auto-importing
-    //   resolvers: [
-    //     IconsResolver({
-    //       prefix: 'Icon',
-    //       extension: 'jsx'
-    //     })
-    //   ]
-    // }),
+// export function configAutoIconsPlugin(isBuild: boolean) {
+//   const autoIconsPlugin = [
+//     // !! 报 doesn't exist on type JSX.IntrinsicElements； 直接引用写法吧
+//     // AutoImport({
+//     //   // 自动引入 iconify 的 图标 https://github.com/antfu/unplugin-icons#auto-importing
+//     //   resolvers: [
+//     //     IconsResolver({
+//     //       prefix: 'Icon',
+//     //       extension: 'jsx'
+//     //     })
+//     //   ]
+//     // }),
 
-    // https://github.com/antfu/unplugin-icons
-    Icons({
-      compiler: 'jsx', // or 'solid'
-      jsx: 'react'
-    })
-  ]
+//     // https://github.com/antfu/unplugin-icons
+//     Icons({
+//       compiler: 'jsx', // or 'solid'
+//       jsx: 'react'
+//     })
+//   ]
 
-  return autoIconsPlugin
-}
+//   return autoIconsPlugin
+// }
+
+export {}

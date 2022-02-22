@@ -1,4 +1,4 @@
-import { ChromeSpecialPages } from '@/adapter/chrome/enum'
+import { excludePages } from '~/src/adapterTool/helper'
 import { ShowContentInterface } from '@/pages/SiteShow/types'
 import { SiteShowOrder } from '@/enums/siteEnum'
 
@@ -13,6 +13,7 @@ export async function getCurrentTab() {
 // 获取 content-scripts 存储在storage中的数据
 export const catchLocalData = async () => {
   return new Promise(resolve => {
+    console.log('获取数据', browser.storage)
     if (!browser?.storage) return resolve([])
     browser.storage.local.get('LocalPageData').then(async result => {
       const tab: browser.tabs.Tab = await getCurrentTab()
@@ -20,6 +21,7 @@ export const catchLocalData = async () => {
 
       // 特殊页面时 不展示
       if (checkSpecialPage(tab?.url)) {
+        console.log('特殊页面，不进行展示')
         resolve([])
 
         return
@@ -48,7 +50,7 @@ export const catchLocalData = async () => {
 export const checkSpecialPage = (url: string | undefined) => {
   if (!url) return true
 
-  return ChromeSpecialPages.some((x: string) => url.includes(x))
+  return excludePages.some((x: string) => url.includes(x))
 }
 
 /**

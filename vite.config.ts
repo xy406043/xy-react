@@ -64,6 +64,10 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
       })
     },
 
+    optimizeDeps: {
+      include: ['webextension-polyfill']
+    },
+
     server: {
       port: VITE_PORT
     },
