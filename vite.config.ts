@@ -65,9 +65,10 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
     ...ShareConfig,
     // 静态资源目录
     // publicDir: 'public',
+
+    // https://cn.vitejs.dev/guide/assets.html#the-public-directory
     // 使用构建后的静态层级目录
-    // base: `/extension/${adapter.platform}/dist`,
-    base: './',
+    base: `dist`,
     server: {
       port: VITE_PORT
     },

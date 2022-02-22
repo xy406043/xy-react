@@ -64,7 +64,7 @@ export async function getManifest(platform) {
           css: ['./dist/content-scripts/index.css']
         }
       ],
-      web_accessible_resources: ['./dist/src/option/index.html']
+      web_accessible_resources: ['dist/src/option/index.html']
     }
   }
 

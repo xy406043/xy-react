@@ -8,7 +8,7 @@ export const InjectCameraIframe = () => {
     return
   }
   // 摄像机页面在Chrome中展示的路径
-  const JumpUrl = browser.runtime.getURL('index.html') + '#' + '/XyCameraShow'
+  const JumpUrl = browser.runtime.getURL('dist/src/option/index.html') + '#' + '/XyCameraShow'
 
   // 创建iframe层
   const iframe: HTMLIFrameElement = document.createElement('iframe')

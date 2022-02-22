@@ -2,9 +2,9 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 
-import Router from '~/src/option/routes/index'
+import Router from './routes/index'
 import 'antd/dist/antd.variable.min.css'
-import '@/antd.custom.css'
+import './antd.custom.css' // 引入的静态资源必须同main.tsx
 import 'uno.css'
 
 ReactDOM.render(

@@ -16,7 +16,7 @@ const env = (key: string) => {
 /**
  * 扩展ID映射
  */
-const ChromeExtensionId = 'bcnaccipofjingkpleggogbhlpnbaehi'
+const ChromeExtensionId = 'geiplnmgainflpopenjefgjndggjnadb'
 const FirefoxExtensionId = 'd19045ea-f0d0-4e41-a3d7-ee37b159b8ef'
 const EdgeExtensionID = 'dkaajmgiemjgbcdcingkohiodmidpimd'
 const ExtensionIdMap = {

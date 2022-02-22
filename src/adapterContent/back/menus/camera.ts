@@ -12,7 +12,7 @@ const CameraMenu = async (info: browser.contextMenus.OnClickData, tab?: browser.
   console.log('Camera - 调用了右侧菜单内容！', info, tab)
 
   //  1. 打开 指定React页面
-  const JumpUrl = browser.runtime.getURL('index.html') + '#' + '/XyCameraShow'
+  const JumpUrl = browser.runtime.getURL('dist/src/option/index.html') + '#' + '/XyCameraShow'
   // browser.tabs.create({ url: JumpUrl })
 
   //  2. 传递消息给 content-scripts，而后 将指定React页面 使用iframe 内嵌到页面中

@@ -40,6 +40,11 @@ async function main() {
   ]).catch(e => {
     logger.error('lessc error : ' + e)
   })
+  // 复制主题文件到需要的main.tsx同级
+  fs.writeFileSync(
+    path.join(__dirname, `../../src/option/antd.custom.css`),
+    fs.readFileSync(path.join(__dirname, `../../src/antd.custom.css`)).toString()
+  )
   logger.ci(`生成自定义前缀( ${SystemConfig.prefixCls} )的antd variable文件成功`)
 
   // vite 构建 React主体程序
