@@ -11,63 +11,62 @@ const pathResolve = (dir: string) => {
   return path.join(__dirname, dir)
 }
 
+let viteEnv, isBuild
+const root = process.cwd()
+
+export const ShareConfig: UserConfig = {
+  root,
+
+  // vitePlugins
+  plugins: createVitePlugins(),
+
+  resolve: {
+    alias: [
+      {
+        find: 'vue-i18n',
+        replacement: 'vue-i18n/dist/vue-i18n.cjs.js'
+      },
+      {
+        find: '~',
+        replacement: pathResolve('') + '/'
+      },
+      {
+        find: '@',
+        replacement: pathResolve('src') + '/'
+      },
+      {
+        find: '#',
+        replacement: pathResolve('types') + '/'
+      }
+    ]
+  },
+
+  // 定义全局内容替换，使用需要设置global.d.ts 类型定义
+  define: {
+    __APP_INFO__: JSON.stringify({
+      version: adapter.version,
+      lastBuildTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),
+      platform: adapter.platform,
+      isChrome: adapter.isChrome
+    })
+  },
+
+  optimizeDeps: {
+    include: ['webextension-polyfill']
+  }
+}
+
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }: ConfigEnv) => {
-  const root = process.cwd()
-
   const env = loadEnv(mode, root)
-
   // The boolean type read by loadEnv is a string. This function can be converted to boolean type
-  const viteEnv = wrapperEnv(env)
-
-  const { VITE_PORT, VITE_PUBLIC_PATH, VITE_PROXY, VITE_DROP_CONSOLE } = viteEnv
-
-  const isBuild = command === 'build'
+  viteEnv = wrapperEnv(env)
+  const { VITE_PORT, VITE_PUBLIC_PATH } = viteEnv
+  isBuild = command === 'build'
 
   return {
+    ...ShareConfig,
     base: VITE_PUBLIC_PATH,
-    root,
-
-    // vitePlugins
-    plugins: createVitePlugins(viteEnv, isBuild),
-
-    css: {},
-
-    resolve: {
-      alias: [
-        {
-          find: 'vue-i18n',
-          replacement: 'vue-i18n/dist/vue-i18n.cjs.js'
-        },
-        {
-          find: '~',
-          replacement: pathResolve('') + '/'
-        },
-        {
-          find: '@',
-          replacement: pathResolve('src') + '/'
-        },
-        {
-          find: '#',
-          replacement: pathResolve('types') + '/'
-        }
-      ]
-    },
-
-    // 定义全局内容替换，使用需要设置global.d.ts 类型定义
-    define: {
-      __APP_INFO__: JSON.stringify({
-        version: adapter.version,
-        lastBuildTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),
-        platform: adapter.platform,
-        isChrome: adapter.isChrome
-      })
-    },
-
-    optimizeDeps: {
-      include: ['webextension-polyfill']
-    },
-
     server: {
       port: VITE_PORT
     },

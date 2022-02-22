@@ -8,24 +8,24 @@ const platform = process.env.npm_config_adapter ? process.env.npm_config_adapter
 // TODO 尝试也使用vite构建 back 和background
 
 // 构建 chrome 扩展  background.js
-build({
-  entryPoints: ['src/adapter/chrome/back/index.ts'],
-  minify: true,
-  bundle: true,
-  sourcemap: true,
-  tsconfig: './tsconfig.json',
-  outfile: 'public/back/index.js'
-}).catch(() => process.exit(1))
+// build({
+//   entryPoints: ['src/adapter/chrome/back/index.ts'],
+//   minify: true,
+//   bundle: true,
+//   sourcemap: true,
+//   tsconfig: './tsconfig.json',
+//   outfile: 'public/back/index.js'
+// }).catch(() => process.exit(1))
 
-// 构建 chrome 扩展  content-scrips 脚本
-build({
-  entryPoints: ['src/adapter/chrome/content-scripts/index.ts'],
-  minify: true,
-  bundle: true,
-  sourcemap: true,
-  tsconfig: './tsconfig.json',
-  outfile: 'public/content-scripts/index.js'
-}).catch(() => process.exit(1))
+// // 构建 chrome 扩展  content-scrips 脚本
+// build({
+//   entryPoints: ['src/adapter/chrome/content-scripts/index.ts'],
+//   minify: true,
+//   bundle: true,
+//   sourcemap: true,
+//   tsconfig: './tsconfig.json',
+//   outfile: 'public/content-scripts/index.js'
+// }).catch(() => process.exit(1))
 
 // 构建 chrome 扩展  content-scrips 样式文件
 build({
@@ -33,5 +33,5 @@ build({
   minify: true,
   bundle: true,
   sourcemap: true,
-  outfile: 'public/content-scripts/index.css'
+  outfile: `dist/${platform}/content-scripts/index.css`
 }).catch(() => process.exit(1))

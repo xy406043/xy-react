@@ -11,6 +11,10 @@ export function isProdFn(mode: string): boolean {
   return mode === 'production'
 }
 
+export const port = parseInt(process.env.PORT || '') || 3303
+export const r = (...args: string[]) => path.resolve(__dirname, '..', ...args)
+export const isDev = process.env.NODE_ENV !== 'production'
+
 /**
  * Whether to generate package preview
  */

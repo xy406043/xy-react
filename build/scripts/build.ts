@@ -23,7 +23,6 @@ async function main() {
   await execa('tsc')
   logger.ci('tsc 编译完毕')
 
-  // ==============================  客户端配置项  =====================================
   if (adapter.platform && adapter.rightPlatform) {
     // 需要复制或者编译  配置文件和 端所需要的文件
     adapter.initialize()
@@ -33,13 +32,6 @@ async function main() {
     logger.error('请以 --adapter=[chrome|firefox|utools]的格式进行设置')
     process.exit(1)
   }
-
-  // 需要执行编译的配置文件
-  // TODO：依据执行的不同构建不同的adpater
-  await execa('babel-node', ['esbuild.config.js'])
-  logger.ci('esbuild 构建 extension 所需脚本完毕')
-
-  // =================================================================================
 
   // 编译antd 样式主题文件
   await execa('lessc', [
@@ -52,12 +44,30 @@ async function main() {
   })
   logger.ci(`生成自定义前缀( ${SystemConfig.prefixCls} )的antd variable文件成功`)
 
-  // 执行vite构建
+  // vite 构建 React主体程序
   await execa('vite', ['build'], {
     stdio: 'inherit' // 展示运行过程
   }).catch(e => {
     logger.error('vite error: ' + e)
   })
+
+  // vite 构建 background
+  await execa('vite', ['build', '--config', 'vite.config.back.ts'], {
+    stdio: 'inherit' // 展示运行过程
+  }).catch(e => {
+    logger.error('vite error: ' + e)
+  })
+
+  // vite 构建 content
+  await execa('vite', ['build', '--config', 'vite.config.content.ts'], {
+    stdio: 'inherit' // 展示运行过程
+  }).catch(e => {
+    logger.error('vite error: ' + e)
+  })
+
+  // esbuild 构建 需要注入的样式文件
+  await execa('babel-node', ['esbuild.config.js'])
+  logger.ci('esbuild 构建 extension 所需脚本完毕')
 
   const useTime = (Date.now() - startTime) / 1000
   logger.cs('vite 构建成功 : ' + dayjs().format('YYYY-MM-DD HH:mm:ss') + '； 总用时：' + useTime + '秒')
