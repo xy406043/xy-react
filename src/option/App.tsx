@@ -17,10 +17,11 @@ function App() {
 
   // TODO  次数db获取有误
   async function initData() {
-    const theme: any = await catchLocalTheme()
+    const theme = await catchLocalTheme()
+    console.log('options页面内获取已保存的System操作', theme)
     ConfigProvider.config({
       prefixCls: SystemConfig.prefixCls, // 需同时设置 下面的prefixCls 并生成对应prefix的css文件并引入
-      theme: SystemConfig.theme
+      theme: theme || SystemConfig.theme
     })
   }
 

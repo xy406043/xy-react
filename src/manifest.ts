@@ -24,14 +24,14 @@ export async function getManifest(platform) {
         default_popup: './dist/src/popup/index.html'
       },
       options_page: './dist/src/option/index.html',
-      permissions: ['scripting', 'activeTab', 'tabs', 'storage', 'contextMenus'],
+      permissions: ['scripting', 'activeTab', 'tabs', 'storage', 'contextMenus', 'unlimitedStorage'],
       content_scripts: [
         {
           matches: ['<all_urls>'],
           all_frames: true,
           match_about_blank: true,
           js: ['./dist/content-scripts/index.js'],
-          css: ['./dist/content-scripts/index.css']
+          css: ['./dist/content-scripts/style.css']
         }
       ],
       web_accessible_resources: [
@@ -52,16 +52,17 @@ export async function getManifest(platform) {
         default_popup: './dist/src/popup/index.html'
       },
       options_ui: {
-        page: './dist/src/option/index.html'
+        page: './dist/src/option/index.html',
+        open_in_tab: true // 和chrome v3一样，打开新的tab页面，而不是的一个弹窗
       },
-      permissions: ['activeTab', 'tabs', 'storage', 'contextMenus'],
+      permissions: ['activeTab', 'tabs', 'storage', 'contextMenus', 'unlimitedStorage'],
       content_scripts: [
         {
           matches: ['<all_urls>'],
           all_frames: true,
           match_about_blank: true,
           js: ['./dist/content-scripts/index.js'],
-          css: ['./dist/content-scripts/index.css']
+          css: ['./dist/content-scripts/style.css']
         }
       ],
       web_accessible_resources: ['dist/src/option/index.html', 'dist/src/popup/index.html'],

@@ -2,17 +2,24 @@ import React, { useState, useEffect } from 'react'
 import './index.scss'
 import { SketchPicker } from 'react-color'
 import { SystemConfig } from '@/enums/themeConfig'
-import { ConfigProvider } from 'antd'
+import { ConfigProvider, Form } from 'antd'
 import { catchLocalTheme } from '@/utils/themeUtil'
 import db from '~/src/utils/adapter/db'
 
 export default function SiteConfig() {
   const [color, setColor] = useState(SystemConfig.theme)
 
+  // form布局
+  const layout = {
+    labelCol: { span: 8 },
+    wrapperCol: { span: 16 }
+  }
+
   // 获取本地设置的主题色 或者 默认的主题色
-  const getThemeConfig = () => {
+  const getThemeConfig = async () => {
+    const theme: any = await catchLocalTheme()
     // TODO 调整db方法
-    const localTheme = SystemConfig.theme
+    const localTheme = theme || SystemConfig.theme
     setColor(localTheme)
   }
 
@@ -24,6 +31,7 @@ export default function SiteConfig() {
     }
 
     setColor(mergedColor)
+    console.log('SiteConfig设置React展示的内容的Antd 主题配置', mergedColor)
     db.set('XyLocalThemeConfig', mergedColor)
     ConfigProvider.config({
       theme: mergedColor
@@ -36,8 +44,8 @@ export default function SiteConfig() {
 
   return (
     <div className="flex justify-center p-20px">
-      <div className="w-600px">
-        <div className="flex">
+      <Form className="w-600px" {...layout}>
+        <Form.Item className="flex" label="主题默认颜色">
           {/* // 默认颜色 */}
           <SketchPicker
             presetColors={['#1890ff', '#25b864', '#ff6f00']}
@@ -48,8 +56,20 @@ export default function SiteConfig() {
               })
             }}
           />
-        </div>
-      </div>
+        </Form.Item>
+        <Form.Item className="flex" label="消息颜色">
+          {/* // 消息显示颜色 */}
+          <SketchPicker
+            presetColors={['#1890ff', '#25b864', '#ff6f00']}
+            color={color.infoColor}
+            onChange={({ hex }) => {
+              onColorChange({
+                infoColor: hex
+              })
+            }}
+          />
+        </Form.Item>
+      </Form>
     </div>
   )
 }

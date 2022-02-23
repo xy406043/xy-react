@@ -12,9 +12,14 @@
 
 import { XyMessageType } from '~/src/enums/adapterEnum'
 
-import { loadWebScript } from './actions/webScript'
+import { loadWebScript } from './actions/web/webScript'
 import { InjectCameraIframe } from './actions/camera/cameraScript'
-import InjectShow from './actions/draw/draw'
+import InjectShow from './actions/draw'
+
+import 'antd/dist/antd.variable.min.css'
+import '@/antd.custom.css' // 如果无需特定prefix则可以不进行引入
+import 'uno.css'
+import './index.css'
 
 // 默认加载内容
 loadWebScript()

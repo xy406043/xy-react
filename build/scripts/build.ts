@@ -77,9 +77,9 @@ async function main() {
     logger.error('vite error: ' + e)
   })
 
-  // esbuild 构建 需要注入的样式文件
-  await execa('babel-node', ['esbuild.config.js'])
-  logger.ci('esbuild 构建 extension 所需脚本完毕')
+  // !!  现已同样交由 上面的content vite构建方式  <======= esbuild 构建 需要注入的样式文件；
+  // await execa('babel-node', ['esbuild.config.js'])
+  // logger.ci('esbuild 构建 extension 所需脚本完毕')
 
   const useTime = (Date.now() - startTime) / 1000
   logger.cs('vite 构建成功 : ' + dayjs().format('YYYY-MM-DD HH:mm:ss') + '； 总用时：' + useTime + '秒')

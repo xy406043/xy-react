@@ -71,6 +71,9 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
       port: VITE_PORT
     },
 
+    // https://vitejs.cn/guide/features.html#css-pre-processors
+    // vite内置了 sass、less等css预编译器的解析模块，只需要安装对应的依赖即可使用
+
     build: {
       outDir: r(`extension/${adapter.platform}/dist`), // 不同插件构建到不同的目录
       // 构建后是Es6，(经 tree shaking 之后)不可使用留存require等 commonjs写法，否则会引起报错
@@ -80,6 +83,7 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
       chunkSizeWarningLimit: 2000,
       rollupOptions: {
         input: [r('src/popup/index.html'), r('src/option/index.html')],
+        // 排除编译
         // external: [r('scripts/utils')],
         // todo 异步引入组件 如何生成chunkName
         plugins: createRollupPlugin(),
