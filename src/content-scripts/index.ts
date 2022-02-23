@@ -16,8 +16,9 @@ import { loadWebScript } from './actions/web/webScript'
 import { InjectCameraIframe } from './actions/camera/cameraScript'
 import InjectShow from './actions/draw'
 
-import 'antd/dist/antd.variable.min.css'
-import '@/antd.custom.css' // 如果无需特定prefix则可以不进行引入
+// content-scripts中引入的样式必然会影响到原有页面，因此还是不使用antd等UI组件了，编写自定义组件。
+// import 'antd/dist/antd.variable.min.css'
+// import '@/antd.custom.css' // 如果无需特定prefix则可以不进行引入
 import 'uno.css'
 import './index.css'
 

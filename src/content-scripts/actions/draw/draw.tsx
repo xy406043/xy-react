@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { fabric } from 'fabric'
 import { nanoid } from 'nanoid'
-import { Button } from 'antd'
 import './draw.scss'
 
 const SimpleRender = () => {
@@ -49,10 +48,10 @@ const SimpleRender = () => {
     <div className="xy-draw-panel">
       <canvas id="xy-canvas" ref={canvasRef} />
       <div className="xy-sss w-100px h-30px">
-        <Button className="mr-10px" type="dashed" onClick={() => showContent()}>
+        <button className="mr-10px" type="button" onClick={() => showContent()}>
           {' '}
           确定点击 内容
-        </Button>
+        </button>
       </div>
     </div>
   )

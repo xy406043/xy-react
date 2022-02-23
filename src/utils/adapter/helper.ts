@@ -14,18 +14,8 @@ const env = (key: string) => {
 }
 
 /**
- * 扩展ID映射
+ * 如果需要扩展的ID，可以直接从通过browser.runtime.getURL中进行获取 以避免因路径变更而删除扩展导致的扩展ID变更  以及直接获取解压包本地使用的问题
  */
-const ChromeExtensionId = 'geiplnmgainflpopenjefgjndggjnadb'
-const FirefoxExtensionId = 'd19045ea-f0d0-4e41-a3d7-ee37b159b8ef'
-const EdgeExtensionID = 'dkaajmgiemjgbcdcingkohiodmidpimd'
-const ExtensionIdMap = {
-  chrome: ChromeExtensionId,
-  firefox: FirefoxExtensionId,
-  edge: EdgeExtensionID
-}
-
-export const ExtensionId = ExtensionIdMap[env('platform')]
 
 // 获取当前页面的tab
 export async function getCurrentTab() {
@@ -73,6 +63,10 @@ export const catchLocalData = async () => {
 
 /**
  * 排除页面映射
+ *
+ * chrome的插件页: chrome://extension
+ * edge的插件页: edge://extension
+ * firefox调试本地插件: about:debugging
  */
 
 export const excludePages = [
@@ -103,6 +97,5 @@ export const checkSpecialPage = (url: string | undefined) => {
  */
 
 export default {
-  envFunc: env,
-  ExtensionId
+  envFunc: env
 }

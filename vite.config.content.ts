@@ -8,7 +8,9 @@ export default defineConfig(({ command }) => ({
   publicDir: false, // 设为false 以避免将public内容打包进去
   build: {
     outDir: r(`extension/${adapter.platform}/dist/content-scripts`),
-    cssCodeSplit: false,
+
+    // 此处设置 true 和 false 的区别只是生成的CSS文件名一个是 index  一个是style
+    cssCodeSplit: true,
     emptyOutDir: false,
     sourcemap: 'inline',
     lib: {

@@ -33,7 +33,7 @@ async function main() {
 
   if (!adapter.platform || !adapter.rightPlatform) {
     // 异常处理
-    logger.error('请以 --adapter=[chrome|firefox|utools]的格式进行设置')
+    logger.error('请以 --adapter=[chrome|firefox|edge|opera]的格式进行设置')
     process.exit(1)
   }
 

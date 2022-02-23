@@ -12,7 +12,7 @@
 #### 运行
 
 ```s
-cnpm run  b --adapter=[chrome|firefox|utool]
+cnpm run  b --adapter=[chrome|firefox|opera|edge]
 ```
 
 #### 构建

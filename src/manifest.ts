@@ -2,6 +2,7 @@ import fs from 'fs-extra'
 
 export async function getManifest(platform) {
   const pkg = await fs.readJSON('package.json')
+  // manifest 需要加上any,因chrome.manifest 不符合 browser.菜单类型
   let manifest: any = {
     name: pkg.displayName || pkg.name,
     version: pkg.version,
@@ -12,7 +13,6 @@ export async function getManifest(platform) {
       64: './dist/img/go.png'
     }
   }
-
   if (platform === 'chrome') {
     manifest = {
       ...manifest,
@@ -31,7 +31,7 @@ export async function getManifest(platform) {
           all_frames: true,
           match_about_blank: true,
           js: ['./dist/content-scripts/index.js'],
-          css: ['./dist/content-scripts/style.css']
+          css: ['./dist/content-scripts/index.css']
         }
       ],
       web_accessible_resources: [
@@ -62,7 +62,7 @@ export async function getManifest(platform) {
           all_frames: true,
           match_about_blank: true,
           js: ['./dist/content-scripts/index.js'],
-          css: ['./dist/content-scripts/style.css']
+          css: ['./dist/content-scripts/index.css']
         }
       ],
       web_accessible_resources: ['dist/src/option/index.html', 'dist/src/popup/index.html'],

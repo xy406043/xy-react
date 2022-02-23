@@ -1,7 +1,8 @@
 export enum PlatFormEnum {
   chrome = 1,
   firefox,
-  edge
+  edge,
+  opera
 }
 
 export enum XyMessageType {

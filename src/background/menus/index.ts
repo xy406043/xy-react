@@ -33,7 +33,9 @@ const MenuCreator = () => {
     browser.contextMenus.create({
       id: ACTION_ID.camera,
       title: 'xy-调用摄像头',
-      visible: true
+      visible: true,
+      // 在哪些地方鼠标右键可以显示此菜单
+      contexts: ['page', 'selection', 'frame', 'link', 'editable', 'image', 'video']
       // onclick: CameraMenu
     })
 
