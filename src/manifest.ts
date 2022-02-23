@@ -21,7 +21,7 @@ export async function getManifest(platform) {
         service_worker: './dist/back/index.js'
       },
       action: {
-        default_popup: './dist/src/option/index.html'
+        default_popup: './dist/src/popup/index.html'
       },
       options_page: './dist/src/option/index.html',
       permissions: ['scripting', 'activeTab', 'tabs', 'storage', 'contextMenus'],
@@ -49,7 +49,7 @@ export async function getManifest(platform) {
         scripts: ['./dist/back/index.js']
       },
       browser_action: {
-        default_popup: './dist/src/option/index.html'
+        default_popup: './dist/src/popup/index.html'
       },
       options_ui: {
         page: './dist/src/option/index.html'
@@ -64,7 +64,8 @@ export async function getManifest(platform) {
           css: ['./dist/content-scripts/index.css']
         }
       ],
-      web_accessible_resources: ['dist/src/option/index.html']
+      web_accessible_resources: ['dist/src/option/index.html', 'dist/src/popup/index.html'],
+      content_security_policy: "script-src 'self'; object-src 'self'"
     }
   }
 

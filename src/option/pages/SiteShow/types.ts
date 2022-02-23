@@ -7,10 +7,10 @@ export interface ShowContentInterface {
 
 export interface HistoryTableShow {
   tabId: number
-  pageTitle: String
-  linkUrl: String
+  pageTitle: string
+  linkUrl: string
   desc?: string
-  keywords?: String
+  keywords?: string
   icons?: Array<string>
   imgs?: Array<string>
 }

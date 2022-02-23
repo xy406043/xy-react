@@ -7,7 +7,7 @@ import { catchLocalTheme } from '@/utils/themeUtil'
 
 function App() {
   const location = useLocation()
-  const singleRoutes = ['/', '/XyCameraShow']
+  const singleRoutes = ['/XyCameraShow']
   // 单独的页面隐藏掉顶部的目录栏
   const checkSiteShow = singleRoutes.includes(location.pathname)
 

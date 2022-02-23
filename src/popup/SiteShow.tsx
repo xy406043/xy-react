@@ -1,18 +1,15 @@
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { Tag } from 'antd'
 import { RedoOutlined } from '@ant-design/icons'
-import './index.css'
-import './index.scss'
-import { ExtensionId, getCurrentTab, catchLocalData } from '@/utils/adapter/helper'
-import { ShowContentInterface } from './types'
+import './styles/index.scss'
+import { catchLocalData } from '@/utils/adapter/helper'
+import { ShowContentInterface } from '@/option/pages/SiteShow/types'
 
 // 页面内容完成渲染
 function SiteShow() {
   const [tabList, setTab] = useState<Array<ShowContentInterface>>([])
   const [loading, setLoading] = useState<boolean>(false)
   const [special, setSpecial] = useState<boolean>(false)
-  const navigate = useNavigate()
 
   useEffect(() => {
     // componentDidMount 初始化时加载一次
@@ -26,15 +23,6 @@ function SiteShow() {
   }, [])
 
   async function initData() {
-    const res = await getCurrentTab()
-
-    if (ExtensionId && res.url?.includes(ExtensionId)) {
-      // 跳转到其它页面
-      navigate('/History')
-
-      return
-    }
-
     setLoading(true)
     const list: any = await catchLocalData()
 

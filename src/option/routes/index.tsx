@@ -2,7 +2,7 @@ import React from 'react'
 import { BrowserRouter, HashRouter, Routes, Route } from 'react-router-dom'
 
 import App from '~/src/option/App'
-import { SiteShow, SiteHistory, SiteConfig, SiteTest, None, Nop, XyCameraShow, XyDraw } from '~/src/option/pages/index'
+import { SiteHistory, SiteConfig, SiteTest, None, Nop, XyCameraShow, XyDraw } from '~/src/option/pages/index'
 
 function SelfRoutes() {
   return (
@@ -10,7 +10,7 @@ function SelfRoutes() {
       <Routes>
         {/* // 使用 HashRouter模式才能够默认构建生效*/}
         <Route path="/" element={<App />}>
-          <Route index element={<SiteShow />}></Route>
+          <Route index element={<SiteHistory />}></Route>
           <Route path="History" element={<SiteHistory />} />
           <Route path="SiteConfig" element={<SiteConfig />}></Route>
           <Route path="SiteTest" element={<SiteTest />}></Route>

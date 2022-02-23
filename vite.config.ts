@@ -1,5 +1,4 @@
 import { defineConfig, UserConfig, ConfigEnv } from 'vite'
-import path from 'path'
 import dayjs from 'dayjs'
 import adapter from './build/scripts/adapter'
 import { loadEnv } from 'vite'
@@ -8,7 +7,6 @@ import { createVitePlugins } from './build/vite/plugins'
 import { createRollupPlugin } from './build/rollup/plugins'
 import { r } from './build/utils'
 
-let viteEnv, isBuild
 const root = process.cwd()
 
 export const ShareConfig: UserConfig = {
@@ -57,9 +55,9 @@ export const ShareConfig: UserConfig = {
 export default defineConfig(({ command, mode }: ConfigEnv) => {
   const env = loadEnv(mode, root)
   // The boolean type read by loadEnv is a string. This function can be converted to boolean type
-  viteEnv = wrapperEnv(env)
+  const viteEnv = wrapperEnv(env)
   const { VITE_PORT, VITE_PUBLIC_PATH } = viteEnv
-  isBuild = command === 'build'
+  const isBuild = command === 'build'
 
   return {
     ...ShareConfig,
@@ -81,8 +79,8 @@ export default defineConfig(({ command, mode }: ConfigEnv) => {
       brotliSize: false,
       chunkSizeWarningLimit: 2000,
       rollupOptions: {
-        input: [r('src/option/index.html')],
-        external: [r('scripts/utils')],
+        input: [r('src/popup/index.html'), r('src/option/index.html')],
+        // external: [r('scripts/utils')],
         // todo 异步引入组件 如何生成chunkName
         plugins: createRollupPlugin(),
         output: {

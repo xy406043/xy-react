@@ -19,11 +19,17 @@ main()
 async function main() {
   const startTime = Date.now()
 
-  await execa('rimraf', [`extension/${adapter.platform}/**`])
-  logger.ci('清除dist文件成功')
+  const stat = fs.existsSync(r(`extension/${adapter.platform}`))
+  if (stat) {
+    await execa('rimraf', [`extension/${adapter.platform}/**`])
+    logger.ci('清除dist文件成功')
+  }
 
-  await execa('tsc')
-  logger.ci('tsc 编译完毕')
+  logger.ci('进行tsc编译')
+  await execa('tsc', [], {
+    stdio: 'inherit' // 展示运行过程
+  })
+  logger.cs('tsc 编译完毕')
 
   if (!adapter.platform || !adapter.rightPlatform) {
     // 异常处理
@@ -41,10 +47,10 @@ async function main() {
     logger.error('lessc error : ' + e)
   })
   // 复制主题文件到需要的main.tsx同级
-  fs.writeFileSync(
-    path.join(__dirname, `../../src/option/antd.custom.css`),
-    fs.readFileSync(path.join(__dirname, `../../src/antd.custom.css`)).toString()
-  )
+  // fs.writeFileSync(
+  //   path.join(__dirname, `../../src/option/antd.custom.css`),
+  //   fs.readFileSync(path.join(__dirname, `../../src/antd.custom.css`)).toString()
+  // )
   logger.ci(`生成自定义前缀( ${SystemConfig.prefixCls} )的antd variable文件成功`)
 
   // vite 构建 React主体程序
