@@ -12,7 +12,7 @@ export default defineConfig(({ command }) => ({
     emptyOutDir: false,
     sourcemap: 'inline',
     lib: {
-      entry: r('src/adapterContent/content-scripts/index.ts'),
+      entry: r('src/content-scripts/index.ts'),
       name: 'content-scripts'
       // formats: ['es'] // 默认是 ['esm','cjs','umd]，只有es的话会报  export not defined错误
     },

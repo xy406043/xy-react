@@ -7,6 +7,8 @@ export enum PlatFormEnum {
 export enum XyMessageType {
   // 选项卡更新
   TAB_UPDATE = 'tabUpdate',
-  // 到相机页
-  PAGE_CAMERA = 'cameraPage'
+  // 右键菜单 - xy-摄像机
+  MENU_CAMERA = 'cameraPage',
+  //  右键菜单 -  xy-绘图板
+  MENU_DRAW = 'draw'
 }

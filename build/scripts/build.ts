@@ -21,7 +21,7 @@ async function main() {
 
   const stat = fs.existsSync(r(`extension/${adapter.platform}`))
   if (stat) {
-    await execa('rimraf', [`extension/${adapter.platform}/**`])
+    await execa('rimraf', [`extension/${adapter.platform}`])
     logger.ci('清除dist文件成功')
   }
 

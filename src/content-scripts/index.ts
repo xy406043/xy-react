@@ -14,6 +14,7 @@ import { XyMessageType } from '~/src/enums/adapterEnum'
 
 import { loadWebScript } from './actions/webScript'
 import { InjectCameraIframe } from './actions/camera/cameraScript'
+import InjectShow from './actions/draw/draw'
 
 // 默认加载内容
 loadWebScript()
@@ -23,16 +24,18 @@ loadWebScript()
 
 // https://developer.mozilla.org/zh-CN/docs/Mozilla/Add-ons/WebExtensions/API/runtime/onMessage
 browser.runtime.onMessage.addListener(function (request, sender) {
+  const triggerMap = {
+    [XyMessageType.TAB_UPDATE]: loadWebScript,
+    [XyMessageType.MENU_CAMERA]: InjectCameraIframe,
+    [XyMessageType.MENU_DRAW]: InjectShow
+  }
+
+  if (triggerMap[request.type]) {
+    triggerMap[request.type]()
+  }
+
   const ResponseMessage: string = 'background你好，我收到了你的消息！' + request.type
   console.log('接收到来自background的消息', request)
-
-  if (request.type === XyMessageType.TAB_UPDATE) {
-    loadWebScript()
-  }
-  if (request.type === XyMessageType.PAGE_CAMERA) {
-    InjectCameraIframe()
-    // InjectCameraElement()
-  }
 
   return Promise.resolve(ResponseMessage)
 })

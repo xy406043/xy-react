@@ -1,12 +1,25 @@
 import CameraMenu from './camera'
+import CanvasDraw from './draw'
 import { nanoid } from 'nanoid'
 
 const cameraId = nanoid()
+const drawId = nanoid()
+
+const ACTION_ID = {
+  camera: cameraId,
+  draw: drawId
+}
+
+const menuTriggerMap = {
+  [ACTION_ID.camera]: CameraMenu,
+  [ACTION_ID.draw]: CanvasDraw
+}
 
 // 监听右侧面板点击
 browser.contextMenus.onClicked.addListener((info: browser.contextMenus.OnClickData, tab?: browser.tabs.Tab): void => {
   console.log('调用了右侧菜单内容！', info, tab, cameraId)
-  CameraMenu(info, tab)
+  const triggerFunc = menuTriggerMap[info.menuItemId]
+  if (triggerFunc) triggerFunc(info, tab)
 })
 
 // Extensions using event pages or Service Workers cannot pass an onclick parameter to chrome.contextMenus.create. Instead, use the chrome.contextMenus.onClicked event.
@@ -18,8 +31,15 @@ const MenuCreator = () => {
   // 使用removeAll 以避免重复创建插件内容，需要加入插件在内部进行添加即可
   browser.contextMenus.removeAll().then(() => {
     browser.contextMenus.create({
-      id: cameraId,
+      id: ACTION_ID.camera,
       title: 'xy-调用摄像头',
+      visible: true
+      // onclick: CameraMenu
+    })
+
+    browser.contextMenus.create({
+      id: ACTION_ID.draw,
+      title: 'xy-fabric绘图',
       visible: true
       // onclick: CameraMenu
     })
