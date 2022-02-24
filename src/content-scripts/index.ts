@@ -13,8 +13,8 @@
 import { XyMessageType } from '~/src/enums/adapterEnum'
 
 import { loadWebScript } from './actions/web/webScript'
-import { InjectCameraIframe } from './actions/camera/cameraScript'
-import InjectShow from './actions/draw'
+import InjectCameraShow from './actions/camera'
+import InjectDrawShow from './actions/draw'
 
 // content-scripts中引入的样式必然会影响到原有页面，因此还是不使用antd等UI组件了，编写自定义组件。
 // import 'antd/dist/antd.variable.min.css'
@@ -32,8 +32,8 @@ loadWebScript()
 browser.runtime.onMessage.addListener(function (request, sender) {
   const triggerMap = {
     [XyMessageType.TAB_UPDATE]: loadWebScript,
-    [XyMessageType.MENU_CAMERA]: InjectCameraIframe,
-    [XyMessageType.MENU_DRAW]: InjectShow
+    [XyMessageType.MENU_CAMERA]: InjectCameraShow,
+    [XyMessageType.MENU_DRAW]: InjectDrawShow
   }
 
   if (triggerMap[request.type]) {

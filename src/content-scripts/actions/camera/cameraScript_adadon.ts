@@ -1,4 +1,9 @@
 /**
+ * 已弃置旧版本方案；可以直接使用ReactDOM或者vue createApp 渲染节点
+ * @returns
+ */
+
+/**
  * 向页面中注入DOM ，嵌入指定React页面的路径 以展示摄像机操作
  * 注意使用iframe 需要再manifest中添加web_accessible_resources 指定可访问的资源，本页中使用 ["**"]
  */

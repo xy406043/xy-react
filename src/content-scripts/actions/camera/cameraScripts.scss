@@ -1,4 +1,4 @@
-.xy-react-camera__content {
+.xy-camera-con {
   position: fixed;
   top: 0;
   left: 0;
@@ -10,10 +10,10 @@
 
 .xy-video {
   position: fixed;
-  left: 30px;
-  top: 30px;
+  left: 0;
+  top: 0;
   border-radius: 50%;
   z-index: 9999;
   transform: rotateY(180deg);
-  cursor: pointer;
+  cursor: move;
 }

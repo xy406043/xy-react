@@ -6,4 +6,6 @@
   min-width: 160px;
   min-height: 160px;
   z-index: 99999999999999;
+  transform: rotateY(180deg);
+  cursor: pointer;
 }

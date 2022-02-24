@@ -1,8 +1,8 @@
 import React from 'react'
-import { BrowserRouter, HashRouter, Routes, Route } from 'react-router-dom'
+import { HashRouter, Routes, Route } from 'react-router-dom'
 
 import App from '~/src/option/App'
-import { SiteHistory, SiteConfig, SiteTest, None, Nop, XyCameraShow, XyDraw } from '~/src/option/pages/index'
+import { SiteHistory, SiteConfig, SiteTest, None, Nop, XyCameraShow } from '~/src/option/pages/index'
 
 function SelfRoutes() {
   return (
@@ -15,7 +15,6 @@ function SelfRoutes() {
           <Route path="SiteConfig" element={<SiteConfig />}></Route>
           <Route path="SiteTest" element={<SiteTest />}></Route>
           <Route path="XyCameraShow" element={<XyCameraShow />}></Route>
-          <Route path="XyDraw" element={<XyDraw />}></Route>
           <Route path="*" element={<Nop />} />
         </Route>
       </Routes>

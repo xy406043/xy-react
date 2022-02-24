@@ -6,6 +6,5 @@ import None from './SinglePage/404/404'
 import Nop from './SinglePage/403/403'
 
 import XyCameraShow from './ChromeMenu/Camera/index'
-import XyDraw from './ChromeMenu/Draw/index'
 
-export { SiteHistory, SiteConfig, SiteTest, None, Nop, XyCameraShow, XyDraw }
+export { SiteHistory, SiteConfig, SiteTest, None, Nop, XyCameraShow }

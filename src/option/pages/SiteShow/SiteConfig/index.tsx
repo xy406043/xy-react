@@ -18,7 +18,6 @@ export default function SiteConfig() {
   // 获取本地设置的主题色 或者 默认的主题色
   const getThemeConfig = async () => {
     const theme: any = await catchLocalTheme()
-    // TODO 调整db方法
     const localTheme = theme || SystemConfig.theme
     setColor(localTheme)
   }

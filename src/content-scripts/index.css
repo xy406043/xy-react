@@ -1,3 +1,2 @@
 /* 引入指定操作的样式 */
 /* 构建出的样式会生成style.css 文件，将content-scripts的 css选项设置为这个 文件路径即可 */
-@import './actions/camera/cameraScripts.css';

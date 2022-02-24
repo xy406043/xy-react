@@ -1,7 +1,7 @@
 import SimpleRender from './draw'
 import ReactDOM from 'react-dom'
 
-const InjectShow = () => {
+const InjectDrawShow = () => {
   const panel = document.createElement('div')
   panel.id = 'xy-draw'
   panel.className = 'xy-draw'
@@ -10,4 +10,4 @@ const InjectShow = () => {
   ReactDOM.render(<SimpleRender />, panel)
 }
 
-export default InjectShow
+export default InjectDrawShow
