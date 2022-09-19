@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Tag } from 'antd'
+import { Tag, Button } from 'antd'
 import { RedoOutlined } from '@ant-design/icons'
 import './styles/index.scss'
 import { catchLocalData } from '@/utils/adapter/helper'
@@ -42,6 +42,15 @@ function SiteShow() {
     navigator.clipboard.writeText(content)
   }
 
+  // 复制为Markdown链接
+  const copyAsMarkdown = () => {
+    const title = tabList[0]?.content as string
+    const link = tabList[1]?.content as string
+    const copyText = `[${title}](${link})`
+
+    navigator.clipboard.writeText(copyText)
+  }
+
   const excludeKeys = ['tabId']
 
   // Render 渲染
@@ -58,6 +67,9 @@ function SiteShow() {
             </div>
           ) : (
             <div className="app-show">
+              <view className="xy-copyed flex items-center justify-center mb-20px">
+                <Button onClick={() => copyAsMarkdown()}>复制Markdown</Button>
+              </view>
               {tabList.map((item: ShowContentInterface, index: number) => {
                 return (
                   <div

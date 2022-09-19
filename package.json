@@ -7,8 +7,7 @@
     "b": "esno build/scripts/build.ts ",
     "sh": "cd ./build/scripts; sh build.sh -e prod -p wx -v 1.0.0 -d xyのtools",
     "lint:lint-staged": "lint-staged",
-    "lint": "eslint 'src/**/*.{js,ts,tsx}'",
-    "prepare": "husky install && cp -a .husky/. .git/hooks"
+    "lint": "eslint 'src/**/*.{js,ts,tsx}'"
   },
   "lint-staged": {
     "*./src/**/*.{js,ts,tsx,jsx,json,css,less,md}": [
