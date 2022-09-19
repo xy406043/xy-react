@@ -2,22 +2,21 @@ import type { Plugin, PluginOption } from 'vite'
 import react from '@vitejs/plugin-react'
 import Unocss from 'unocss/vite'
 import UnocssConfig from '../../../windi.config'
-import { configAutoIconsPlugin } from './icons'
+// import { configAutoIconsPlugin } from './icons'
+import { configAutoImportPlugin } from './import'
 
-export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
-  const { VITE_USE_MOCK, VITE_LEGACY, VITE_BUILD_COMPRESS, VITE_BUILD_COMPRESS_DELETE_ORIGIN_FILE } = viteEnv
-
+export function createVitePlugins() {
   // 初始化vite Plugin
   const vitePlugins: (PluginOption | PluginOption[])[] = [react()]
 
   // unocss
   vitePlugins.push(Unocss(UnocssConfig))
 
-  // unplugin-icon
-  vitePlugins.push(configAutoIconsPlugin(isBuild))
+  // !! unplugin-icon ，构建存在问题，暂不使用了
+  // vitePlugins.push(configAutoIconsPlugin())
 
-  // 生产才使用
-  if (isBuild) {
-  }
+  // unplugin-import
+  vitePlugins.push(configAutoImportPlugin())
+
   return vitePlugins
 }

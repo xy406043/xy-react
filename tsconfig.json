@@ -4,9 +4,8 @@
     "useDefineForClassFields": true,
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "allowJs": false,
-    "skipLibCheck": false,
     "noImplicitAny": false,
-    "esModuleInterop": false,
+    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
@@ -16,8 +15,8 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
+    "incremental": false,
     "baseUrl": ".",
-    "types": ["react", "node", "chrome", "react-dom", "webrtc"],
     "typeRoots": ["./node_modules/@types/", "./types"],
     "paths": {
       "~/*": ["*"],
@@ -25,14 +24,5 @@
       "#/*": ["types/*"]
     }
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.d.ts",
-    "src/**/*.tsx",
-    "build",
-    "types/**/*.d.ts",
-    "types/**/*.ts",
-    "vite.config.ts"
-  ],
-  "exclude": ["node_modules", "dist", "**/*.js"]
+  "exclude": ["node_modules", "extension", "**/*.js"]
 }

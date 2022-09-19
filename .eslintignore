@@ -4,3 +4,4 @@ public/back
 public/content-scripts
 vite.config.ts.js
 src/antd.custom.css
+extension

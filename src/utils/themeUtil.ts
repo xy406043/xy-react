@@ -1,10 +1,11 @@
-import db from '@/adapterTool/db'
-import { SystemConfig } from '@/config/themeConfig'
+import db from '~/src/utils/adapter/db'
+import { SystemConfig } from '@/enums/themeConfig'
 
 /**
  * 获取本地的主题色配置
  */
-export const catchLocalTheme = () => {
-  const localTheme = db.get('XyLocalThemeConfig') || SystemConfig.theme
-  return localTheme
+export const catchLocalTheme = async () => {
+  const localTheme = (await db.get('XyLocalThemeConfig'))?.XyLocalThemeConfig || SystemConfig.theme
+
+  return Promise.resolve(localTheme)
 }

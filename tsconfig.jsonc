@@ -1,0 +1,40 @@
+{
+  // 文档
+  "docs": "https://www.tslang.cn/docs/handbook/tsconfig-json.html",
+  "compilerOptions": {
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "allowJs": false,
+    "skipLibCheck": false,
+    "noImplicitAny": false,
+    "esModuleInterop": false,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    // "types": ["react", "node", "chrome", "react-dom", "webrtc"], // 只会引入指定的类型定义
+    // "typeRoots": ["./node_modules/@types/", "./types"], // 只会引入指定文件夹的 类型定义
+    "paths": {
+      "~/*": ["*"],
+      "@/*": ["src/*"],
+      "#/*": ["types/*"]
+    }
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "build",
+    "types/**/*.d.ts",
+    "types/**/*.ts",
+    "vite.config.ts"
+  ],
+  "exclude": ["node_modules", "extension", "**/*.js"]
+}
